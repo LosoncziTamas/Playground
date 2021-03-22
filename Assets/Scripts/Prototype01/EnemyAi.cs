@@ -8,7 +8,8 @@ namespace Prototype01
     {
         
         public float nextWayPointDistance = 2.0f;
-        public float movementForce = 10.0f;
+        public float movementSpeed = 2.0f;
+        public float jumpForce = 6.0f;
         
         [SerializeField] private Seeker _seeker;
         [SerializeField] private AIDestinationSetter _destinationSetter;
@@ -19,6 +20,8 @@ namespace Prototype01
         private Path _path;
         private bool _reachedEndOfPath;
         private Vector2 _nextWayPoint;
+        private Vector2 _lastPos;
+        private float _jumpScale;
         
         private void Start()
         {
@@ -34,10 +37,19 @@ namespace Prototype01
                 return;
             }
             
-            Debug.Log("OnPathCalculated");
-
             _currentWaypointIdx = 0;
             _path = p;
+        }
+
+        private void Jump(float jumpForce)
+        {
+            _rigidbody2D.AddForce(Vector2.up * Time.deltaTime * jumpForce, ForceMode2D.Impulse);
+        }
+
+        // TODO: figure out this
+        private bool Jumping()
+        {
+           return  _rigidbody2D.velocity.y < -0.1f || _rigidbody2D.velocity.y > 0.1f;
         }
 
         private void FixedUpdate()
@@ -50,20 +62,34 @@ namespace Prototype01
             _reachedEndOfPath = _currentWaypointIdx >= _path.vectorPath.Count;
             if (_reachedEndOfPath)
             {
-                Debug.Log("reachedEndOfPath");
                 return;
             }
 
             _nextWayPoint = _path.vectorPath[_currentWaypointIdx];
-            Debug.Log("nextWayPoint " + _nextWayPoint);
-
-            var directionToGo = (_nextWayPoint - _rigidbody2D.position).normalized;
-            _rigidbody2D.AddForce(directionToGo * movementForce * Time.deltaTime);
-
-            var distance = Vector2.Distance(_rigidbody2D.position, _nextWayPoint);
+            
+            var currPos = _rigidbody2D.position;
+            var directionToGo = (_nextWayPoint - currPos).normalized;
+            
+            if (!Jumping())
+            {
+                _rigidbody2D.AddForce(directionToGo * movementSpeed * Time.deltaTime);
+            }
+            
+            var distance = Vector2.Distance(currPos, _nextWayPoint);
             if (distance < nextWayPointDistance)
             {
                 _currentWaypointIdx++;
+            }
+
+            _lastPos = _rigidbody2D.position;
+        }
+
+        private void OnGUI()
+        {
+            GUILayout.Space(100.0f);
+            if (GUILayout.Button("Jump") && !Jumping())
+            {
+                Jump(jumpForce);
             }
         }
 
