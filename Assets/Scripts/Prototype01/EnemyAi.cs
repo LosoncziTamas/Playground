@@ -9,7 +9,7 @@ namespace Prototype01
         
         public float nextWayPointDistance = 2.0f;
         public float movementSpeed = 2.0f;
-        public float jumpForce = 6.0f;
+        public Vector2 jumpForce = new Vector2(0, 1.5f);
         
         [SerializeField] private Seeker _seeker;
         [SerializeField] private AIDestinationSetter _destinationSetter;
@@ -41,9 +41,11 @@ namespace Prototype01
             _path = p;
         }
 
-        private void Jump(float jumpForce)
+        private void Jump()
         {
-            _rigidbody2D.AddForce(Vector2.up * Time.deltaTime * jumpForce, ForceMode2D.Impulse);
+            var jumpVec = Vector2.up * Time.deltaTime * jumpForce;
+            Debug.Log(jumpVec);
+            _rigidbody2D.AddForce(jumpForce, ForceMode2D.Impulse);
         }
 
         // TODO: figure out this
@@ -70,10 +72,9 @@ namespace Prototype01
             var currPos = _rigidbody2D.position;
             var directionToGo = (_nextWayPoint - currPos).normalized;
             
-            if (!Jumping())
-            {
-                _rigidbody2D.AddForce(directionToGo * movementSpeed * Time.deltaTime);
-            }
+   
+            _rigidbody2D.AddForce(directionToGo * movementSpeed * Time.deltaTime);
+            
             
             var distance = Vector2.Distance(currPos, _nextWayPoint);
             if (distance < nextWayPointDistance)
@@ -89,7 +90,7 @@ namespace Prototype01
             GUILayout.Space(100.0f);
             if (GUILayout.Button("Jump") && !Jumping())
             {
-                Jump(jumpForce);
+                Jump();
             }
         }
 
