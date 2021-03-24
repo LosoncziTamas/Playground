@@ -1,4 +1,3 @@
-using System;
 using Pathfinding;
 using UnityEngine;
 
@@ -26,7 +25,13 @@ namespace Prototype01
         private void Start()
         {
             _nextWayPoint = transform.position;
+            SetTarget();
+        }
+
+        private void SetTarget()
+        {
             _seeker.StartPath(transform.position, _playerTransform.position, OnPathCalculated);
+
         }
 
         private void OnPathCalculated(Path p)
@@ -48,10 +53,9 @@ namespace Prototype01
             _rigidbody2D.AddForce(jumpForce, ForceMode2D.Impulse);
         }
 
-        // TODO: figure out this
         private bool Jumping()
         {
-           return  _rigidbody2D.velocity.y < -0.1f || _rigidbody2D.velocity.y > 0.1f;
+           return _rigidbody2D.velocity.y < -0.1f || _rigidbody2D.velocity.y > 0.1f;
         }
 
         private void FixedUpdate()
@@ -64,6 +68,8 @@ namespace Prototype01
             _reachedEndOfPath = _currentWaypointIdx >= _path.vectorPath.Count;
             if (_reachedEndOfPath)
             {
+                SetTarget();
+                Debug.Log("Reached target");
                 return;
             }
 
@@ -72,28 +78,29 @@ namespace Prototype01
             var currPos = _rigidbody2D.position;
             var directionToGo = (_nextWayPoint - currPos).normalized;
             
-   
             _rigidbody2D.AddForce(directionToGo * movementSpeed * Time.deltaTime);
-            
             
             var distance = Vector2.Distance(currPos, _nextWayPoint);
             if (distance < nextWayPointDistance)
             {
                 _currentWaypointIdx++;
             }
+            
+            if (!Jumping() && !IsInvoking(nameof(Jump)))
+            {
+                ScheduleRandomJump();
+            }
 
             _lastPos = _rigidbody2D.position;
         }
 
-        private void OnGUI()
+        private void ScheduleRandomJump()
         {
-            GUILayout.Space(100.0f);
-            if (GUILayout.Button("Jump") && !Jumping())
-            {
-                Jump();
-            }
+            var jumpTime = Random.Range(0f, 2.0f);
+            Debug.Log("ScheduleRandomJump" + jumpTime);
+            Invoke(nameof(Jump), jumpTime);
         }
-
+        
         private void OnDrawGizmos()
         {
             Gizmos.DrawLine(transform.position, _nextWayPoint);
