@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Prototype01
@@ -6,10 +7,18 @@ namespace Prototype01
     {
         private const int TotalPointCount = 3;
 
+        [SerializeField] private Color _hitPointColor;
         [SerializeField] private GameObject _hitPoint1;
         [SerializeField] private GameObject _hitPoint2;
         [SerializeField] private GameObject _hitPoint3;
-        
+
+        private void Awake()
+        {
+            _hitPoint1.GetComponent<SpriteRenderer>().color = _hitPointColor;
+            _hitPoint2.GetComponent<SpriteRenderer>().color = _hitPointColor;
+            _hitPoint3.GetComponent<SpriteRenderer>().color = _hitPointColor;
+        }
+
         public void Reset()
         {
             SetPointsLeft(TotalPointCount);

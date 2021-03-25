@@ -5,13 +5,11 @@ namespace Prototype01
 {
     public class EnemyAi : MonoBehaviour
     {
-        
         public float nextWayPointDistance = 2.0f;
         public float movementSpeed = 2.0f;
         public Vector2 jumpForce = new Vector2(0, 1.5f);
         
         [SerializeField] private Seeker _seeker;
-        [SerializeField] private AIDestinationSetter _destinationSetter;
         [SerializeField] private Rigidbody2D _rigidbody2D;
         [SerializeField] private Transform _playerTransform;
 
@@ -49,7 +47,6 @@ namespace Prototype01
         private void Jump()
         {
             var jumpVec = Vector2.up * Time.deltaTime * jumpForce;
-            Debug.Log(jumpVec);
             _rigidbody2D.AddForce(jumpForce, ForceMode2D.Impulse);
         }
 
@@ -69,7 +66,6 @@ namespace Prototype01
             if (_reachedEndOfPath)
             {
                 SetTarget();
-                Debug.Log("Reached target");
                 return;
             }
 
@@ -97,7 +93,6 @@ namespace Prototype01
         private void ScheduleRandomJump()
         {
             var jumpTime = Random.Range(0f, 2.0f);
-            Debug.Log("ScheduleRandomJump" + jumpTime);
             Invoke(nameof(Jump), jumpTime);
         }
         
