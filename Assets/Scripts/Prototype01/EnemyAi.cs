@@ -11,7 +11,6 @@ namespace Prototype01
         
         [SerializeField] private Seeker _seeker;
         [SerializeField] private Rigidbody2D _rigidbody2D;
-        [SerializeField] private Transform _playerTransform;
 
         private int _currentWaypointIdx;
         private Path _path;
@@ -19,16 +18,18 @@ namespace Prototype01
         private Vector2 _nextWayPoint;
         private Vector2 _lastPos;
         private float _jumpScale;
+        private Vector2 _targetPosition;
         
         private void Start()
         {
             _nextWayPoint = transform.position;
             SetTarget();
+            _targetPosition = Player.Instance.transform.position;
         }
 
         private void SetTarget()
         {
-            _seeker.StartPath(transform.position, _playerTransform.position, OnPathCalculated);
+            _seeker.StartPath(transform.position, _targetPosition, OnPathCalculated);
 
         }
 

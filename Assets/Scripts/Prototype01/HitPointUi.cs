@@ -12,13 +12,13 @@ namespace Prototype01
         [SerializeField] private GameObject _hitPoint2;
         [SerializeField] private GameObject _hitPoint3;
 
-        private void Awake()
+        private void OnValidate()
         {
             _hitPoint1.GetComponent<SpriteRenderer>().color = _hitPointColor;
             _hitPoint2.GetComponent<SpriteRenderer>().color = _hitPointColor;
             _hitPoint3.GetComponent<SpriteRenderer>().color = _hitPointColor;
         }
-
+        
         public void Reset()
         {
             SetPointsLeft(TotalPointCount);

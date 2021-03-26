@@ -5,13 +5,13 @@ namespace Prototype01
 {
     public class EnemyDragPhysics : MonoBehaviour
     {
-        [SerializeField] private Camera _camera;
         [SerializeField] private Rigidbody2D _rigidbody2D;
         [SerializeField] private Collider2D _collider2D;
         [SerializeField] private SpriteRenderer _spriteRenderer;
         [SerializeField] private HitPointUi _hitPointUi;
 
         private Color _defaultColor;
+        private Camera _camera;
 
         public float dropForceMultiplier;
         public float dragForceMultiplier;
@@ -26,6 +26,7 @@ namespace Prototype01
         private void Awake()
         {
             _defaultColor = _spriteRenderer.color;
+            _camera = Camera.main;
         }
 
         private void OnGUI()
