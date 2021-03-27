@@ -28,18 +28,6 @@ namespace Prototype01
             _defaultColor = _spriteRenderer.color;
             _camera = Camera.main;
         }
-
-        private void OnGUI()
-        {
-            if (GUILayout.Button("Reset"))
-            {
-                transform.position = Vector3.zero;
-                _rigidbody2D.drag = 0;
-                _hitPoints = 3;
-                _recovering = _takingDamage = false;
-                _hitPointUi.SetPointsLeft(_hitPoints);
-            }
-        }
         
         private IEnumerator TakeDamage()
         {
@@ -56,7 +44,10 @@ namespace Prototype01
                 {
                     --_hitPoints;
                     _hitPointUi.SetPointsLeft(_hitPoints);
-                    Debug.Log("TakeDamage " + _hitPoints);
+                    if (_hitPoints == 0)
+                    {
+                        Destroy(gameObject);
+                    }
                 }
                 else
                 {
@@ -90,7 +81,6 @@ namespace Prototype01
                 {
                     ++_hitPoints;
                     _hitPointUi.SetPointsLeft(_hitPoints);
-                    Debug.Log("Recover " + _hitPoints);
                 }
                 else
                 {

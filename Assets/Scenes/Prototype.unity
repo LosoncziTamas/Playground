@@ -219,7 +219,7 @@ GameObject:
   - component: {fileID: 233823683}
   - component: {fileID: 233823682}
   - component: {fileID: 233823686}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Pit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
