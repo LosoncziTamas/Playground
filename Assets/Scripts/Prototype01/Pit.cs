@@ -30,9 +30,10 @@ namespace Prototype01
         private void InitWave()
         {
             _enemyCountPerWaveSecond[3] = 2;
+            /*
             _enemyCountPerWaveSecond[10] = 1;
             _enemyCountPerWaveSecond[30] = 3;
-            _enemyCountPerWaveSecond[50] = 4;
+            _enemyCountPerWaveSecond[50] = 4;*/
         }
 
         private void WaveComplete()

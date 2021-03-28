@@ -5,6 +5,8 @@ namespace Prototype01
 {
     public class EnemyDragPhysics : MonoBehaviour
     {
+        private static bool _anyEnemyBeingSelected = false;
+        
         [SerializeField] private Rigidbody2D _rigidbody2D;
         [SerializeField] private Collider2D _collider2D;
         [SerializeField] private SpriteRenderer _spriteRenderer;
@@ -13,9 +15,10 @@ namespace Prototype01
         private Color _defaultColor;
         private Camera _camera;
 
-        public float dropForceMultiplier;
-        public float dragForceMultiplier;
-        public float dragThreshold;
+        public float dropForceMultiplier = 0.2f;
+        public float dragForceMultiplier = 0.2f;
+        public float dragThreshold = 0.2f;
+        public float linearDragWhenSelected = 3.5f;
 
         private bool _selected;
         private int _hitPoints = 3;
@@ -46,7 +49,7 @@ namespace Prototype01
                     _hitPointUi.SetPointsLeft(_hitPoints);
                     if (_hitPoints == 0)
                     {
-                        Destroy(gameObject);
+                        // Destroy(gameObject);
                     }
                 }
                 else
@@ -92,6 +95,12 @@ namespace Prototype01
         
         private void Update()
         {
+            if (_anyEnemyBeingSelected && !_selected)
+            {
+                StartCoroutine(Recover());
+                return;
+            }
+
             if (Input.GetMouseButtonDown(0))
             {
                 Vector2 mousePosInWorld = _camera.ScreenToWorldPoint(Input.mousePosition);
@@ -99,6 +108,7 @@ namespace Prototype01
                 {
                     _spriteRenderer.color = Color.white;
                     _selected = true;
+                    _anyEnemyBeingSelected = true;
                 }
 
             }
@@ -111,14 +121,14 @@ namespace Prototype01
                 {
                     var force = (mousePosInWorld - pos).normalized;
                     _rigidbody2D.AddRelativeForce(force * dragForceMultiplier, ForceMode2D.Impulse);
-
+                    
                 }
                 else
                 {
                     StartCoroutine(TakeDamage());
                 }
                 
-                _rigidbody2D.drag = 1.0f;
+                _rigidbody2D.drag = linearDragWhenSelected;
             }
             else if (_selected && Input.GetMouseButtonUp(0))
             {
@@ -131,6 +141,7 @@ namespace Prototype01
                 var force = (mousePosInWorld - pos).normalized;
                 
                 _selected = false;
+                _anyEnemyBeingSelected = false;
                 _rigidbody2D.AddRelativeForce(force * dropForceMultiplier, ForceMode2D.Impulse);
             }
             else
