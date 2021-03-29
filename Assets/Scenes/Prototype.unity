@@ -219,9 +219,9 @@ GameObject:
   - component: {fileID: 233823683}
   - component: {fileID: 233823682}
   - component: {fileID: 233823686}
-  m_Layer: 1
+  m_Layer: 3
   m_Name: Pit
-  m_TagString: Untagged
+  m_TagString: Pit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -257,7 +257,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -583,6 +583,7 @@ MonoBehaviour:
   dropForceMultiplier: 0.2
   dragForceMultiplier: 0.2
   dragThreshold: 0.2
+  linearDragWhenSelected: 3.5
 --- !u!50 &529912684
 Rigidbody2D:
   serializedVersion: 4

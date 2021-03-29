@@ -155,7 +155,7 @@ MonoBehaviour:
   dropForceMultiplier: 0.2
   dragForceMultiplier: 0.2
   dragThreshold: 0.2
-  linerDragWhenSelected: 1.5
+  linearDragWhenSelected: 3.5
 --- !u!114 &3757390832203427956
 MonoBehaviour:
   m_ObjectHideFlags: 0

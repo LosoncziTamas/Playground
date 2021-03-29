@@ -6,8 +6,9 @@ namespace Prototype01
 {
     public class Pit : MonoBehaviour
     {
-        private const int WaveLength = 60;
         public static Pit Instance;
+        
+        private const int WaveLength = 60;
         
         [SerializeField] private GameObject _enemyPrefab;
 
@@ -60,6 +61,22 @@ namespace Prototype01
             for (int i = 0; i < count; i++)
             {
                 var enemy = Instantiate(_enemyPrefab, transform.position, Quaternion.identity);
+            }
+        }
+
+        public void RespawnInTheFuture(GameObject enemy)
+        {
+            enemy.SetActive(false);
+            StartCoroutine(Respawn(enemy, 2.0f));
+        }
+
+        private static IEnumerator Respawn(GameObject enemy, float seconds)
+        {
+            while (true)
+            {
+                yield return new WaitForSeconds(seconds);
+                enemy.SetActive(true);
+                break;
             }
         }
     }

@@ -26,6 +26,8 @@ namespace Prototype01
         private bool _takingDamage;
         private bool _recovering;
 
+        private bool _beingThrowned;
+
         private void Awake()
         {
             _defaultColor = _spriteRenderer.color;
@@ -49,7 +51,8 @@ namespace Prototype01
                     _hitPointUi.SetPointsLeft(_hitPoints);
                     if (_hitPoints == 0)
                     {
-                        // Destroy(gameObject);
+                        Destroy(gameObject);
+                        _anyEnemyBeingSelected = false;
                     }
                 }
                 else
@@ -92,10 +95,55 @@ namespace Prototype01
             }
         }
 
+        private void TryToPickEnemy()
+        {
+            Vector2 mousePosInWorld = _camera.ScreenToWorldPoint(Input.mousePosition);
+            if (_collider2D.OverlapPoint(mousePosInWorld))
+            {
+                _spriteRenderer.color = Color.white;
+                _selected = true;
+                _anyEnemyBeingSelected = true;
+            }
+        }
+
+        private void MoveEnemy()
+        {
+            Vector2 mousePosInWorld = _camera.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 pos = transform.position;
+
+            if (Vector2.Distance(mousePosInWorld, pos) > dragThreshold)
+            {
+                var force = (mousePosInWorld - pos).normalized;
+                _rigidbody2D.AddRelativeForce(force * dragForceMultiplier, ForceMode2D.Impulse);
+                    
+            }
+            else
+            {
+                StartCoroutine(TakeDamage());
+            }
+                
+            _rigidbody2D.drag = linearDragWhenSelected;
+        }
+
+        private void ReleaseEnemy()
+        {
+            StartCoroutine(Recover());
+            _spriteRenderer.color = _defaultColor;
+            _rigidbody2D.drag = 0;
+            Vector2 mousePosInWorld = _camera.ScreenToWorldPoint(Input.mousePosition);
+
+            Vector2 pos = transform.position;
+            var force = (mousePosInWorld - pos).normalized;
+                
+            _selected = false;
+            _anyEnemyBeingSelected = false;
+            _rigidbody2D.AddRelativeForce(force * dropForceMultiplier, ForceMode2D.Impulse);
+        }
         
         private void Update()
         {
-            if (_anyEnemyBeingSelected && !_selected)
+            // TODO: fix when respawned
+            if (_anyEnemyBeingSelected)
             {
                 StartCoroutine(Recover());
                 return;
@@ -103,50 +151,32 @@ namespace Prototype01
 
             if (Input.GetMouseButtonDown(0))
             {
-                Vector2 mousePosInWorld = _camera.ScreenToWorldPoint(Input.mousePosition);
-                if (_collider2D.OverlapPoint(mousePosInWorld))
-                {
-                    _spriteRenderer.color = Color.white;
-                    _selected = true;
-                    _anyEnemyBeingSelected = true;
-                }
-
+                TryToPickEnemy();
+                _beingThrowned = false;
             }
             else if (_selected && Input.GetMouseButton(0))
             {
-                Vector2 mousePosInWorld = _camera.ScreenToWorldPoint(Input.mousePosition);
-                Vector2 pos = transform.position;
-
-                if (Vector2.Distance(mousePosInWorld, pos) > dragThreshold)
-                {
-                    var force = (mousePosInWorld - pos).normalized;
-                    _rigidbody2D.AddRelativeForce(force * dragForceMultiplier, ForceMode2D.Impulse);
-                    
-                }
-                else
-                {
-                    StartCoroutine(TakeDamage());
-                }
-                
-                _rigidbody2D.drag = linearDragWhenSelected;
+                MoveEnemy();
+                _beingThrowned = false;
             }
             else if (_selected && Input.GetMouseButtonUp(0))
             {
-                StartCoroutine(Recover());
-                _spriteRenderer.color = _defaultColor;
-                _rigidbody2D.drag = 0;
-                Vector2 mousePosInWorld = _camera.ScreenToWorldPoint(Input.mousePosition);
-
-                Vector2 pos = transform.position;
-                var force = (mousePosInWorld - pos).normalized;
-                
-                _selected = false;
-                _anyEnemyBeingSelected = false;
-                _rigidbody2D.AddRelativeForce(force * dropForceMultiplier, ForceMode2D.Impulse);
+                ReleaseEnemy();
+                _beingThrowned = true;
             }
             else
             {
                 StartCoroutine(Recover());
+            }
+        }
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            const string pitTag = "Pit";
+            if (other.gameObject.CompareTag(pitTag) && _beingThrowned)
+            {
+                _beingThrowned = false;
+                Pit.Instance.RespawnInTheFuture(gameObject);
             }
         }
     }
