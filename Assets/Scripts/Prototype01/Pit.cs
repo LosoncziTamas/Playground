@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 
@@ -30,7 +29,7 @@ namespace Prototype01
 
         private void InitWave()
         {
-            _enemyCountPerWaveSecond[3] = 2;
+            _enemyCountPerWaveSecond[0] = 1;
             /*
             _enemyCountPerWaveSecond[10] = 1;
             _enemyCountPerWaveSecond[30] = 3;
@@ -58,7 +57,7 @@ namespace Prototype01
         
         private void SpawnEnemy(int count)
         {
-            for (int i = 0; i < count; i++)
+            for (var i = 0; i < count; i++)
             {
                 var enemy = Instantiate(_enemyPrefab, transform.position, Quaternion.identity);
             }
@@ -67,7 +66,14 @@ namespace Prototype01
         public void RespawnInTheFuture(GameObject enemy)
         {
             enemy.SetActive(false);
-            StartCoroutine(Respawn(enemy, 2.0f));
+            
+            var enemyDragComp = enemy.GetComponent<EnemyDragPhysics>();
+            var respawnTimeInSeconds = (EnemyDragPhysics.MaxHitPoints - enemyDragComp.HitPointsLeft) * enemyDragComp.recoverAHitPointDurationInSeconds;
+            respawnTimeInSeconds += 2.0f;
+            Debug.Log($"[Pit] respawn enemy in {respawnTimeInSeconds}");
+            
+            enemyDragComp.ResetInternals(1.2f);
+            StartCoroutine(Respawn(enemy, respawnTimeInSeconds));
         }
 
         private static IEnumerator Respawn(GameObject enemy, float seconds)

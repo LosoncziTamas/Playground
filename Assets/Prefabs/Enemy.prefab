@@ -156,6 +156,8 @@ MonoBehaviour:
   dragForceMultiplier: 0.2
   dragThreshold: 0.2
   linearDragWhenSelected: 3.5
+  recoverAHitPointDurationInSeconds: 1
+  takeADamageDurationInSeconds: 1
 --- !u!114 &3757390832203427956
 MonoBehaviour:
   m_ObjectHideFlags: 0

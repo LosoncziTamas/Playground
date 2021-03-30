@@ -5,7 +5,9 @@ namespace Prototype01
 {
     public class EnemyDragPhysics : MonoBehaviour
     {
-        private static bool _anyEnemyBeingSelected = false;
+        public const int MaxHitPoints = 3;
+        
+        private static bool _anyEnemyBeingSelected;
         
         [SerializeField] private Rigidbody2D _rigidbody2D;
         [SerializeField] private Collider2D _collider2D;
@@ -19,19 +21,35 @@ namespace Prototype01
         public float dragForceMultiplier = 0.2f;
         public float dragThreshold = 0.2f;
         public float linearDragWhenSelected = 3.5f;
+        public float recoverAHitPointDurationInSeconds = 1.0f;
+        public float takeADamageDurationInSeconds = 1.0f;
 
+        // TODO: create state machine
+        private int _hitPoints = MaxHitPoints;
         private bool _selected;
-        private int _hitPoints = 3;
-        
         private bool _takingDamage;
         private bool _recovering;
-
-        private bool _beingThrowned;
+        private bool _beingThrown;
+        
+        public int HitPointsLeft => _hitPoints;
 
         private void Awake()
         {
             _defaultColor = _spriteRenderer.color;
             _camera = Camera.main;
+        }
+
+        public void ResetInternals(float scale = 1.0f)
+        {
+            gameObject.transform.localScale *= scale;
+            
+            _hitPoints = MaxHitPoints;
+            _selected = false;
+            _takingDamage = false;
+            _recovering = false;
+            _beingThrown = false;
+            
+            _hitPointUi.SetPointsLeft(_hitPoints);
         }
         
         private IEnumerator TakeDamage()
@@ -44,7 +62,7 @@ namespace Prototype01
             _recovering = false;
             while (CanTakeDamage())
             {
-                yield return new WaitForSeconds(1);
+                yield return new WaitForSeconds(takeADamageDurationInSeconds);
                 if (CanTakeDamage())
                 {
                     --_hitPoints;
@@ -82,7 +100,7 @@ namespace Prototype01
             _takingDamage = false;
             while (CanRecover())
             {
-                yield return new WaitForSeconds(1);
+                yield return new WaitForSeconds(recoverAHitPointDurationInSeconds);
                 if (CanRecover())
                 {
                     ++_hitPoints;
@@ -142,27 +160,21 @@ namespace Prototype01
         
         private void Update()
         {
-            // TODO: fix when respawned
-            if (_anyEnemyBeingSelected)
+            if (!_anyEnemyBeingSelected && Input.GetMouseButtonDown(0))
             {
-                StartCoroutine(Recover());
-                return;
-            }
-
-            if (Input.GetMouseButtonDown(0))
-            {
+                // TODO: Z-order fix
                 TryToPickEnemy();
-                _beingThrowned = false;
+                _beingThrown = false;
             }
             else if (_selected && Input.GetMouseButton(0))
             {
                 MoveEnemy();
-                _beingThrowned = false;
+                _beingThrown = false;
             }
             else if (_selected && Input.GetMouseButtonUp(0))
             {
                 ReleaseEnemy();
-                _beingThrowned = true;
+                _beingThrown = true;
             }
             else
             {
@@ -170,14 +182,24 @@ namespace Prototype01
             }
         }
 
-        private void OnTriggerEnter2D(Collider2D other)
+        private void ThrowToPit(Collider2D other)
         {
             const string pitTag = "Pit";
-            if (other.gameObject.CompareTag(pitTag) && _beingThrowned)
+            if (other.gameObject.CompareTag(pitTag) && _beingThrown)
             {
-                _beingThrowned = false;
+                _beingThrown = false;
                 Pit.Instance.RespawnInTheFuture(gameObject);
             }
+        }
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            ThrowToPit(other);
+        }
+
+        private void OnTriggerStay2D(Collider2D other)
+        {
+            ThrowToPit(other);
         }
     }
 }
