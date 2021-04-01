@@ -152,10 +152,10 @@ MonoBehaviour:
   _collider2D: {fileID: 3757390832203427950}
   _spriteRenderer: {fileID: 3757390832203427953}
   _hitPointUi: {fileID: 3757390830604487527}
-  dropForceMultiplier: 0.2
-  dragForceMultiplier: 0.2
-  dragThreshold: 0.2
-  linearDragWhenSelected: 3.5
+  dropForceMultiplier: 1
+  selectionForceMultiplier: 0.07
+  dragThreshold: 2
+  linearDragWhenSelected: 10
   recoverAHitPointDurationInSeconds: 1
   takeADamageDurationInSeconds: 1
 --- !u!114 &3757390832203427956
@@ -165,7 +165,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3757390832203427948}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 706d3b77fbb3a44da96b8b98cdbb177d, type: 3}
   m_Name: 

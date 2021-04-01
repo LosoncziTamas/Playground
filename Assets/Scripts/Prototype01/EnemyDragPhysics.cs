@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -18,7 +19,7 @@ namespace Prototype01
         private Camera _camera;
 
         public float dropForceMultiplier = 0.2f;
-        public float dragForceMultiplier = 0.2f;
+        public float selectionForceMultiplier = 0.2f;
         public float dragThreshold = 0.2f;
         public float linearDragWhenSelected = 3.5f;
         public float recoverAHitPointDurationInSeconds = 1.0f;
@@ -69,7 +70,7 @@ namespace Prototype01
                     _hitPointUi.SetPointsLeft(_hitPoints);
                     if (_hitPoints == 0)
                     {
-                        Destroy(gameObject);
+                        // Destroy(gameObject);
                         _anyEnemyBeingSelected = false;
                     }
                 }
@@ -124,6 +125,29 @@ namespace Prototype01
             }
         }
 
+        private void OnGUI()
+        {
+            if (_takingDamage)
+            {
+                GUILayout.Label("Taking damage");
+            }
+
+            if (_beingThrown)
+            {
+                GUILayout.Label("Being thrown");
+            }
+
+            if (_recovering)
+            {
+                GUILayout.Label("Recovering");
+            }
+            
+            if (_selected)
+            {
+                GUILayout.Label("Selected");
+            }
+        }
+
         private void MoveEnemy()
         {
             Vector2 mousePosInWorld = _camera.ScreenToWorldPoint(Input.mousePosition);
@@ -132,8 +156,8 @@ namespace Prototype01
             if (Vector2.Distance(mousePosInWorld, pos) > dragThreshold)
             {
                 var force = (mousePosInWorld - pos).normalized;
-                _rigidbody2D.AddRelativeForce(force * dragForceMultiplier, ForceMode2D.Impulse);
-                    
+                _rigidbody2D.AddRelativeForce(force * selectionForceMultiplier, ForceMode2D.Impulse);
+                _takingDamage = false;
             }
             else
             {
