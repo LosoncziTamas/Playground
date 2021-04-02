@@ -20,7 +20,8 @@ namespace Prototype01
 
         public float dropForceMultiplier = 0.2f;
         public float selectionForceMultiplier = 0.2f;
-        public float dragThreshold = 0.2f;
+        public float minDragDistance = 0.2f;
+        public float maxDragDistance = 2.0f;
         public float linearDragWhenSelected = 3.5f;
         public float recoverAHitPointDurationInSeconds = 1.0f;
         public float takeADamageDurationInSeconds = 1.0f;
@@ -81,6 +82,28 @@ namespace Prototype01
             }
         }
 
+        private bool _bobbing = false;
+
+        public float bobbingScale = 0.5f;
+
+        private IEnumerator DoBobbing()
+        {
+            if (_bobbing)
+            {
+                yield break;
+            }
+
+            _bobbing = true;
+            var offset = Vector3.zero;
+            while (_bobbing)
+            {
+                offset.y = Mathf.Sin(Time.time) * bobbingScale;
+                Debug.Log(offset);
+                transform.position += offset;
+                yield return new WaitForFixedUpdate();
+            }
+        }
+
         private bool CanTakeDamage()
         {
             return _takingDamage && _hitPoints > 0;
@@ -99,6 +122,7 @@ namespace Prototype01
             }
             _recovering = true;
             _takingDamage = false;
+            _bobbing = false;
             while (CanRecover())
             {
                 yield return new WaitForSeconds(recoverAHitPointDurationInSeconds);
@@ -152,19 +176,27 @@ namespace Prototype01
         {
             Vector2 mousePosInWorld = _camera.ScreenToWorldPoint(Input.mousePosition);
             Vector2 pos = transform.position;
-
-            if (Vector2.Distance(mousePosInWorld, pos) > dragThreshold)
+            var distance = Vector2.Distance(mousePosInWorld, pos);
+            
+            if (distance > minDragDistance && distance < maxDragDistance)
             {
                 var force = (mousePosInWorld - pos).normalized;
                 _rigidbody2D.AddRelativeForce(force * selectionForceMultiplier, ForceMode2D.Impulse);
                 _takingDamage = false;
+                _bobbing = false;
+                _rigidbody2D.drag = linearDragWhenSelected;
             }
-            else
+            else if (distance < minDragDistance)
             {
-                StartCoroutine(TakeDamage());
+                StartCoroutine(DoBobbing());
+                _rigidbody2D.drag = linearDragWhenSelected;
+            }
+            else if (distance > maxDragDistance)
+            {
+                ReleaseEnemy();
+                _beingThrown = true;
             }
                 
-            _rigidbody2D.drag = linearDragWhenSelected;
         }
 
         private void ReleaseEnemy()

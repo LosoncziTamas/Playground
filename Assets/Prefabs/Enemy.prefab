@@ -154,7 +154,8 @@ MonoBehaviour:
   _hitPointUi: {fileID: 3757390830604487527}
   dropForceMultiplier: 1
   selectionForceMultiplier: 0.07
-  dragThreshold: 2
+  minDragDistance: 0.5
+  maxDragDistance: 2
   linearDragWhenSelected: 10
   recoverAHitPointDurationInSeconds: 1
   takeADamageDurationInSeconds: 1
