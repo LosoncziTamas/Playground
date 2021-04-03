@@ -159,6 +159,8 @@ MonoBehaviour:
   linearDragWhenSelected: 10
   recoverAHitPointDurationInSeconds: 1
   takeADamageDurationInSeconds: 1
+  bobbingExtent: 0.15
+  bobbingSpeed: 5
 --- !u!114 &3757390832203427956
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -25,6 +25,8 @@ namespace Prototype01
         public float linearDragWhenSelected = 3.5f;
         public float recoverAHitPointDurationInSeconds = 1.0f;
         public float takeADamageDurationInSeconds = 1.0f;
+        public float bobbingExtent = 0.15f;
+        public float bobbingSpeed = 5.0f;
 
         // TODO: create state machine
         private int _hitPoints = MaxHitPoints;
@@ -82,28 +84,6 @@ namespace Prototype01
             }
         }
 
-        private bool _bobbing = false;
-
-        public float bobbingScale = 0.5f;
-
-        private IEnumerator DoBobbing()
-        {
-            if (_bobbing)
-            {
-                yield break;
-            }
-
-            _bobbing = true;
-            var offset = Vector3.zero;
-            while (_bobbing)
-            {
-                offset.y = Mathf.Sin(Time.time) * bobbingScale;
-                Debug.Log(offset);
-                transform.position += offset;
-                yield return new WaitForFixedUpdate();
-            }
-        }
-
         private bool CanTakeDamage()
         {
             return _takingDamage && _hitPoints > 0;
@@ -122,7 +102,6 @@ namespace Prototype01
             }
             _recovering = true;
             _takingDamage = false;
-            _bobbing = false;
             while (CanRecover())
             {
                 yield return new WaitForSeconds(recoverAHitPointDurationInSeconds);
@@ -170,6 +149,31 @@ namespace Prototype01
             {
                 GUILayout.Label("Selected");
             }
+
+            if (GUILayout.Button("Togggle bobbing"))
+            {
+                StartCoroutine(DoBobbing());
+            }
+        }
+        
+        private bool _bobbing;
+        private Vector3 _defaultPos;
+
+        private IEnumerator DoBobbing()
+        {
+            if (_bobbing)
+            {
+                yield break;
+            }
+            
+            _bobbing = true;
+            _defaultPos = transform.position;
+            while (_bobbing)
+            {
+                var offsetY = Mathf.Sin(Time.time * bobbingSpeed) * bobbingExtent;
+                transform.position = _defaultPos + Vector3.up * offsetY;
+                yield return new WaitForFixedUpdate();
+            }
         }
 
         private void MoveEnemy()
@@ -183,20 +187,22 @@ namespace Prototype01
                 var force = (mousePosInWorld - pos).normalized;
                 _rigidbody2D.AddRelativeForce(force * selectionForceMultiplier, ForceMode2D.Impulse);
                 _takingDamage = false;
-                _bobbing = false;
                 _rigidbody2D.drag = linearDragWhenSelected;
+                _bobbing = false;
             }
             else if (distance < minDragDistance)
             {
                 StartCoroutine(DoBobbing());
+                StartCoroutine(TakeDamage());
                 _rigidbody2D.drag = linearDragWhenSelected;
             }
             else if (distance > maxDragDistance)
             {
                 ReleaseEnemy();
                 _beingThrown = true;
+                _bobbing = false;
             }
-                
+            
         }
 
         private void ReleaseEnemy()
@@ -211,6 +217,7 @@ namespace Prototype01
                 
             _selected = false;
             _anyEnemyBeingSelected = false;
+            _bobbing = false;
             _rigidbody2D.AddRelativeForce(force * dropForceMultiplier, ForceMode2D.Impulse);
         }
         
