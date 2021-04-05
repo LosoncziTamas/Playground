@@ -1,5 +1,6 @@
 using Pathfinding;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Prototype01
 {
@@ -16,10 +17,10 @@ namespace Prototype01
         private Path _path;
         private bool _reachedEndOfPath;
         private Vector2 _nextWayPoint;
-        private Vector2 _lastPos;
         private float _jumpScale;
         private Vector2 _targetPosition;
-        
+        private bool _onLand;
+
         private void Start()
         {
             _nextWayPoint = transform.position;
@@ -51,11 +52,6 @@ namespace Prototype01
             _rigidbody2D.AddForce(jumpForce, ForceMode2D.Impulse);
         }
 
-        private bool Jumping()
-        {
-           return _rigidbody2D.velocity.y < -0.1f || _rigidbody2D.velocity.y > 0.1f;
-        }
-
         private void FixedUpdate()
         {
             if (_path == null)
@@ -83,12 +79,10 @@ namespace Prototype01
                 _currentWaypointIdx++;
             }
             
-            if (!Jumping() && !IsInvoking(nameof(Jump)))
+            if (_onLand && !IsInvoking(nameof(Jump)))
             {
                 ScheduleRandomJump();
             }
-
-            _lastPos = _rigidbody2D.position;
         }
 
         private void ScheduleRandomJump()
@@ -100,6 +94,28 @@ namespace Prototype01
         private void OnDrawGizmos()
         {
             Gizmos.DrawLine(transform.position, _nextWayPoint);
+        }
+        
+        private void OnCollisionEnter2D(Collision2D other)
+        {
+            if (!_onLand && IsLandCollision(other))
+            {
+                _onLand = true;
+            }
+        }
+
+        private static bool IsLandCollision(Collision2D other)
+        {
+            const string landTag = "Land";
+            return other.gameObject.CompareTag(landTag);
+        }
+        
+        private void OnCollisionStay2D(Collision2D other)
+        {
+            if (_onLand && IsLandCollision(other))
+            {
+                _onLand = false;
+            }
         }
     }
 }

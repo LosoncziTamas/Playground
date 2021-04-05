@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 
@@ -25,8 +24,6 @@ namespace Prototype01
         public float linearDragWhenSelected = 3.5f;
         public float recoverAHitPointDurationInSeconds = 1.0f;
         public float takeADamageDurationInSeconds = 1.0f;
-        public float bobbingExtent = 0.15f;
-        public float bobbingSpeed = 5.0f;
 
         // TODO: create state machine
         private int _hitPoints = MaxHitPoints;
@@ -55,6 +52,16 @@ namespace Prototype01
             
             _hitPointUi.SetPointsLeft(_hitPoints);
         }
+
+        private bool CanTakeDamage()
+        {
+            return _takingDamage && _hitPoints > 0;
+        }
+
+        private bool CanRecover()
+        {
+            return _recovering && _hitPoints < 3;
+        }
         
         private IEnumerator TakeDamage()
         {
@@ -73,7 +80,7 @@ namespace Prototype01
                     _hitPointUi.SetPointsLeft(_hitPoints);
                     if (_hitPoints == 0)
                     {
-                        // Destroy(gameObject);
+                        Destroy(gameObject);
                         _anyEnemyBeingSelected = false;
                     }
                 }
@@ -82,16 +89,6 @@ namespace Prototype01
                     yield break;
                 }
             }
-        }
-
-        private bool CanTakeDamage()
-        {
-            return _takingDamage && _hitPoints > 0;
-        }
-
-        private bool CanRecover()
-        {
-            return _recovering && _hitPoints < 3;
         }
         
         private IEnumerator Recover()
@@ -149,33 +146,8 @@ namespace Prototype01
             {
                 GUILayout.Label("Selected");
             }
-
-            if (GUILayout.Button("Togggle bobbing"))
-            {
-                StartCoroutine(DoBobbing());
-            }
         }
         
-        private bool _bobbing;
-        private Vector3 _defaultPos;
-
-        private IEnumerator DoBobbing()
-        {
-            if (_bobbing)
-            {
-                yield break;
-            }
-            
-            _bobbing = true;
-            _defaultPos = transform.position;
-            while (_bobbing)
-            {
-                var offsetY = Mathf.Sin(Time.time * bobbingSpeed) * bobbingExtent;
-                transform.position = _defaultPos + Vector3.up * offsetY;
-                yield return new WaitForFixedUpdate();
-            }
-        }
-
         private void MoveEnemy()
         {
             Vector2 mousePosInWorld = _camera.ScreenToWorldPoint(Input.mousePosition);
@@ -188,11 +160,9 @@ namespace Prototype01
                 _rigidbody2D.AddRelativeForce(force * selectionForceMultiplier, ForceMode2D.Impulse);
                 _takingDamage = false;
                 _rigidbody2D.drag = linearDragWhenSelected;
-                _bobbing = false;
             }
             else if (distance < minDragDistance)
             {
-                StartCoroutine(DoBobbing());
                 StartCoroutine(TakeDamage());
                 _rigidbody2D.drag = linearDragWhenSelected;
             }
@@ -200,7 +170,6 @@ namespace Prototype01
             {
                 ReleaseEnemy();
                 _beingThrown = true;
-                _bobbing = false;
             }
             
         }
@@ -217,7 +186,6 @@ namespace Prototype01
                 
             _selected = false;
             _anyEnemyBeingSelected = false;
-            _bobbing = false;
             _rigidbody2D.AddRelativeForce(force * dropForceMultiplier, ForceMode2D.Impulse);
         }
         
@@ -247,6 +215,7 @@ namespace Prototype01
 
         private void ThrowToPit(Collider2D other)
         {
+            return;
             const string pitTag = "Pit";
             if (other.gameObject.CompareTag(pitTag) && _beingThrown)
             {

@@ -29,21 +29,5 @@ namespace Prototype01
 				_hitPointUi.SetPointsLeft(--_hitPoints);
 			}
 		}
-
-		private void OnTriggerExit2D(Collider2D other)
-		{
-			if (other.CompareTag(EnemyTag))
-			{
-				Debug.Log("OnTriggerExit2D");
-			}
-		}
-
-		private void OnTriggerStay2D(Collider2D other)
-		{
-			if (other.CompareTag(EnemyTag))
-			{
-				Debug.Log("OnTriggerStay2D");
-			}
-		}
 	}
 }

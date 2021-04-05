@@ -159,8 +159,6 @@ MonoBehaviour:
   linearDragWhenSelected: 10
   recoverAHitPointDurationInSeconds: 1
   takeADamageDurationInSeconds: 1
-  bobbingExtent: 0.15
-  bobbingSpeed: 5
 --- !u!114 &3757390832203427956
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,7 +166,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3757390832203427948}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 706d3b77fbb3a44da96b8b98cdbb177d, type: 3}
   m_Name: 
