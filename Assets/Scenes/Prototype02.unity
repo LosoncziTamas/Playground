@@ -483,6 +483,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _groundCollisionSensor: {fileID: 1334311020}
+  _gameProps: {fileID: 11400000, guid: 9f4950132134e4d69bf49f039c5b8584, type: 2}
 --- !u!1 &1334311018
 GameObject:
   m_ObjectHideFlags: 0
