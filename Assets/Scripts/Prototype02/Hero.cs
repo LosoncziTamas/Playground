@@ -6,6 +6,8 @@ namespace Prototype02
 {
     public class Hero : MonoBehaviour
     {
+        public static Hero Instance;
+        
         private const string AttackAnimStateName = "Attack1";
         
         private static readonly int Grounded = Animator.StringToHash("Grounded");
@@ -23,8 +25,11 @@ namespace Prototype02
         private bool _grounded;
         private int _facingDirection;
 
+        public bool IsGrounded => _grounded;
+
         private void Awake()
         {
+            Instance = this;
             _facingDirection = 1;
             _animator = GetComponent<Animator>();
             _spriteRenderer = GetComponent<SpriteRenderer>();
