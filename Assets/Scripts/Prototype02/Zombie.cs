@@ -10,7 +10,6 @@ namespace Prototype02
         private Rigidbody2D _rigidbody2D;
         private Hero _hero;
         
-
         private void Start()
         {
             _hero = Hero.Instance;
