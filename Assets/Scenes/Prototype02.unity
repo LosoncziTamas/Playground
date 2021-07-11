@@ -829,6 +829,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 71025017885779828, guid: 80284e00227ff4cd1acddc02e0344ea1, type: 3}
+      propertyPath: m_Constraints
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 71025017885779830, guid: 80284e00227ff4cd1acddc02e0344ea1, type: 3}
       propertyPath: m_Name
       value: Zombie

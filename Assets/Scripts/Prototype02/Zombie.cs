@@ -18,11 +18,8 @@ namespace Prototype02
 
         private void FixedUpdate()
         {
-            if (_hero.IsGrounded)
-            {
-                var offset = Vector2.MoveTowards(transform.position, _hero.transform.position, Speed * Time.deltaTime);
-                _rigidbody2D.MovePosition(offset);
-            }
+            var offset = Vector2.MoveTowards(transform.position, _hero.transform.position, Speed * Time.deltaTime);
+            // _rigidbody2D.MovePosition(offset);
         }
     }
 }

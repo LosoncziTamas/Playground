@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Prototype02
 {
-    public class Hero : MonoBehaviour
+    public class Hero : StateMachine
     {
         public static Hero Instance;
         
@@ -13,7 +13,7 @@ namespace Prototype02
         private const string JumpAnimStateName = "Jump";
         
         private static readonly int Grounded = Animator.StringToHash("Grounded");
-        private static readonly int AirSpeedY = Animator.StringToHash("AirSpeedY");
+
         private static readonly int AnimState = Animator.StringToHash("AnimState");
         private static readonly int Attack1 = Animator.StringToHash(AttackAnimStateName);
         private static readonly int Hurt = Animator.StringToHash(HurtAnimStateName);
@@ -35,6 +35,10 @@ namespace Prototype02
 
         public bool IsGrounded => _grounded;
 
+        public Animator Animator => _animator;
+        public Rigidbody2D Rigidbody2D => _rigidbody2D;
+        public CollisionSensor GroundCollisionSensor => _groundCollisionSensor;
+
         private void Awake()
         {
             Instance = this;
@@ -49,23 +53,18 @@ namespace Prototype02
             if (!_grounded && _groundCollisionSensor.Colliding)
             {
                 _grounded = true;
-                _animator.SetBool(Grounded, _grounded);
+                SetState(new GroundedState());
             }
             else if (_grounded && !_groundCollisionSensor.Colliding)
             {
                 _grounded = false;
-                _animator.SetBool(Grounded, _grounded);
+                SetState(new FallingState());
             }
 
             if (_rightCollisionSensor.CollidingWithEnemy)
             {
                 StartCoroutine(GetHurt());
             }
-        }
-
-        private void Start()
-        {
-            _animator.SetFloat(AirSpeedY, -1.0f);
         }
 
         private IEnumerator GetHurt()
@@ -120,6 +119,36 @@ namespace Prototype02
 
         private void Update()
         {
+            var moveHorizontally = false;
+            var horizontal = Input.GetAxis("Horizontal");
+            if (horizontal < 0)
+            {
+                if (_facingDirection > 0)
+                {
+                    _spriteRenderer.flipX = true;
+                }
+                _facingDirection = -1;
+                moveHorizontally = true;
+            }
+            else if (horizontal > 0)
+            {
+                if (_facingDirection < 0)
+                {
+                    _spriteRenderer.flipX = false;
+                }
+                _facingDirection = 1;
+                moveHorizontally = true;
+            }
+            
+            if (moveHorizontally)
+            {
+                StartCoroutine(State.Move(horizontal * Vector2.right * _gameProps.playerSpeed));
+            }
+            else if (State != null)
+            {
+                StartCoroutine(State.Idle());
+            }
+#if false
             if (_attacking)
             {
                 return;
@@ -166,6 +195,7 @@ namespace Prototype02
             {
                 StartCoroutine(Attack());
             }
+#endif
         }
     }
 }
