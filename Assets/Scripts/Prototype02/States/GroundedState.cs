@@ -28,6 +28,26 @@ namespace Prototype02
             yield break;
         }
 
+        public override IEnumerator Jump(Vector2 velocityOffset)
+        {
+            _hero.Rigidbody2D.velocity += velocityOffset;
+            _animator.SetTrigger(AnimStates.JumpStateId);
+            while (_animator.AnimatorIsPlaying(AnimStates.JumpAnimStateName) || !_hero.IsGrounded)
+            {
+                yield return null;
+            }
+        }
+
+        public override IEnumerator GetHurt(Vector2 backOff)
+        {
+            _animator.SetTrigger(AnimStates.HurtAnimId);
+            while (_animator.AnimatorIsPlaying(AnimStates.HurtAnimStateName))
+            {
+                yield return null;
+                _hero.Rigidbody2D.MovePosition(backOff);
+            }
+        }
+
         public override IEnumerator Idle()
         {
             _animator.SetInteger(AnimStates.AnimStateId, 0);

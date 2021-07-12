@@ -9,14 +9,12 @@ namespace Prototype02
         public static Hero Instance;
         
         private const string AttackAnimStateName = "Attack1";
-        private const string HurtAnimStateName = "Hurt";
         private const string JumpAnimStateName = "Jump";
         
         private static readonly int Grounded = Animator.StringToHash("Grounded");
-
         private static readonly int AnimState = Animator.StringToHash("AnimState");
+        
         private static readonly int Attack1 = Animator.StringToHash(AttackAnimStateName);
-        private static readonly int Hurt = Animator.StringToHash(HurtAnimStateName);
         private static readonly int JumpAnim = Animator.StringToHash(JumpAnimStateName);
 
         private Animator _animator;
@@ -63,28 +61,10 @@ namespace Prototype02
 
             if (_rightCollisionSensor.CollidingWithEnemy)
             {
-                StartCoroutine(GetHurt());
+                StartCoroutine(State.GetHurt(_rigidbody2D.position - Vector2.right * (_facingDirection * _gameProps.playerSpeed)));
             }
         }
 
-        private IEnumerator GetHurt()
-        {
-            if (_beingHurt)
-            {
-                yield break;
-            }
-
-            _beingHurt = true;
-            _animator.SetTrigger(Hurt);
-            while (_animator.AnimatorIsPlaying(HurtAnimStateName))
-            {
-                yield return null;
-                _rigidbody2D.MovePosition(_rigidbody2D.position - (Vector2.right * (_facingDirection * _gameProps.playerSpeed)));
-            }
-
-            _beingHurt = false;
-        }
-        
         private IEnumerator Attack()
         {
             if (_attacking)
@@ -147,7 +127,14 @@ namespace Prototype02
             else if (State != null)
             {
                 StartCoroutine(State.Idle());
+            } 
+            
+            if (Input.GetKey(KeyCode.UpArrow))
+            {
+                StartCoroutine(State.Jump(Vector2.up * 1.0f));
             }
+
+
 #if false
             if (_attacking)
             {

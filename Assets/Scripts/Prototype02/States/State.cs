@@ -15,12 +15,17 @@ namespace Prototype02
             yield break;
         }
 
+        public virtual IEnumerator GetHurt(Vector2 backOff)
+        {
+            yield break;
+        }
+
         public virtual IEnumerator Move(Vector2 offset)
         {
             yield break;
         }
         
-        public virtual IEnumerator Jump()
+        public virtual IEnumerator Jump(Vector2 velocityOffset)
         {
             yield break;
         }
