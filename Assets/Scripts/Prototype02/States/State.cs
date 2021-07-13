@@ -20,7 +20,7 @@ namespace Prototype02
             yield break;
         }
 
-        public virtual IEnumerator Move(Vector2 offset)
+        public virtual IEnumerator Move()
         {
             yield break;
         }

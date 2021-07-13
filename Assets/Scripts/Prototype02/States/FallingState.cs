@@ -1,4 +1,5 @@
 using System.Collections;
+using Prototype02.States;
 using UnityEngine;
 
 namespace Prototype02
@@ -23,6 +24,7 @@ namespace Prototype02
             {
                 yield return null;
             }
+            _hero.SetState(new GroundedState());
         }
     }
 }

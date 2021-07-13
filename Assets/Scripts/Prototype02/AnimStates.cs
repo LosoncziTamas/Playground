@@ -6,11 +6,12 @@ namespace Prototype02
     {
         public const string HurtAnimStateName = "Hurt";
         public const string JumpAnimStateName = "Jump";
+        public const string AttackAnimStateName = "Attack1";
 
         public static readonly int GroundedAnimId = Animator.StringToHash("Grounded");
         public static readonly int AirSpeedYAnimId = Animator.StringToHash("AirSpeedY");
         public static readonly int AnimStateId = Animator.StringToHash("AnimState");
-        
+        public static readonly int Attack1StateId = Animator.StringToHash(AttackAnimStateName);
         public static readonly int JumpStateId = Animator.StringToHash(JumpAnimStateName);
         public static readonly int HurtAnimId = Animator.StringToHash(HurtAnimStateName);
     }

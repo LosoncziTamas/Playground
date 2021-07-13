@@ -1,5 +1,4 @@
-using System;
-using System.Collections;
+using Prototype02.States;
 using UnityEngine;
 
 namespace Prototype02
@@ -26,24 +25,33 @@ namespace Prototype02
         [SerializeField] private GameProps _gameProps;
 
         private bool _grounded;
-        private int _facingDirection;
         private bool _attacking;
         private bool _beingHurt;
         private bool _jumping;
+        private bool _moving;
+        private bool _idle;
 
         public bool IsGrounded => _grounded;
 
         public Animator Animator => _animator;
         public Rigidbody2D Rigidbody2D => _rigidbody2D;
+        public SpriteRenderer SpriteRenderer => _spriteRenderer;
         public CollisionSensor GroundCollisionSensor => _groundCollisionSensor;
+
+        public bool Moving => _moving;
+        public bool Idle => _idle;
 
         private void Awake()
         {
             Instance = this;
-            _facingDirection = 1;
             _animator = GetComponent<Animator>();
             _spriteRenderer = GetComponent<SpriteRenderer>();
             _rigidbody2D = GetComponent<Rigidbody2D>();
+        }
+
+        private void Start()
+        {
+            SetState(new FallingState());
         }
 
         private void FixedUpdate()
@@ -51,138 +59,28 @@ namespace Prototype02
             if (!_grounded && _groundCollisionSensor.Colliding)
             {
                 _grounded = true;
-                SetState(new GroundedState());
+                //SetState(new GroundedState());
             }
             else if (_grounded && !_groundCollisionSensor.Colliding)
             {
                 _grounded = false;
-                SetState(new FallingState());
+                // SetState(new FallingState());
             }
 
             if (_rightCollisionSensor.CollidingWithEnemy)
             {
-                StartCoroutine(State.GetHurt(_rigidbody2D.position - Vector2.right * (_facingDirection * _gameProps.playerSpeed)));
+                // StartCoroutine(State.GetHurt(_rigidbody2D.position - Vector2.right * (_facingDirection * _gameProps.playerSpeed)));
             }
-        }
-
-        private IEnumerator Attack()
-        {
-            if (_attacking)
-            {
-                yield break;
-            }
-            _attacking = true;
-            _animator.SetTrigger(Attack1);
-            while (_animator.AnimatorIsPlaying(AttackAnimStateName))
-            {
-                yield return null;
-            }
-            _attacking = false;
-        }
-
-        private IEnumerator Jump()
-        {
-            if (_jumping)
-            {
-                yield break;
-            }
-            _jumping = true;
-            _rigidbody2D.velocity += Vector2.up * 1.0f;
-            _animator.SetTrigger(JumpAnim);
-            while (_animator.AnimatorIsPlaying(JumpAnimStateName) || !_grounded)
-            {
-                yield return null;
-            }
-
-            _jumping = false;
         }
 
         private void Update()
         {
-            var moveHorizontally = false;
+            var _attacking = Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space);
+            var _jumping = Input.GetKey(KeyCode.UpArrow);
             var horizontal = Input.GetAxis("Horizontal");
-            if (horizontal < 0)
-            {
-                if (_facingDirection > 0)
-                {
-                    _spriteRenderer.flipX = true;
-                }
-                _facingDirection = -1;
-                moveHorizontally = true;
-            }
-            else if (horizontal > 0)
-            {
-                if (_facingDirection < 0)
-                {
-                    _spriteRenderer.flipX = false;
-                }
-                _facingDirection = 1;
-                moveHorizontally = true;
-            }
-            
-            if (moveHorizontally)
-            {
-                StartCoroutine(State.Move(horizontal * Vector2.right * _gameProps.playerSpeed));
-            }
-            else if (State != null)
-            {
-                StartCoroutine(State.Idle());
-            } 
-            
-            if (Input.GetKey(KeyCode.UpArrow))
-            {
-                StartCoroutine(State.Jump(Vector2.up * 1.0f));
-            }
+            _moving = horizontal < 0 || horizontal > 0;
 
-
-#if false
-            if (_attacking)
-            {
-                return;
-            }
-            var moveHorizontally = false;
-            var horizontal = Input.GetAxis("Horizontal");
-            if (horizontal < 0)
-            {
-                if (_facingDirection > 0)
-                {
-                    _spriteRenderer.flipX = true;
-                }
-                _facingDirection = -1;
-                moveHorizontally = true;
-            }
-            else if (horizontal > 0)
-            {
-                if (_facingDirection < 0)
-                {
-                    _spriteRenderer.flipX = false;
-                }
-                _facingDirection = 1;
-                moveHorizontally = true;
-            }
-
-            if (Input.GetKey(KeyCode.UpArrow))
-            {
-                StartCoroutine(Jump());
-            }
-
-            if (moveHorizontally)
-            {
-                _animator.SetInteger(AnimState, 1);
-                _rigidbody2D.MovePosition(_rigidbody2D.position + horizontal * Vector2.right * _gameProps.playerSpeed);
-            }
-            else
-            {
-                _animator.SetInteger(AnimState, 0);
-            }
-
-            var attack = Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space);
-
-            if (attack)
-            {
-                StartCoroutine(Attack());
-            }
-#endif
+            _idle = !_attacking && !_jumping && !_moving;
         }
     }
 }
