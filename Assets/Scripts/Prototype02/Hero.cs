@@ -37,9 +37,12 @@ namespace Prototype02
         public Rigidbody2D Rigidbody2D => _rigidbody2D;
         public SpriteRenderer SpriteRenderer => _spriteRenderer;
         public CollisionSensor GroundCollisionSensor => _groundCollisionSensor;
-
+        
+        public bool CollidingWithEnemy => _rightCollisionSensor.CollidingWithEnemy;
         public bool Moving => _moving;
         public bool Idle => _idle;
+        public bool Jumping => _jumping;
+        public bool Attacking => _attacking;
 
         private void Awake()
         {
@@ -59,24 +62,17 @@ namespace Prototype02
             if (!_grounded && _groundCollisionSensor.Colliding)
             {
                 _grounded = true;
-                //SetState(new GroundedState());
             }
             else if (_grounded && !_groundCollisionSensor.Colliding)
             {
                 _grounded = false;
-                // SetState(new FallingState());
-            }
-
-            if (_rightCollisionSensor.CollidingWithEnemy)
-            {
-                // StartCoroutine(State.GetHurt(_rigidbody2D.position - Vector2.right * (_facingDirection * _gameProps.playerSpeed)));
             }
         }
 
         private void Update()
         {
-            var _attacking = Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space);
-            var _jumping = Input.GetKey(KeyCode.UpArrow);
+            _attacking = Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space);
+            _jumping = Input.GetKey(KeyCode.UpArrow);
             var horizontal = Input.GetAxis("Horizontal");
             _moving = horizontal < 0 || horizontal > 0;
 

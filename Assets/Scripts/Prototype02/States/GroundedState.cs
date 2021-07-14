@@ -13,7 +13,6 @@ namespace Prototype02.States
         private bool _attacking;
         private int _facingDirection;
 
-
         public GroundedState()
         {
             _animator = Hero.Instance.Animator;
@@ -41,7 +40,6 @@ namespace Prototype02.States
         public override IEnumerator Move()
         {
             _animator.SetInteger(AnimStates.AnimStateId, 1);
-            
             var horizontal = Input.GetAxis("Horizontal");
             while (horizontal > 0 || horizontal < 0)
             {
@@ -125,6 +123,118 @@ namespace Prototype02.States
         public override IEnumerator Idle()
         {
             _animator.SetInteger(AnimStates.AnimStateId, 0);
+            var inAttackState = false;
+            var inJumpingState = false;
+            while (true)
+            {
+                yield return null;
+                if (_hero.Attacking && !inAttackState)
+                {
+                    inAttackState = true;
+                    _animator.SetTrigger(AnimStates.Attack1StateId);
+                    while (_animator.AnimatorIsPlaying(AnimStates.AttackAnimStateName))
+                    {
+                        yield return null;
+                    }
+                    inAttackState = false;
+                }
+                else if (_hero.Jumping && !inJumpingState)
+                {
+                    inJumpingState = true;
+                    _hero.Rigidbody2D.velocity += new Vector2(0, 4.0f);
+                    _animator.SetTrigger(AnimStates.JumpStateId);
+                    _animator.SetBool(AnimStates.GroundedAnimId, false);
+                    yield return new WaitForFixedUpdate();
+                    while (_hero.Rigidbody2D.velocity.y > 0.0f)
+                    {
+                        if (_hero.Moving)
+                        {
+                            var horizontal = Input.GetAxis("Horizontal");
+                            if (horizontal < 0)
+                            {
+                                if (_facingDirection > 0)
+                                {
+                                    _spriteRenderer.flipX = true;
+                                }
+                                _facingDirection = -1;
+                            }
+                            else if (horizontal > 0)
+                            {
+                                if (_facingDirection < 0)
+                                {
+                                    _spriteRenderer.flipX = false;
+                                }
+                                _facingDirection = 1;
+                            }
+                            _hero.Rigidbody2D.velocity += new Vector2(horizontal * 0.1f, 0.0f);
+                        }
+                        yield return null;
+                    }
+                    
+                    _animator.SetFloat(AnimStates.AirSpeedYAnimId, -1.0f);
+                    while (!_hero.IsGrounded)
+                    {
+                        if (_hero.Moving)
+                        {
+                            var horizontal = Input.GetAxis("Horizontal");
+                            if (horizontal < 0)
+                            {
+                                if (_facingDirection > 0)
+                                {
+                                    _spriteRenderer.flipX = true;
+                                }
+                                _facingDirection = -1;
+                            }
+                            else if (horizontal > 0)
+                            {
+                                if (_facingDirection < 0)
+                                {
+                                    _spriteRenderer.flipX = false;
+                                }
+                                _facingDirection = 1;
+                            }
+                            _hero.Rigidbody2D.velocity += new Vector2(horizontal * 0.1f, 0.0f);
+                        }
+                        yield return null;
+                    }
+                    _hero.Rigidbody2D.velocity = Vector2.zero;
+                    _animator.SetFloat(AnimStates.AirSpeedYAnimId, 0);
+                    _animator.SetBool(AnimStates.GroundedAnimId, true);
+                    inJumpingState = false;
+                }
+                else if (_hero.Moving)
+                {
+                    _animator.SetInteger(AnimStates.AnimStateId, 1);
+                    var horizontal = Input.GetAxis("Horizontal");
+                    while (horizontal > 0 || horizontal < 0)
+                    {
+                        if (horizontal < 0)
+                        {
+                            if (_facingDirection > 0)
+                            {
+                                _spriteRenderer.flipX = true;
+                            }
+                            _facingDirection = -1;
+                        }
+                        else if (horizontal > 0)
+                        {
+                            if (_facingDirection < 0)
+                            {
+                                _spriteRenderer.flipX = false;
+                            }
+                            _facingDirection = 1;
+                        }
+                        yield return null;
+                        horizontal = Input.GetAxis("Horizontal");
+                        _hero.Rigidbody2D.velocity += new Vector2(horizontal * 0.1f, 0.0f);
+                    }
+                    _animator.SetInteger(AnimStates.AnimStateId, 0);
+                }
+                else if (_hero.CollidingWithEnemy)
+                {
+                    
+                }
+            }
             yield break;
         }
     }

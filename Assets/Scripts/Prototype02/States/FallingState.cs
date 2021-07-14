@@ -6,7 +6,6 @@ namespace Prototype02
 {
     public class FallingState : State
     {
-
         private Animator _animator;
         private Hero _hero;
 
