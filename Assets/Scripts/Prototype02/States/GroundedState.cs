@@ -5,6 +5,8 @@ namespace Prototype02.States
 {
     public class GroundedState : State
     {
+        public float HorizontalMovementSpeed = 4.0f;
+        
         private Animator _animator;
         private Hero _hero;
         private SpriteRenderer _spriteRenderer;
@@ -141,7 +143,7 @@ namespace Prototype02.States
                 else if (_hero.Jumping && !inJumpingState)
                 {
                     inJumpingState = true;
-                    _hero.Rigidbody2D.velocity += new Vector2(0, 4.0f);
+                    _hero.Rigidbody2D.velocity = new Vector2(_hero.Rigidbody2D.velocity.x, 4.0f);
                     _animator.SetTrigger(AnimStates.JumpStateId);
                     _animator.SetBool(AnimStates.GroundedAnimId, false);
                     yield return new WaitForFixedUpdate();
@@ -166,9 +168,10 @@ namespace Prototype02.States
                                 }
                                 _facingDirection = 1;
                             }
-                            _hero.Rigidbody2D.velocity += new Vector2(horizontal * 0.1f, 0.0f);
+
+                            _hero.Rigidbody2D.velocity = new Vector2(horizontal * HorizontalMovementSpeed, _hero.Rigidbody2D.velocity.y);
                         }
-                        yield return null;
+                        yield return new WaitForFixedUpdate();
                     }
                     
                     _animator.SetFloat(AnimStates.AirSpeedYAnimId, -1.0f);
@@ -193,9 +196,9 @@ namespace Prototype02.States
                                 }
                                 _facingDirection = 1;
                             }
-                            _hero.Rigidbody2D.velocity += new Vector2(horizontal * 0.1f, 0.0f);
+                            _hero.Rigidbody2D.velocity = new Vector2(horizontal * HorizontalMovementSpeed, _hero.Rigidbody2D.velocity.y);
                         }
-                        yield return null;
+                        yield return new WaitForFixedUpdate();
                     }
                     _hero.Rigidbody2D.velocity = Vector2.zero;
                     _animator.SetFloat(AnimStates.AirSpeedYAnimId, 0);
@@ -224,9 +227,16 @@ namespace Prototype02.States
                             }
                             _facingDirection = 1;
                         }
-                        yield return null;
+                        var velocity = new Vector2(horizontal * HorizontalMovementSpeed, _hero.Rigidbody2D.velocity.y);
+                        if (_hero.Jumping)
+                        {
+                            velocity = new Vector2(velocity.x, 4.0f);
+                            _hero.Rigidbody2D.velocity = velocity;
+                            break;
+                        }
+                        _hero.Rigidbody2D.velocity = velocity;
                         horizontal = Input.GetAxis("Horizontal");
-                        _hero.Rigidbody2D.velocity += new Vector2(horizontal * 0.1f, 0.0f);
+                        yield return new WaitForFixedUpdate();
                     }
                     _animator.SetInteger(AnimStates.AnimStateId, 0);
                 }
