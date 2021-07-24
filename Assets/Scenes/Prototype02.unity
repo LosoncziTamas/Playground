@@ -553,12 +553,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1156519916}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31153a1a237d4a2ab798f31511a011d4, type: 3}
+  m_Script: {fileID: 11500000, guid: ffa987b64e724e738c5e4e621e816e0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _groundCollisionSensor: {fileID: 1334311020}
-  _rightCollisionSensor: {fileID: 2255719826773313985}
-  _gameProps: {fileID: 11400000, guid: 9f4950132134e4d69bf49f039c5b8584, type: 2}
+  _heroData: {fileID: 11400000, guid: eded0512c379849ed932e875fbc2c67f, type: 2}
 --- !u!4 &1334311019 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2255719826976627920, guid: bf610fc982aa0459799c922a2acc25b1, type: 3}
@@ -883,17 +882,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 80284e00227ff4cd1acddc02e0344ea1, type: 3}
---- !u!114 &2255719826773313985 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6628241944622247509, guid: e3635311af5474a6dbb12098bdbe5068, type: 3}
-  m_PrefabInstance: {fileID: 4949970379002914708}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d90d28a2f37549c0a4ddda5d49c179fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &2255719826773313990 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6628241944622247506, guid: e3635311af5474a6dbb12098bdbe5068, type: 3}

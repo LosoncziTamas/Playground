@@ -8,11 +8,11 @@ namespace Prototype02
     {
         public float Speed = 1.0f;
         private Rigidbody2D _rigidbody2D;
-        private Hero _hero;
+        private HeroController _hero;
         
         private void Start()
         {
-            _hero = Hero.Instance;
+            _hero = HeroController.Instance;
             _rigidbody2D = GetComponent<Rigidbody2D>();
         }
 
