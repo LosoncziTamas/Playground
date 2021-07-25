@@ -24,6 +24,10 @@ namespace Prototype02.New
             {
                 heroStateMachine.ChangeState(heroController.HeroJumpState);
             }
+            else if (heroController.Moving)
+            {
+                heroStateMachine.ChangeState(heroController.HeroMoveState);
+            }
         }
 
         public override void PhysicsUpdate()

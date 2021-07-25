@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace Prototype02.New
 {
     public class HeroFallingState : HeroState
@@ -24,15 +26,18 @@ namespace Prototype02.New
         public override void LogicUpdate()
         {
             base.LogicUpdate();
+            heroController.FlipSpriteOnDirectionChange(Input.GetAxis("Horizontal"));
+            if (heroController.IsGrounded)
+            {
+                heroStateMachine.ChangeState(heroController.HeroIdleState);
+            }
         }
 
         public override void PhysicsUpdate()
         {
             base.PhysicsUpdate();
-            if (heroController.IsGrounded)
-            {
-                heroStateMachine.ChangeState(heroController.HeroIdleState);
-            }
+            var horizontal = Input.GetAxis("Horizontal");
+            heroController.Rigidbody2D.velocity = new Vector2(horizontal * heroData.horizontalMovementSpeed, heroController.Rigidbody2D.velocity.y);
         }
     }
 }

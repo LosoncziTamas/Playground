@@ -6,5 +6,7 @@ namespace Prototype02.New
     public class HeroData : ScriptableObject
     {
         public float playerSpeed;
+        public float horizontalMovementSpeed;
+        public float jumpVelocityY;
     }
 }
