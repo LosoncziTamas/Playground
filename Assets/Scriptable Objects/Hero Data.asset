@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerSpeed: 4
   horizontalMovementSpeed: 4
-  jumpVelocityY: 4
-  attackDurationInSeconds: 0.5
+  jumpVelocityY: 5
+  attackDurationInSeconds: 0.4

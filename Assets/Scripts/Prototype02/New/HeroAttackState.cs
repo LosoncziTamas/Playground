@@ -59,6 +59,18 @@ namespace Prototype02.New
                     heroStateMachine.ChangeState(heroController.HeroFallingState);
                 }
             }
+            else
+            {
+                if (heroController.HeroFacingDirection == HeroController.FacingDirection.Right && heroController.EnemyWithinRightHitBox)
+                {
+                    Debug.Log("[HeroAttackState] enemy hit");
+                } 
+                else if (heroController.HeroFacingDirection == HeroController.FacingDirection.Left &&
+                         heroController.EnemyWithinLeftHitBox)
+                {
+                    Debug.Log("[HeroAttackState] enemy hit");
+                }
+            }
         }
 
         public override void PhysicsUpdate()

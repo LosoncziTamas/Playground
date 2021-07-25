@@ -16,12 +16,10 @@ namespace Prototype02
         
         public Animator Animator => _animator;
         public Rigidbody2D Rigidbody2D => _rigidbody2D;
-        public SpriteRenderer SpriteRenderer => _spriteRenderer;
-        public bool IsGrounded { get; private set; }
-
-        public CollisionSensor GroundCollisionSensor => _groundCollisionSensor;
-
+        
         [SerializeField] private CollisionSensor _groundCollisionSensor;
+        [SerializeField] private CollisionSensor _attackSensorRight;
+        [SerializeField] private CollisionSensor _attackSensorLeft;
         [SerializeField] private HeroData _heroData;
         
         private Animator _animator;
@@ -39,6 +37,9 @@ namespace Prototype02
         public bool Jumping { get; private set; }
         public bool Moving { get; private set; }
         public bool Attacking { get; private set; }
+        public bool IsGrounded { get; private set; }
+        public bool EnemyWithinRightHitBox => _attackSensorRight.CollidingWithEnemy;
+        public bool EnemyWithinLeftHitBox => _attackSensorLeft.CollidingWithEnemy;
 
         private void Awake()
         {
@@ -97,7 +98,7 @@ namespace Prototype02
             {
                 if (HeroFacingDirection == FacingDirection.Right)
                 {
-                    SpriteRenderer.flipX = true;
+                    _spriteRenderer.flipX = true;
                 }
                 HeroFacingDirection = FacingDirection.Left;
             }
@@ -105,7 +106,7 @@ namespace Prototype02
             {
                 if (HeroFacingDirection == FacingDirection.Left)
                 {
-                    SpriteRenderer.flipX = false;
+                    _spriteRenderer.flipX = false;
                 }
                 HeroFacingDirection = FacingDirection.Right;
             }
