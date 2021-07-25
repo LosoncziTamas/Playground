@@ -14,19 +14,14 @@ namespace Prototype02
         
         public static HeroController Instance { get; private set; }
         
-        public Animator Animator => _animator;
-        public Rigidbody2D Rigidbody2D => _rigidbody2D;
-        
         [SerializeField] private CollisionSensor _groundCollisionSensor;
         [SerializeField] private CollisionSensor _attackSensorRight;
         [SerializeField] private CollisionSensor _attackSensorLeft;
         [SerializeField] private CollisionSensor _hurtSensor;
         [SerializeField] private HeroData _heroData;
         
-        private Animator _animator;
-        private SpriteRenderer _spriteRenderer;
-        private Rigidbody2D _rigidbody2D;
-
+        public Animator Animator { get; private set; }
+        public Rigidbody2D Rigidbody2D { get; private set; }
         public FacingDirection HeroFacingDirection { get; set; } = FacingDirection.Right;
         public HeroStateMachine HeroStateMachine { get; private set; }
         public HeroFallingState HeroFallingState { get; private set; }
@@ -46,13 +41,15 @@ namespace Prototype02
 
         public Collider2D LastEnemyCollider => _hurtSensor.LastEnemyCollider;
 
+        private SpriteRenderer _spriteRenderer;
+
         private void Awake()
         {
             Instance = this;
             
-            _animator = GetComponent<Animator>();
+            Animator = GetComponent<Animator>();
             _spriteRenderer = GetComponent<SpriteRenderer>();
-            _rigidbody2D = GetComponent<Rigidbody2D>();
+            Rigidbody2D = GetComponent<Rigidbody2D>();
 
             HeroStateMachine = new HeroStateMachine();
             

@@ -571,21 +571,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 71025017885779828, guid: 80284e00227ff4cd1acddc02e0344ea1, type: 3}
-      propertyPath: m_Mass
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 71025017885779828, guid: 80284e00227ff4cd1acddc02e0344ea1, type: 3}
-      propertyPath: m_Constraints
-      value: 7
-      objectReference: {fileID: 0}
     - target: {fileID: 71025017885779830, guid: 80284e00227ff4cd1acddc02e0344ea1, type: 3}
       propertyPath: m_Name
       value: Zombie
-      objectReference: {fileID: 0}
-    - target: {fileID: 71025017885779830, guid: 80284e00227ff4cd1acddc02e0344ea1, type: 3}
-      propertyPath: m_Layer
-      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 71025017885779834, guid: 80284e00227ff4cd1acddc02e0344ea1, type: 3}
       propertyPath: m_RootOrder
@@ -593,11 +581,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 71025017885779834, guid: 80284e00227ff4cd1acddc02e0344ea1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 71025017885779834, guid: 80284e00227ff4cd1acddc02e0344ea1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.5
+      value: -4
       objectReference: {fileID: 0}
     - target: {fileID: 71025017885779834, guid: 80284e00227ff4cd1acddc02e0344ea1, type: 3}
       propertyPath: m_LocalPosition.z
