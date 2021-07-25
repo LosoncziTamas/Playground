@@ -13,7 +13,10 @@ namespace Prototype02.New
             base.Enter();
             heroController.Animator.SetTrigger(AnimStates.JumpStateId);
             heroController.Animator.SetBool(AnimStates.GroundedAnimId, false);
-            heroController.Rigidbody2D.velocity = new Vector2(heroController.Rigidbody2D.velocity.x, heroData.jumpVelocityY);
+            if (!(heroController.Rigidbody2D.velocity.y > 0))
+            {
+                heroController.Rigidbody2D.velocity = new Vector2(heroController.Rigidbody2D.velocity.x, heroData.jumpVelocityY);
+            }
         }
 
         public override void Exit()
@@ -31,7 +34,10 @@ namespace Prototype02.New
             {
                 heroStateMachine.ChangeState(heroController.HeroFallingState);
             }
-            
+            if (heroController.Attacking)
+            {
+                heroStateMachine.ChangeState(heroController.HeroAttackState);
+            }
         }
 
         public override void PhysicsUpdate()

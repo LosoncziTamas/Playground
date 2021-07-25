@@ -31,6 +31,10 @@ namespace Prototype02.New
             {
                 heroStateMachine.ChangeState(heroController.HeroIdleState);
             }
+            else if (heroController.Attacking)
+            {
+                heroStateMachine.ChangeState(heroController.HeroAttackState);
+            }
         }
 
         public override void PhysicsUpdate()

@@ -8,5 +8,6 @@ namespace Prototype02.New
         public float playerSpeed;
         public float horizontalMovementSpeed;
         public float jumpVelocityY;
+        public float attackDurationInSeconds;
     }
 }

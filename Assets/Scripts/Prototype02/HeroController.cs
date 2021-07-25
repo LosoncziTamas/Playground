@@ -10,14 +10,15 @@ namespace Prototype02
         {
             Left = -1,
             Right = 1
-        };
+        }
         
         public static HeroController Instance { get; private set; }
         
         public Animator Animator => _animator;
         public Rigidbody2D Rigidbody2D => _rigidbody2D;
         public SpriteRenderer SpriteRenderer => _spriteRenderer;
-        public bool IsGrounded => _grounded;
+        public bool IsGrounded { get; private set; }
+
         public CollisionSensor GroundCollisionSensor => _groundCollisionSensor;
 
         [SerializeField] private CollisionSensor _groundCollisionSensor;
@@ -33,12 +34,12 @@ namespace Prototype02
         public HeroJumpState HeroJumpState { get; private set; }
         public HeroIdleState HeroIdleState { get; private set; }
         public HeroMoveState HeroMoveState { get; private set; }
+        public HeroAttackState HeroAttackState { get; private set; }
         
         public bool Jumping { get; private set; }
         public bool Moving { get; private set; }
+        public bool Attacking { get; private set; }
 
-        private bool _grounded;
-        
         private void Awake()
         {
             Instance = this;
@@ -48,15 +49,17 @@ namespace Prototype02
             _rigidbody2D = GetComponent<Rigidbody2D>();
 
             HeroStateMachine = new HeroStateMachine();
+            
             HeroFallingState = new HeroFallingState(this, _heroData, HeroStateMachine);
             HeroIdleState = new HeroIdleState(this, _heroData, HeroStateMachine);
             HeroJumpState = new HeroJumpState(this, _heroData, HeroStateMachine);
             HeroMoveState = new HeroMoveState(this, _heroData, HeroStateMachine);
+            HeroAttackState = new HeroAttackState(this, _heroData, HeroStateMachine);
         }
 
         private void Start()
         {
-            if (!_grounded)
+            if (!IsGrounded)
             {
                 HeroStateMachine.Initialize(HeroFallingState);
             }
@@ -68,13 +71,13 @@ namespace Prototype02
 
         private void FixedUpdate()
         {
-            if (!_grounded && _groundCollisionSensor.Colliding)
+            if (!IsGrounded && _groundCollisionSensor.Colliding)
             {
-                _grounded = true;
+                IsGrounded = true;
             }
-            else if (_grounded && !_groundCollisionSensor.Colliding)
+            else if (IsGrounded && !_groundCollisionSensor.Colliding)
             {
-                _grounded = false;
+                IsGrounded = false;
             }
             
             HeroStateMachine.CurrentState.PhysicsUpdate();
@@ -85,6 +88,7 @@ namespace Prototype02
             HeroStateMachine.CurrentState.LogicUpdate();
             Jumping = Input.GetKey(KeyCode.UpArrow);
             Moving = Mathf.Abs(Input.GetAxis("Horizontal")) > 0f;
+            Attacking = Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space);
         }
 
         public void FlipSpriteOnDirectionChange(float horizontal)

@@ -105,7 +105,7 @@ namespace Prototype02.States
 
             _attacking = true;
             _animator.SetTrigger(AnimStates.Attack1StateId);
-            while (_animator.AnimatorIsPlaying(AnimStates.AttackAnimStateName))
+            while (_animator.AnimatorIsPlaying(AnimStates.Attack1AnimStateName))
             {
                 yield return null;
             }
@@ -134,7 +134,7 @@ namespace Prototype02.States
                 {
                     inAttackState = true;
                     _animator.SetTrigger(AnimStates.Attack1StateId);
-                    while (_animator.AnimatorIsPlaying(AnimStates.AttackAnimStateName))
+                    while (_animator.AnimatorIsPlaying(AnimStates.Attack1AnimStateName))
                     {
                         yield return null;
                     }
