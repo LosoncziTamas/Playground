@@ -16,3 +16,5 @@ MonoBehaviour:
   horizontalMovementSpeed: 4
   jumpVelocityY: 5
   attackDurationInSeconds: 0.4
+  hurtDurationInSeconds: 0.6
+  hurtBackOffX: 1

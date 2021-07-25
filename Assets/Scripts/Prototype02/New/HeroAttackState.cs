@@ -5,7 +5,8 @@ namespace Prototype02.New
     public class HeroAttackState : HeroState
     {
 
-        private int _attackAnimIndex = 0;
+        private int _attackAnimIndex;
+        
         public HeroAttackState(HeroController heroController, HeroData heroData, HeroStateMachine heroStateMachine) : base(heroController, heroData, heroStateMachine)
         {
         }

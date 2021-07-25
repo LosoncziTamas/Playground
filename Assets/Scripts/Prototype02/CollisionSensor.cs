@@ -8,22 +8,36 @@ namespace Prototype02
         public const string EnemyTag = "Enemy";
         
         private int _colliderCount = 0;
-        private bool _collidingWithEnemy;
+        private int _enemyColliderCount = 0;
 
         public bool Colliding => _colliderCount > 0;
 
-        public bool CollidingWithEnemy => _collidingWithEnemy;
+        public bool CollidingWithEnemy => _enemyColliderCount > 0;
+        
+        public Collider2D LastEnemyCollider { get; private set; }
 
         private void OnTriggerEnter2D(Collider2D other)
         {
             _colliderCount++;
-            _collidingWithEnemy = other.CompareTag(EnemyTag);
+            if (other.CompareTag(EnemyTag))
+            {
+                _enemyColliderCount++;
+                LastEnemyCollider = other;
+            }
         }
 
         private void OnTriggerExit2D(Collider2D other)
         {
             _colliderCount--;
-            _collidingWithEnemy = false;
+            if (other.CompareTag(EnemyTag))
+            {
+                _enemyColliderCount--;
+            }
+
+            if (_enemyColliderCount == 0)
+            {
+                LastEnemyCollider = null;
+            }
         }
     }
 }

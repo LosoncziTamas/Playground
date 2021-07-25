@@ -20,6 +20,7 @@ namespace Prototype02
         [SerializeField] private CollisionSensor _groundCollisionSensor;
         [SerializeField] private CollisionSensor _attackSensorRight;
         [SerializeField] private CollisionSensor _attackSensorLeft;
+        [SerializeField] private CollisionSensor _hurtSensor;
         [SerializeField] private HeroData _heroData;
         
         private Animator _animator;
@@ -33,6 +34,7 @@ namespace Prototype02
         public HeroIdleState HeroIdleState { get; private set; }
         public HeroMoveState HeroMoveState { get; private set; }
         public HeroAttackState HeroAttackState { get; private set; }
+        public HeroHurtState HeroHurtState { get; private set; }
         
         public bool Jumping { get; private set; }
         public bool Moving { get; private set; }
@@ -40,6 +42,9 @@ namespace Prototype02
         public bool IsGrounded { get; private set; }
         public bool EnemyWithinRightHitBox => _attackSensorRight.CollidingWithEnemy;
         public bool EnemyWithinLeftHitBox => _attackSensorLeft.CollidingWithEnemy;
+        public bool BeingHurt => _hurtSensor.CollidingWithEnemy;
+
+        public Collider2D LastEnemyCollider => _hurtSensor.LastEnemyCollider;
 
         private void Awake()
         {
@@ -56,6 +61,7 @@ namespace Prototype02
             HeroJumpState = new HeroJumpState(this, _heroData, HeroStateMachine);
             HeroMoveState = new HeroMoveState(this, _heroData, HeroStateMachine);
             HeroAttackState = new HeroAttackState(this, _heroData, HeroStateMachine);
+            HeroHurtState = new HeroHurtState(this, _heroData, HeroStateMachine);
         }
 
         private void Start()

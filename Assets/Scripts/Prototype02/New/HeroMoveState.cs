@@ -45,6 +45,10 @@ namespace Prototype02.New
             base.PhysicsUpdate();
             var horizontal = Input.GetAxis("Horizontal");
             heroController.Rigidbody2D.velocity = new Vector2(horizontal * heroData.horizontalMovementSpeed, heroController.Rigidbody2D.velocity.y);
+            if (heroController.BeingHurt)
+            {
+                heroStateMachine.ChangeState(heroController.HeroHurtState);
+            }
         }
     }
 }
