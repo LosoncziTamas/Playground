@@ -10,6 +10,7 @@ namespace Prototype02.Zombie
         public Animator Animator { get; private set; }
         public ZombieStateMachine ZombieStateMachine { get; private set; }
         public ZombieSpawnState ZombieSpawnState { get; private set; }
+        public ZombieMoveState ZombieMoveState { get; private set; }
 
         [SerializeField] private ZombieData _zombieData;
         
@@ -22,12 +23,23 @@ namespace Prototype02.Zombie
             
             ZombieStateMachine = new ZombieStateMachine();
             ZombieSpawnState = new ZombieSpawnState(this, _zombieData, ZombieStateMachine);
+            ZombieMoveState = new ZombieMoveState(this, _zombieData, ZombieStateMachine);
         }
 
         private void Start()
         {
             _hero = HeroController.Instance;
             ZombieStateMachine.Initialize(ZombieSpawnState);
+        }
+
+        private void Update()
+        {
+            ZombieStateMachine.CurrentState.LogicUpdate();
+        }
+
+        private void FixedUpdate()
+        {
+            ZombieStateMachine.CurrentState.PhysicsUpdate();
         }
     }
 }

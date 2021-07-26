@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace Prototype02.Zombie
 {
     public class ZombieSpawnState : ZombieState
@@ -20,6 +22,10 @@ namespace Prototype02.Zombie
         public override void LogicUpdate()
         {
             base.LogicUpdate();
+            if (Time.time - startTime > zombieData.spawnDurationInSeconds)
+            {
+                zombieStateMachine.ChangeState(zombieController.ZombieMoveState);
+            }
         }
 
         public override void PhysicsUpdate()

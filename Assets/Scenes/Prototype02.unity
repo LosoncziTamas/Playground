@@ -241,6 +241,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Zombie
       objectReference: {fileID: 0}
+    - target: {fileID: 71025017885779833, guid: 80284e00227ff4cd1acddc02e0344ea1, type: 3}
+      propertyPath: _zombieData
+      value: 
+      objectReference: {fileID: 11400000, guid: e7d2b533f65d6438e856e1d83834aa1c, type: 2}
     - target: {fileID: 71025017885779834, guid: 80284e00227ff4cd1acddc02e0344ea1, type: 3}
       propertyPath: m_RootOrder
       value: 2
