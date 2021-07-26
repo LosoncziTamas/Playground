@@ -38,6 +38,10 @@ namespace Prototype02.New
             {
                 heroStateMachine.ChangeState(heroController.HeroAttackState);
             }
+            if (heroController.BeingHurt)
+            {
+                heroStateMachine.ChangeState(heroController.HeroHurtState);
+            }
         }
 
         public override void PhysicsUpdate()

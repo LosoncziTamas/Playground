@@ -14,3 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnDurationInSeconds: 0.6
   walkSpeed: 0.1
+  zombieAttackDurationInSeconds: 0.9
+  zombieAttackStart: 0.35
+  zombieAttackEnd: 0.5
+  zombieAttackDistance: 2

@@ -22,14 +22,18 @@ namespace Prototype02.Zombie
         public override void LogicUpdate()
         {
             base.LogicUpdate();
+            var offset = HeroController.Instance.transform.position - zombieController.transform.position;
+            zombieController.FlipSpriteOnDirectionChange(offset.x);
+            if (HeroController.Instance.IsGrounded && Mathf.Abs(offset.x) < zombieData.zombieAttackDistance)
+            {
+                zombieStateMachine.ChangeState(zombieController.ZombieAttackState);
+            }
         }
 
         public override void PhysicsUpdate()
         {
             base.PhysicsUpdate();
             var targetPos = HeroController.Instance.transform.position;
-            // TODO: flip sprite accordingly
-            
             var movePos = Vector2.MoveTowards(zombieController.transform.position, targetPos, Time.deltaTime * zombieData.walkSpeed);
             zombieController.transform.position = movePos;
         }

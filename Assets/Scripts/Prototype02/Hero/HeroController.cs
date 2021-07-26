@@ -1,4 +1,3 @@
-using System;
 using Prototype02.New;
 using UnityEngine;
 
@@ -6,12 +5,6 @@ namespace Prototype02
 {
     public class HeroController : MonoBehaviour
     {
-        public enum FacingDirection
-        {
-            Left = -1,
-            Right = 1
-        }
-        
         public static HeroController Instance { get; private set; }
         
         [SerializeField] private CollisionSensor _groundCollisionSensor;

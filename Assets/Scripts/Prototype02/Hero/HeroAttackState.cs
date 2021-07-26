@@ -62,11 +62,11 @@ namespace Prototype02.New
             }
             else
             {
-                if (heroController.HeroFacingDirection == HeroController.FacingDirection.Right && heroController.EnemyWithinRightHitBox)
+                if (heroController.HeroFacingDirection == FacingDirection.Right && heroController.EnemyWithinRightHitBox)
                 {
                     Debug.Log("[HeroAttackState] enemy hit");
                 } 
-                else if (heroController.HeroFacingDirection == HeroController.FacingDirection.Left &&
+                else if (heroController.HeroFacingDirection == FacingDirection.Left &&
                          heroController.EnemyWithinLeftHitBox)
                 {
                     Debug.Log("[HeroAttackState] enemy hit");

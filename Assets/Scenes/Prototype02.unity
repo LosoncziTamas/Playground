@@ -241,10 +241,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Zombie
       objectReference: {fileID: 0}
-    - target: {fileID: 71025017885779833, guid: 80284e00227ff4cd1acddc02e0344ea1, type: 3}
-      propertyPath: _zombieData
-      value: 
-      objectReference: {fileID: 11400000, guid: e7d2b533f65d6438e856e1d83834aa1c, type: 2}
     - target: {fileID: 71025017885779834, guid: 80284e00227ff4cd1acddc02e0344ea1, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -289,10 +285,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 71025017885779835, guid: 80284e00227ff4cd1acddc02e0344ea1, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 80284e00227ff4cd1acddc02e0344ea1, type: 3}
 --- !u!1001 &328018262310377697
