@@ -24,12 +24,12 @@ namespace Prototype02.Zombie
             base.LogicUpdate();
             if (startTime + zombieData.zombieAttackStart <= Time.time && startTime + zombieData.zombieAttackEnd >= Time.time)
             {
-                zombieController.ZombieAttackCollider.gameObject.SetActive(true);
+                zombieController.ZombieAttackCollider.enabled = true;
                 zombieController.ZombieIdleCollider.enabled = false;
             }
             else
             {
-                zombieController.ZombieAttackCollider.gameObject.SetActive(false);
+                zombieController.ZombieAttackCollider.enabled = false;
                 zombieController.ZombieIdleCollider.enabled = true;
             }
 

@@ -12,7 +12,7 @@ namespace Prototype02.New
         {
             base.Enter();
             heroController.Animator.SetTrigger(AnimStates.HurtAnimId);
-            var offset = heroController.LastEnemyCollider.transform.position - heroController.transform.position;
+            var offset = heroController.LastHurtCollider.transform.position - heroController.transform.position;
             if (offset.x > 0)
             {
                 heroController.Rigidbody2D.velocity = new Vector2(-1.0f * heroData.hurtBackOffX, heroController.Rigidbody2D.velocity.y);

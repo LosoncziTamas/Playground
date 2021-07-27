@@ -28,11 +28,12 @@ namespace Prototype02
         public bool Moving { get; private set; }
         public bool Attacking { get; private set; }
         public bool IsGrounded { get; private set; }
+        // TODO: use these for attack
         public bool EnemyWithinRightHitBox => _attackSensorRight.CollidingWithEnemy;
         public bool EnemyWithinLeftHitBox => _attackSensorLeft.CollidingWithEnemy;
         public bool BeingHurt => _hurtSensor.CollidingWithEnemy;
 
-        public Collider2D LastEnemyCollider => _hurtSensor.LastEnemyCollider;
+        public Collider2D LastHurtCollider => _hurtSensor.LastEnemyCollider;
 
         private SpriteRenderer _spriteRenderer;
 

@@ -1,3 +1,4 @@
+using Prototype02.Zombie;
 using UnityEngine;
 
 namespace Prototype02.New
@@ -64,12 +65,12 @@ namespace Prototype02.New
             {
                 if (heroController.HeroFacingDirection == FacingDirection.Right && heroController.EnemyWithinRightHitBox)
                 {
-                    Debug.Log("[HeroAttackState] enemy hit");
+                   
                 } 
                 else if (heroController.HeroFacingDirection == FacingDirection.Left &&
                          heroController.EnemyWithinLeftHitBox)
                 {
-                    Debug.Log("[HeroAttackState] enemy hit");
+                    
                 }
             }
         }

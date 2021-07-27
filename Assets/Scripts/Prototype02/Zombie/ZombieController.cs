@@ -15,6 +15,7 @@ namespace Prototype02.Zombie
         public ZombieSpawnState ZombieSpawnState { get; private set; }
         public ZombieMoveState ZombieMoveState { get; private set; }
         public ZombieAttackState ZombieAttackState { get; private set; }
+        public ZombieHurtState ZombieHurtState { get; private set; }
 
         [SerializeField] private ZombieData _zombieData;
         [SerializeField] private Collider2D _zombieAttackCollider;
@@ -32,6 +33,7 @@ namespace Prototype02.Zombie
             ZombieSpawnState = new ZombieSpawnState(this, _zombieData, ZombieStateMachine);
             ZombieMoveState = new ZombieMoveState(this, _zombieData, ZombieStateMachine);
             ZombieAttackState = new ZombieAttackState(this, _zombieData, ZombieStateMachine);
+            ZombieHurtState = new ZombieHurtState(this, _zombieData, ZombieStateMachine);
         }
 
         private void Start()
@@ -67,6 +69,11 @@ namespace Prototype02.Zombie
                 }
                 ZombieFacingDirection = FacingDirection.Right;
             }
+        }
+
+        public void OnHit()
+        {
+            ZombieStateMachine.ChangeState(ZombieHurtState);
         }
     }
 }

@@ -15,6 +15,7 @@ MonoBehaviour:
   spawnDurationInSeconds: 0.6
   walkSpeed: 0.1
   zombieAttackDurationInSeconds: 0.9
-  zombieAttackStart: 0.35
+  zombieAttackStart: 0.4
   zombieAttackEnd: 0.5
-  zombieAttackDistance: 2
+  zombieAttackDistance: 1
+  zombieHurtDuration: 0.2
