@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Prototype02
@@ -13,7 +14,6 @@ namespace Prototype02
         public bool Colliding => _colliderCount > 0;
 
         public bool CollidingWithEnemy => _enemyColliderCount > 0;
-        
         public Collider2D LastEnemyCollider { get; private set; }
 
         private void OnTriggerEnter2D(Collider2D other)

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Prototype02.Zombie;
 using UnityEngine;
 
@@ -5,7 +6,7 @@ namespace Prototype02.New
 {
     public class HeroAttackState : HeroState
     {
-
+        // TODO: hurt while attacked
         private int _attackAnimIndex;
         
         public HeroAttackState(HeroController heroController, HeroData heroData, HeroStateMachine heroStateMachine) : base(heroController, heroData, heroStateMachine)
@@ -63,17 +64,35 @@ namespace Prototype02.New
             }
             else
             {
-                if (heroController.HeroFacingDirection == FacingDirection.Right && heroController.EnemyWithinRightHitBox)
+                HitEnemiesWithinHitBoxes();
+            }
+        }
+
+        private void HitEnemiesWithinHitBoxes()
+        {
+            var enemies = new List<Collider2D>();
+            
+            switch (heroController.HeroFacingDirection)
+            {
+                case FacingDirection.Right when heroController.EnemyWithinRightHitBox:
+                    enemies.AddRange(heroController.GetEnemiesFromHitBox(FacingDirection.Right));
+                    break;
+                case FacingDirection.Left when heroController.EnemyWithinLeftHitBox:
+                    enemies.AddRange(heroController.GetEnemiesFromHitBox(FacingDirection.Left));
+                    break;
+            }
+
+            for (var index = 0; index < enemies.Count; index++)
+            {
+                var enemy = enemies[index];
+                var zombieController = enemy.GetComponent<ZombieController>();
+                if (zombieController.ZombieStateMachine.CurrentState != zombieController.ZombieHurtState)
                 {
-                   
-                } 
-                else if (heroController.HeroFacingDirection == FacingDirection.Left &&
-                         heroController.EnemyWithinLeftHitBox)
-                {
-                    
+                    zombieController.ZombieStateMachine.ChangeState(zombieController.ZombieHurtState);
                 }
             }
         }
+        
 
         public override void PhysicsUpdate()
         {

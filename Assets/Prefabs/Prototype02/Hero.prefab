@@ -80,7 +80,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1511530149248812760}
   - component: {fileID: 1511530149248812762}
-  - component: {fileID: 1511530149248812763}
+  - component: {fileID: 3392832606519862316}
   m_Layer: 0
   m_Name: AttackSensorLeft
   m_TagString: Untagged
@@ -128,7 +128,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &1511530149248812763
+--- !u!114 &3392832606519862316
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -137,7 +137,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1511530149248812761}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d90d28a2f37549c0a4ddda5d49c179fc, type: 3}
+  m_Script: {fileID: 11500000, guid: 9c8db12f9d9f4f518a9807e96be31371, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &7777812416799572627
@@ -222,7 +222,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7777812417106559590}
   - component: {fileID: 7777812417106559588}
-  - component: {fileID: 7777812417106559589}
+  - component: {fileID: 1960147227323008589}
   m_Layer: 0
   m_Name: AttackSensorRight
   m_TagString: Untagged
@@ -270,7 +270,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.12, y: 1}
   m_EdgeRadius: 0
---- !u!114 &7777812417106559589
+--- !u!114 &1960147227323008589
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -279,7 +279,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7777812417106559591}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d90d28a2f37549c0a4ddda5d49c179fc, type: 3}
+  m_Script: {fileID: 11500000, guid: 9c8db12f9d9f4f518a9807e96be31371, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &7777812417504090075
@@ -454,8 +454,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _groundCollisionSensor: {fileID: 7777812417615820891}
-  _attackSensorRight: {fileID: 7777812417106559589}
-  _attackSensorLeft: {fileID: 1511530149248812763}
+  _attackSensorRight: {fileID: 1960147227323008589}
+  _attackSensorLeft: {fileID: 3392832606519862316}
   _hurtSensor: {fileID: 2028023035}
   _heroData: {fileID: 11400000, guid: eded0512c379849ed932e875fbc2c67f, type: 2}
 --- !u!1 &7777812417615820893

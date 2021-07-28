@@ -22,7 +22,7 @@ namespace Prototype02.Zombie
         public override void LogicUpdate()
         {
             base.LogicUpdate();
-            if (startTime + zombieData.zombieHurtDuration > Time.time)
+            if (startTime + zombieData.zombieHurtDuration < Time.time)
             {
                 zombieStateMachine.ChangeState(zombieController.ZombieMoveState);
             }

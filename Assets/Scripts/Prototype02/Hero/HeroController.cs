@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Prototype02.New;
 using UnityEngine;
 
@@ -8,8 +9,8 @@ namespace Prototype02
         public static HeroController Instance { get; private set; }
         
         [SerializeField] private CollisionSensor _groundCollisionSensor;
-        [SerializeField] private CollisionSensor _attackSensorRight;
-        [SerializeField] private CollisionSensor _attackSensorLeft;
+        [SerializeField] private EnemyHitBox _attackSensorRight;
+        [SerializeField] private EnemyHitBox _attackSensorLeft;
         [SerializeField] private CollisionSensor _hurtSensor;
         [SerializeField] private HeroData _heroData;
         
@@ -29,8 +30,8 @@ namespace Prototype02
         public bool Attacking { get; private set; }
         public bool IsGrounded { get; private set; }
         // TODO: use these for attack
-        public bool EnemyWithinRightHitBox => _attackSensorRight.CollidingWithEnemy;
-        public bool EnemyWithinLeftHitBox => _attackSensorLeft.CollidingWithEnemy;
+        public bool EnemyWithinRightHitBox => _attackSensorRight.EnemyColliders.Count > 0;
+        public bool EnemyWithinLeftHitBox => _attackSensorLeft.EnemyColliders.Count > 0;
         public bool BeingHurt => _hurtSensor.CollidingWithEnemy;
 
         public Collider2D LastHurtCollider => _hurtSensor.LastEnemyCollider;
@@ -108,6 +109,12 @@ namespace Prototype02
                 HeroFacingDirection = FacingDirection.Right;
             }
         }
+
+        public List<Collider2D> GetEnemiesFromHitBox(FacingDirection facingDirection)
+        {
+            return facingDirection == FacingDirection.Right ? _attackSensorRight.EnemyColliders : _attackSensorLeft.EnemyColliders;
+        }
+
 
         private void OnGUI()
         {

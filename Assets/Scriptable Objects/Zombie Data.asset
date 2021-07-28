@@ -18,4 +18,4 @@ MonoBehaviour:
   zombieAttackStart: 0.4
   zombieAttackEnd: 0.5
   zombieAttackDistance: 1
-  zombieHurtDuration: 0.2
+  zombieHurtDuration: 0.6
