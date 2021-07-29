@@ -16,6 +16,7 @@ namespace Prototype02.Zombie
         public ZombieMoveState ZombieMoveState { get; private set; }
         public ZombieAttackState ZombieAttackState { get; private set; }
         public ZombieHurtState ZombieHurtState { get; private set; }
+        public ZombieDeathState ZombieDeathState { get; private set; }
 
         [SerializeField] private ZombieData _zombieData;
         [SerializeField] private Collider2D _zombieAttackCollider;
@@ -34,6 +35,7 @@ namespace Prototype02.Zombie
             ZombieMoveState = new ZombieMoveState(this, _zombieData, ZombieStateMachine);
             ZombieAttackState = new ZombieAttackState(this, _zombieData, ZombieStateMachine);
             ZombieHurtState = new ZombieHurtState(this, _zombieData, ZombieStateMachine);
+            ZombieDeathState = new ZombieDeathState(this, _zombieData, ZombieStateMachine);
         }
 
         private void Start()

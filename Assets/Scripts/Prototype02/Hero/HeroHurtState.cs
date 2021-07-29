@@ -4,8 +4,11 @@ namespace Prototype02.New
 {
     public class HeroHurtState : HeroState
     {
+        private int _hitPoints;
+
         public HeroHurtState(HeroController heroController, HeroData heroData, HeroStateMachine heroStateMachine) : base(heroController, heroData, heroStateMachine)
         {
+            _hitPoints = heroData.initialHitPoints;
         }
 
         public override void Enter()
@@ -21,11 +24,6 @@ namespace Prototype02.New
             {
                 heroController.Rigidbody2D.velocity = new Vector2(1.0f * heroData.hurtBackOffX, heroController.Rigidbody2D.velocity.y);
             }
-        }
-
-        public override void Exit()
-        {
-            base.Exit();
         }
 
         public override void LogicUpdate()
@@ -53,11 +51,6 @@ namespace Prototype02.New
                     heroStateMachine.ChangeState(heroController.HeroFallingState);
                 }
             }
-        }
-
-        public override void PhysicsUpdate()
-        {
-            base.PhysicsUpdate();
         }
     }
 }

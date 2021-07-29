@@ -19,3 +19,6 @@ MonoBehaviour:
   zombieAttackEnd: 0.5
   zombieAttackDistance: 1
   zombieHurtDuration: 0.6
+  hurtBackOffX: 1
+  initialHitPoints: 2
+  deathDuration: 2

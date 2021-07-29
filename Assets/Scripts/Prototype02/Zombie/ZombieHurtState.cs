@@ -4,19 +4,32 @@ namespace Prototype02.Zombie
 {
     public class ZombieHurtState : ZombieState
     {
+        private int _hitPoints;
+        
         public ZombieHurtState(ZombieController zombieController, ZombieData zombieData, ZombieStateMachine zombieStateMachine) : base(zombieController, zombieData, zombieStateMachine)
         {
+            _hitPoints = zombieData.initialHitPoints;
         }
 
         public override void Enter()
         {
             base.Enter();
+            _hitPoints--;
+            if (_hitPoints < 0)
+            {
+                zombieStateMachine.ChangeState(zombieController.ZombieDeathState);
+                return;
+            }
             zombieController.Animator.SetTrigger(AnimStates.HurtAnimId);
-        }
-
-        public override void Exit()
-        {
-            base.Exit();
+            var offset = HeroController.Instance.transform.position - zombieController.transform.position;
+            if (offset.x > 0)
+            {
+                zombieController.Rigidbody2D.velocity = new Vector2(-1.0f * zombieData.hurtBackOffX, zombieController.Rigidbody2D.velocity.y);
+            }
+            else if (offset.x < 0)
+            {
+                zombieController.Rigidbody2D.velocity = new Vector2(1.0f * zombieData.hurtBackOffX, zombieController.Rigidbody2D.velocity.y);
+            }
         }
 
         public override void LogicUpdate()
@@ -26,11 +39,6 @@ namespace Prototype02.Zombie
             {
                 zombieStateMachine.ChangeState(zombieController.ZombieMoveState);
             }
-        }
-
-        public override void PhysicsUpdate()
-        {
-            base.PhysicsUpdate();
         }
     }
 }

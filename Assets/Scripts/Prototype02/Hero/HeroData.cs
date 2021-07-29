@@ -11,5 +11,6 @@ namespace Prototype02.New
         public float attackDurationInSeconds;
         public float hurtDurationInSeconds;
         public float hurtBackOffX;
+        public int initialHitPoints;
     }
 }

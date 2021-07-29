@@ -12,5 +12,8 @@ namespace Prototype02.Zombie
         public float zombieAttackEnd;
         public float zombieAttackDistance;
         public float zombieHurtDuration;
+        public float hurtBackOffX;
+        public int initialHitPoints;
+        public float deathDuration;
     }
 }
