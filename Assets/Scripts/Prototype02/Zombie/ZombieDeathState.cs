@@ -11,7 +11,8 @@ namespace Prototype02.Zombie
         public override void Enter()
         {
             base.Enter();
-            zombieController.Animator.SetTrigger(AnimStates.DeathAnimId);
+            zombieController.Animator.SetBool(AnimStates.DeathAnimId, true);
+            zombieController.Animator.SetInteger(AnimStates.AnimStateId, 0);
             // TODO: disable interaction
         }
 

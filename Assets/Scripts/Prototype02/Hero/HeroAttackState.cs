@@ -86,7 +86,7 @@ namespace Prototype02.New
             {
                 var enemy = enemies[index];
                 var zombieController = enemy.GetComponent<ZombieController>();
-                if (zombieController.ZombieStateMachine.CurrentState != zombieController.ZombieHurtState)
+                if (zombieController.ZombieStateMachine.CurrentState != zombieController.ZombieHurtState && zombieController.ZombieStateMachine.CurrentState != zombieController.ZombieDeathState)
                 {
                     zombieController.ZombieStateMachine.ChangeState(zombieController.ZombieHurtState);
                 }

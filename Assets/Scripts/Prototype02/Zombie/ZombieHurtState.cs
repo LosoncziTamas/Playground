@@ -20,7 +20,7 @@ namespace Prototype02.Zombie
                 zombieStateMachine.ChangeState(zombieController.ZombieDeathState);
                 return;
             }
-            zombieController.Animator.SetTrigger(AnimStates.HurtAnimId);
+            zombieController.Animator.SetBool(AnimStates.HurtAnimId, true);
             var offset = HeroController.Instance.transform.position - zombieController.transform.position;
             if (offset.x > 0)
             {
@@ -39,6 +39,13 @@ namespace Prototype02.Zombie
             {
                 zombieStateMachine.ChangeState(zombieController.ZombieMoveState);
             }
+        }
+
+        public override void Exit()
+        {
+            base.Exit();
+            zombieController.Animator.SetBool(AnimStates.HurtAnimId, false);
+
         }
     }
 }

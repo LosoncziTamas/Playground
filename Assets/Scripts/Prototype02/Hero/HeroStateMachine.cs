@@ -8,14 +8,14 @@ namespace Prototype02.New
 
         public void Initialize(HeroState startState)
         {
-            Debug.Log($"[HeroStateMachine] Initialize {startState.GetType()}");
+            //Debug.Log($"[HeroStateMachine] Initialize {startState.GetType()}");
             CurrentState = startState;
             CurrentState.Enter();
         }
 
         public void ChangeState(HeroState newState)
         {
-            Debug.Log($"[HeroStateMachine] ChangeState {newState.GetType()}");
+            //Debug.Log($"[HeroStateMachine] ChangeState {newState.GetType()}");
             CurrentState.Exit();
             CurrentState = newState;
             CurrentState.Enter();
