@@ -4,18 +4,15 @@ namespace Prototype02.Zombie
 {
     public class ZombieHurtState : ZombieState
     {
-        private int _hitPoints;
-        
         public ZombieHurtState(ZombieController zombieController, ZombieData zombieData, ZombieStateMachine zombieStateMachine) : base(zombieController, zombieData, zombieStateMachine)
         {
-            _hitPoints = zombieData.initialHitPoints;
         }
 
         public override void Enter()
         {
             base.Enter();
-            _hitPoints--;
-            if (_hitPoints < 0)
+            zombieController.HitPoints--;
+            if (zombieController.HitPoints < 0)
             {
                 zombieStateMachine.ChangeState(zombieController.ZombieDeathState);
                 return;
@@ -30,6 +27,7 @@ namespace Prototype02.Zombie
             {
                 zombieController.Rigidbody2D.velocity = new Vector2(1.0f * zombieData.hurtBackOffX, zombieController.Rigidbody2D.velocity.y);
             }
+            zombieController.ZombieIdleCollider.enabled = false;
         }
 
         public override void LogicUpdate()
@@ -45,7 +43,7 @@ namespace Prototype02.Zombie
         {
             base.Exit();
             zombieController.Animator.SetBool(AnimStates.HurtAnimId, false);
-
+            zombieController.ZombieIdleCollider.enabled = true;
         }
     }
 }

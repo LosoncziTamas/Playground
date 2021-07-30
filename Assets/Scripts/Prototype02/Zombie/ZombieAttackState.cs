@@ -11,12 +11,13 @@ namespace Prototype02.Zombie
         public override void Enter()
         {
             base.Enter();
-            zombieController.Animator.SetTrigger(AnimStates.ZombieAttackAnimId);
+            zombieController.Animator.SetBool(AnimStates.ZombieAttackAnimId, true);
         }
 
         public override void Exit()
         {
             base.Exit();
+            zombieController.Animator.SetBool(AnimStates.ZombieAttackAnimId, false);
         }
 
         public override void LogicUpdate()
@@ -37,11 +38,6 @@ namespace Prototype02.Zombie
             {
                 zombieStateMachine.ChangeState(zombieController.ZombieMoveState);
             }
-        }
-
-        public override void PhysicsUpdate()
-        {
-            base.PhysicsUpdate();
         }
     }
 }

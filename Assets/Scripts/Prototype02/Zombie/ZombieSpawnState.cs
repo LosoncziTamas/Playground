@@ -11,12 +11,16 @@ namespace Prototype02.Zombie
         public override void Enter()
         {
             base.Enter();
-            zombieController.Animator.SetTrigger(AnimStates.SpawnAnimId);
+            zombieController.HitPoints = zombieData.initialHitPoints;
+            zombieController.Animator.SetBool(AnimStates.SpawnAnimId, true);
+            //zombieController.ZombieIdleCollider.enabled = false;
         }
 
         public override void Exit()
         {
             base.Exit();
+            zombieController.Animator.SetBool(AnimStates.SpawnAnimId, false);
+            //zombieController.ZombieIdleCollider.enabled = true;
         }
 
         public override void LogicUpdate()
@@ -26,11 +30,6 @@ namespace Prototype02.Zombie
             {
                 zombieStateMachine.ChangeState(zombieController.ZombieMoveState);
             }
-        }
-
-        public override void PhysicsUpdate()
-        {
-            base.PhysicsUpdate();
         }
     }
 }

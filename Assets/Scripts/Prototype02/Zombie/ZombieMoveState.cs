@@ -17,6 +17,7 @@ namespace Prototype02.Zombie
         public override void Exit()
         {
             base.Exit();
+            zombieController.Animator.SetInteger(AnimStates.AnimStateId, 0);
         }
 
         public override void LogicUpdate()

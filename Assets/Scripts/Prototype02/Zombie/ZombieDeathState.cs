@@ -12,8 +12,7 @@ namespace Prototype02.Zombie
         {
             base.Enter();
             zombieController.Animator.SetBool(AnimStates.DeathAnimId, true);
-            zombieController.Animator.SetInteger(AnimStates.AnimStateId, 0);
-            // TODO: disable interaction
+            zombieController.ZombieIdleCollider.enabled = false;
         }
 
         public override void LogicUpdate()
@@ -23,6 +22,12 @@ namespace Prototype02.Zombie
             {
                 zombieController.ZombieStateMachine.ChangeState(zombieController.ZombieSpawnState);
             }
+        }
+
+        public override void Exit()
+        {
+            base.Exit();
+            zombieController.Animator.SetBool(AnimStates.DeathAnimId, false);
         }
     }
 }

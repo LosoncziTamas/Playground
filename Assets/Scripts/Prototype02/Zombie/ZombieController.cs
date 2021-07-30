@@ -10,16 +10,19 @@ namespace Prototype02.Zombie
         public Rigidbody2D Rigidbody2D { get; private set; }
         public Animator Animator { get; private set; }
         public Collider2D ZombieAttackCollider => _zombieAttackCollider;
-        public Collider2D ZombieIdleCollider { get; private set; }
+        public Collider2D ZombieIdleCollider => _zombieIdleCollider;
         public ZombieStateMachine ZombieStateMachine { get; private set; }
         public ZombieSpawnState ZombieSpawnState { get; private set; }
         public ZombieMoveState ZombieMoveState { get; private set; }
         public ZombieAttackState ZombieAttackState { get; private set; }
         public ZombieHurtState ZombieHurtState { get; private set; }
         public ZombieDeathState ZombieDeathState { get; private set; }
+        
+        public int HitPoints { get; set; }
 
         [SerializeField] private ZombieData _zombieData;
         [SerializeField] private Collider2D _zombieAttackCollider;
+        [SerializeField] private Collider2D _zombieIdleCollider;
 
         private SpriteRenderer _spriteRenderer;
 
@@ -27,7 +30,6 @@ namespace Prototype02.Zombie
         {
             Rigidbody2D = GetComponent<Rigidbody2D>();
             Animator = GetComponent<Animator>();
-            ZombieIdleCollider = GetComponent<Collider2D>();
             _spriteRenderer = GetComponent<SpriteRenderer>();
             
             ZombieStateMachine = new ZombieStateMachine();
@@ -71,11 +73,6 @@ namespace Prototype02.Zombie
                 }
                 ZombieFacingDirection = FacingDirection.Right;
             }
-        }
-
-        public void OnHit()
-        {
-            ZombieStateMachine.ChangeState(ZombieHurtState);
         }
     }
 }

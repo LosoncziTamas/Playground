@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2028023037}
   - component: {fileID: 2028023036}
-  - component: {fileID: 2028023035}
+  - component: {fileID: 1232085590786314351}
   m_Layer: 0
   m_Name: HurtSensor
   m_TagString: Untagged
@@ -58,7 +58,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.93, y: 1.35}
   m_EdgeRadius: 0
---- !u!114 &2028023035
+--- !u!114 &1232085590786314351
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -67,7 +67,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2028023034}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d90d28a2f37549c0a4ddda5d49c179fc, type: 3}
+  m_Script: {fileID: 11500000, guid: 9c8db12f9d9f4f518a9807e96be31371, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1511530149248812761
@@ -456,7 +456,7 @@ MonoBehaviour:
   _groundCollisionSensor: {fileID: 7777812417615820891}
   _attackSensorRight: {fileID: 1960147227323008589}
   _attackSensorLeft: {fileID: 3392832606519862316}
-  _hurtSensor: {fileID: 2028023035}
+  _hurtSensor: {fileID: 1232085590786314351}
   _heroData: {fileID: 11400000, guid: eded0512c379849ed932e875fbc2c67f, type: 2}
 --- !u!1 &7777812417615820893
 GameObject:

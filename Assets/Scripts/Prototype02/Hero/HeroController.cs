@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Prototype02.New;
 using UnityEngine;
 
@@ -11,7 +12,7 @@ namespace Prototype02
         [SerializeField] private CollisionSensor _groundCollisionSensor;
         [SerializeField] private EnemyHitBox _attackSensorRight;
         [SerializeField] private EnemyHitBox _attackSensorLeft;
-        [SerializeField] private CollisionSensor _hurtSensor;
+        [SerializeField] private EnemyHitBox _hurtSensor;
         [SerializeField] private HeroData _heroData;
         
         public Animator Animator { get; private set; }
@@ -32,9 +33,9 @@ namespace Prototype02
         // TODO: use these for attack
         public bool EnemyWithinRightHitBox => _attackSensorRight.EnemyColliders.Count > 0;
         public bool EnemyWithinLeftHitBox => _attackSensorLeft.EnemyColliders.Count > 0;
-        public bool BeingHurt => _hurtSensor.CollidingWithEnemy;
+        public bool BeingHurt => _hurtSensor.EnemyColliders.Count > 0;
 
-        public Collider2D LastHurtCollider => _hurtSensor.LastEnemyCollider;
+        public Collider2D LastHurtCollider => _hurtSensor.EnemyColliders.LastOrDefault();
 
         private SpriteRenderer _spriteRenderer;
 
@@ -55,6 +56,7 @@ namespace Prototype02
             HeroAttackState = new HeroAttackState(this, _heroData, HeroStateMachine);
             HeroHurtState = new HeroHurtState(this, _heroData, HeroStateMachine);
         }
+        
 
         private void Start()
         {

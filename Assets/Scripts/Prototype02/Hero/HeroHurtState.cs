@@ -4,11 +4,8 @@ namespace Prototype02.New
 {
     public class HeroHurtState : HeroState
     {
-        private int _hitPoints;
-
         public HeroHurtState(HeroController heroController, HeroData heroData, HeroStateMachine heroStateMachine) : base(heroController, heroData, heroStateMachine)
         {
-            _hitPoints = heroData.initialHitPoints;
         }
 
         public override void Enter()
