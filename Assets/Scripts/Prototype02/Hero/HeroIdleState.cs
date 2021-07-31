@@ -32,6 +32,10 @@ namespace Prototype02.New
             {
                 heroStateMachine.ChangeState(heroController.HeroAttackState);
             }
+            else if (heroController.Blocking)
+            {
+                heroStateMachine.ChangeState(heroController.HeroBlockState);
+            }
             else if (heroController.BeingHurt)
             {
                 heroStateMachine.ChangeState(heroController.HeroHurtState);

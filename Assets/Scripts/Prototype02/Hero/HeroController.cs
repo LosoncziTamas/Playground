@@ -27,11 +27,13 @@ namespace Prototype02
         public HeroAttackState HeroAttackState { get; private set; }
         public HeroHurtState HeroHurtState { get; private set; }
         public HeroDeathState HeroDeathState { get; private set; }
+        public HeroBlockState HeroBlockState { get; private set; }
 
         public bool Jumping { get; private set; }
         public bool Moving { get; private set; }
         public bool Attacking { get; private set; }
         public bool IsGrounded { get; private set; }
+        public bool Blocking { get; private set; }
         public int HitPoints { get; set; }
         public bool EnemyWithinRightHitBox => _attackSensorRight.EnemyColliders.Count > 0;
         public bool EnemyWithinLeftHitBox => _attackSensorLeft.EnemyColliders.Count > 0;
@@ -59,6 +61,7 @@ namespace Prototype02
             HeroAttackState = new HeroAttackState(this, _heroData, HeroStateMachine);
             HeroHurtState = new HeroHurtState(this, _heroData, HeroStateMachine);
             HeroDeathState = new HeroDeathState(this, _heroData, HeroStateMachine);
+            HeroBlockState = new HeroBlockState(this, _heroData, HeroStateMachine);
         }
         
 
@@ -96,6 +99,7 @@ namespace Prototype02
             Jumping = Input.GetKey(KeyCode.UpArrow);
             Moving = Mathf.Abs(Input.GetAxis("Horizontal")) > 0f;
             Attacking = Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space);
+            Blocking = Input.GetKey(KeyCode.LeftShift);
         }
 
         public void FlipSpriteOnDirectionChange(float horizontal)
@@ -127,6 +131,10 @@ namespace Prototype02
         private void OnGUI()
         {
             GUILayout.Label(HeroStateMachine.CurrentState.GetType().ToString());
+            if (Blocking)
+            {
+                GUILayout.Label("Blocking");
+            }
             GUILayout.Label("Enemy colliders right" + _attackSensorRight.EnemyColliders.Count);
             GUILayout.Label("Enemy colliders left" + _attackSensorLeft.EnemyColliders.Count);
         }
