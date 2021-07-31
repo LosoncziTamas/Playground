@@ -7,6 +7,8 @@ TagManager:
   - Enemy
   - Pit
   - Land
+  - Hitable
+  - Harmful
   layers:
   - Default
   - TransparentFX

@@ -6,7 +6,6 @@ namespace Prototype02.New
 {
     public class HeroAttackState : HeroState
     {
-        // TODO: hurt while attacked
         private int _attackAnimIndex;
         
         public HeroAttackState(HeroController heroController, HeroData heroData, HeroStateMachine heroStateMachine) : base(heroController, heroData, heroStateMachine)
@@ -20,13 +19,13 @@ namespace Prototype02.New
             switch (_attackAnimIndex)
             {
                 case 0:
-                    heroController.Animator.SetTrigger(AnimStates.Attack1StateId);
+                    heroController.Animator.SetBool(AnimStates.Attack1StateId, true);
                     break;
                 case 1:
-                    heroController.Animator.SetTrigger(AnimStates.Attack2StateId);
+                    heroController.Animator.SetBool(AnimStates.Attack2StateId, true);
                     break;
                 case 2:
-                    heroController.Animator.SetTrigger(AnimStates.Attack3StateId);
+                    heroController.Animator.SetBool(AnimStates.Attack3StateId, true);
                     break;
             }
             _attackAnimIndex++;
@@ -35,6 +34,9 @@ namespace Prototype02.New
         public override void Exit()
         {
             base.Exit();
+            heroController.Animator.SetBool(AnimStates.Attack1StateId, false);
+            heroController.Animator.SetBool(AnimStates.Attack2StateId, false);
+            heroController.Animator.SetBool(AnimStates.Attack3StateId, false);
         }
 
         public override void LogicUpdate()
@@ -91,12 +93,6 @@ namespace Prototype02.New
                     zombieController.ZombieStateMachine.ChangeState(zombieController.ZombieHurtState);
                 }
             }
-        }
-        
-
-        public override void PhysicsUpdate()
-        {
-            base.PhysicsUpdate();
         }
     }
 }

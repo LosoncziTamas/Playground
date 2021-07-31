@@ -70,6 +70,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c8db12f9d9f4f518a9807e96be31371, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TagToCompare: Harmful
 --- !u!1 &1511530149248812761
 GameObject:
   m_ObjectHideFlags: 0
@@ -140,6 +141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c8db12f9d9f4f518a9807e96be31371, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TagToCompare: Hitable
 --- !u!1 &7777812416799572627
 GameObject:
   m_ObjectHideFlags: 0
@@ -282,6 +284,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c8db12f9d9f4f518a9807e96be31371, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TagToCompare: Hitable
 --- !u!1 &7777812417504090075
 GameObject:
   m_ObjectHideFlags: 0

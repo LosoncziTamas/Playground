@@ -11,6 +11,12 @@ namespace Prototype02.New
         public override void Enter()
         {
             base.Enter();
+            heroController.HitPoints--;
+            if (heroController.HitPoints == 0)
+            {
+                heroController.HeroStateMachine.ChangeState(heroController.HeroDeathState);
+                return;
+            }
             heroController.Animator.SetTrigger(AnimStates.HurtAnimId);
             var offset = heroController.LastHurtCollider.transform.position - heroController.transform.position;
             if (offset.x > 0)

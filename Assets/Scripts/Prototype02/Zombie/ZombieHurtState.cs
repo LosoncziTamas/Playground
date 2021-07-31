@@ -12,11 +12,6 @@ namespace Prototype02.Zombie
         {
             base.Enter();
             zombieController.HitPoints--;
-            if (zombieController.HitPoints < 0)
-            {
-                zombieStateMachine.ChangeState(zombieController.ZombieDeathState);
-                return;
-            }
             zombieController.Animator.SetBool(AnimStates.HurtAnimId, true);
             var offset = HeroController.Instance.transform.position - zombieController.transform.position;
             if (offset.x > 0)
@@ -35,6 +30,11 @@ namespace Prototype02.Zombie
             base.LogicUpdate();
             if (startTime + zombieData.zombieHurtDuration < Time.time)
             {
+                if (zombieController.HitPoints <= 0)
+                {
+                    zombieStateMachine.ChangeState(zombieController.ZombieDeathState);
+                    return;
+                }
                 zombieStateMachine.ChangeState(zombieController.ZombieMoveState);
             }
         }

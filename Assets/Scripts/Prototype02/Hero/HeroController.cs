@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Prototype02.Hero;
 using Prototype02.New;
 using UnityEngine;
 
@@ -25,12 +26,13 @@ namespace Prototype02
         public HeroMoveState HeroMoveState { get; private set; }
         public HeroAttackState HeroAttackState { get; private set; }
         public HeroHurtState HeroHurtState { get; private set; }
-        
+        public HeroDeathState HeroDeathState { get; private set; }
+
         public bool Jumping { get; private set; }
         public bool Moving { get; private set; }
         public bool Attacking { get; private set; }
         public bool IsGrounded { get; private set; }
-        // TODO: use these for attack
+        public int HitPoints { get; set; }
         public bool EnemyWithinRightHitBox => _attackSensorRight.EnemyColliders.Count > 0;
         public bool EnemyWithinLeftHitBox => _attackSensorLeft.EnemyColliders.Count > 0;
         public bool BeingHurt => _hurtSensor.EnemyColliders.Count > 0;
@@ -38,6 +40,7 @@ namespace Prototype02
         public Collider2D LastHurtCollider => _hurtSensor.EnemyColliders.LastOrDefault();
 
         private SpriteRenderer _spriteRenderer;
+        
 
         private void Awake()
         {
@@ -55,6 +58,7 @@ namespace Prototype02
             HeroMoveState = new HeroMoveState(this, _heroData, HeroStateMachine);
             HeroAttackState = new HeroAttackState(this, _heroData, HeroStateMachine);
             HeroHurtState = new HeroHurtState(this, _heroData, HeroStateMachine);
+            HeroDeathState = new HeroDeathState(this, _heroData, HeroStateMachine);
         }
         
 
@@ -68,6 +72,8 @@ namespace Prototype02
             {
                 HeroStateMachine.Initialize(HeroIdleState);
             }
+
+            HitPoints = _heroData.initialHitPoints;
         }
 
         private void FixedUpdate()
@@ -121,6 +127,8 @@ namespace Prototype02
         private void OnGUI()
         {
             GUILayout.Label(HeroStateMachine.CurrentState.GetType().ToString());
+            GUILayout.Label("Enemy colliders right" + _attackSensorRight.EnemyColliders.Count);
+            GUILayout.Label("Enemy colliders left" + _attackSensorLeft.EnemyColliders.Count);
         }
     }
 }
