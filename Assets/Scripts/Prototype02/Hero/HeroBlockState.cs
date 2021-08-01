@@ -13,6 +13,16 @@ namespace Prototype02.Hero
         {
             base.Enter();
             heroController.Animator.SetBool(AnimStates.IdleBlockId, true);
+            heroController.Animator.SetTrigger(AnimStates.BlockId);
+            var offset = heroController.LastHurtCollider.transform.position - heroController.transform.position;
+            if (offset.x > 0)
+            {
+                heroController.Rigidbody2D.velocity = new Vector2(-1.0f * heroData.hurtBackOffX, heroController.Rigidbody2D.velocity.y);
+            }
+            else if (offset.x < 0)
+            {
+                heroController.Rigidbody2D.velocity = new Vector2(1.0f * heroData.hurtBackOffX, heroController.Rigidbody2D.velocity.y);
+            }
         }
 
         public override void Exit()
@@ -24,11 +34,14 @@ namespace Prototype02.Hero
         public override void LogicUpdate()
         {
             base.LogicUpdate();
-            if (heroController.Blocking && heroController.BeingHurt)
+            if (startTime + heroData.blockDurationInSeconds <= Time.time)
             {
-                Debug.Log("Attack blocked");
+                if (heroController.Blocking)
+                {
+                    heroController.HeroStateMachine.ChangeState(heroController.heroIdleBlockState);
+                }
             }
-            else if (!heroController.Blocking)
+            if (!heroController.Blocking)
             {
                 heroController.HeroStateMachine.ChangeState(heroController.HeroIdleState);
             }

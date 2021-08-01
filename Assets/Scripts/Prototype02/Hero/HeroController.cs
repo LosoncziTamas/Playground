@@ -27,7 +27,8 @@ namespace Prototype02
         public HeroAttackState HeroAttackState { get; private set; }
         public HeroHurtState HeroHurtState { get; private set; }
         public HeroDeathState HeroDeathState { get; private set; }
-        public HeroBlockState HeroBlockState { get; private set; }
+        public HeroIdleBlockState heroIdleBlockState { get; private set; }
+        public HeroBlockState heroBlockState { get; private set; }
 
         public bool Jumping { get; private set; }
         public bool Moving { get; private set; }
@@ -61,7 +62,8 @@ namespace Prototype02
             HeroAttackState = new HeroAttackState(this, _heroData, HeroStateMachine);
             HeroHurtState = new HeroHurtState(this, _heroData, HeroStateMachine);
             HeroDeathState = new HeroDeathState(this, _heroData, HeroStateMachine);
-            HeroBlockState = new HeroBlockState(this, _heroData, HeroStateMachine);
+            heroIdleBlockState = new HeroIdleBlockState(this, _heroData, HeroStateMachine);
+            heroBlockState = new HeroBlockState(this, _heroData, HeroStateMachine);
         }
         
 

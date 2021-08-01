@@ -12,6 +12,7 @@ namespace Prototype02
         public static readonly int Attack3StateId = Animator.StringToHash("Attack3");
         public static readonly int JumpStateId = Animator.StringToHash("Jump");
         public static readonly int IdleBlockId = Animator.StringToHash("IdleBlock");
+        public static readonly int IdleBlockTriggerId = Animator.StringToHash("IdleBlockTrigger");
         public static readonly int BlockId = Animator.StringToHash("Block");
         
         // Common

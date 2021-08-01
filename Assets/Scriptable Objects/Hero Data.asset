@@ -19,4 +19,4 @@ MonoBehaviour:
   hurtBackOffX: 1
   initialHitPoints: 3
   deathDurationInSeconds: 1
-  blockDurationInSeconds: 1
+  blockDurationInSeconds: 0.5
