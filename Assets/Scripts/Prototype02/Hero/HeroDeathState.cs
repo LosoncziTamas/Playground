@@ -1,4 +1,5 @@
 using Prototype02.New;
+using Prototype02.UI;
 using UnityEngine;
 
 namespace Prototype02.Hero
@@ -13,6 +14,7 @@ namespace Prototype02.Hero
         {
             base.Enter();
             heroController.Animator.SetBool(AnimStates.DeathAnimId, true);
+            Overlay.Instance.gameObject.SetActive(true);
         }
 
         public override void Exit()
@@ -27,6 +29,7 @@ namespace Prototype02.Hero
             if (startTime + heroData.deathDurationInSeconds <= Time.time)
             {
                 // TODO: respawn
+                
             }
         }
     }

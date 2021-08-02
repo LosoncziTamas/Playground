@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Prototype02.Hero;
 using Prototype02.New;
+using Prototype02.UI;
 using UnityEngine;
 
 namespace Prototype02
@@ -35,7 +36,17 @@ namespace Prototype02
         public bool Attacking { get; private set; }
         public bool IsGrounded { get; private set; }
         public bool Blocking { get; private set; }
-        public int HitPoints { get; set; }
+
+        public int HitPoints
+        {
+            get => _hitPoints;
+            set
+            {
+                _hitPoints = value;
+                LivesDisplay.Instance.UpdateLivesCount(HitPoints);
+            }
+        }
+
         public bool EnemyWithinRightHitBox => _attackSensorRight.EnemyColliders.Count > 0;
         public bool EnemyWithinLeftHitBox => _attackSensorLeft.EnemyColliders.Count > 0;
         public bool BeingHurt => _hurtSensor.EnemyColliders.Count > 0;
@@ -43,6 +54,7 @@ namespace Prototype02
         public Collider2D LastHurtCollider => _hurtSensor.EnemyColliders.LastOrDefault();
 
         private SpriteRenderer _spriteRenderer;
+        private int _hitPoints;
         
 
         private void Awake()

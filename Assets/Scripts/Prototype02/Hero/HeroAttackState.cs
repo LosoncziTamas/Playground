@@ -6,7 +6,7 @@ namespace Prototype02.New
 {
     public class HeroAttackState : HeroState
     {
-        private int _attackAnimIndex;
+        private int _groundedAttackAnimIndex;
         
         public HeroAttackState(HeroController heroController, HeroData heroData, HeroStateMachine heroStateMachine) : base(heroController, heroData, heroStateMachine)
         {
@@ -15,20 +15,24 @@ namespace Prototype02.New
         public override void Enter()
         {
             base.Enter();
-            _attackAnimIndex %= 3;
-            switch (_attackAnimIndex)
+            if (heroController.IsGrounded)
             {
-                case 0:
-                    heroController.Animator.SetBool(AnimStates.Attack1StateId, true);
-                    break;
-                case 1:
-                    heroController.Animator.SetBool(AnimStates.Attack2StateId, true);
-                    break;
-                case 2:
-                    heroController.Animator.SetBool(AnimStates.Attack3StateId, true);
-                    break;
+                _groundedAttackAnimIndex %= 2;
+                switch (_groundedAttackAnimIndex)
+                {
+                    case 0:
+                        heroController.Animator.SetBool(AnimStates.Attack1StateId, true);
+                        break;
+                    case 1:
+                        heroController.Animator.SetBool(AnimStates.Attack2StateId, true);
+                        break;
+                }
+                _groundedAttackAnimIndex++;
             }
-            _attackAnimIndex++;
+            else
+            {
+                heroController.Animator.SetBool(AnimStates.Attack3StateId, true);
+            }
         }
 
         public override void Exit()
