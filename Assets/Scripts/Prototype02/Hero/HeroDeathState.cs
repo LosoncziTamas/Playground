@@ -28,8 +28,7 @@ namespace Prototype02.Hero
             base.LogicUpdate();
             if (startTime + heroData.deathDurationInSeconds <= Time.time)
             {
-                // TODO: respawn
-                
+                // TODO: respawn or something
             }
         }
     }

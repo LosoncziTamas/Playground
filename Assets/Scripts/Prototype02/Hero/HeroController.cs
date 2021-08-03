@@ -116,6 +116,12 @@ namespace Prototype02
             Blocking = Input.GetKey(KeyCode.LeftShift);
         }
 
+        public void Revive()
+        {
+            HitPoints = _heroData.initialHitPoints;
+            HeroStateMachine.Initialize(HeroIdleState);
+        }
+        
         public void FlipSpriteOnDirectionChange(float horizontal)
         {
             if (horizontal < 0)
