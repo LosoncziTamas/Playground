@@ -42,6 +42,18 @@ namespace Prototype02.Zombie
 
         private void Start()
         {
+            var offset = HeroController.Instance.transform.position - transform.position;
+            if (offset.x < 0)
+            {
+                _spriteRenderer.flipX = false;
+                ZombieFacingDirection = FacingDirection.Left;
+            }
+            else
+            {
+                _spriteRenderer.flipX = true;
+                ZombieFacingDirection = FacingDirection.Right;
+            }
+            
             ZombieStateMachine.Initialize(ZombieSpawnState);
         }
 

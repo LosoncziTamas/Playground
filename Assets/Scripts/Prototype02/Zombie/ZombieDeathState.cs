@@ -20,7 +20,8 @@ namespace Prototype02.Zombie
             base.LogicUpdate();
             if (startTime + zombieData.deathDuration < Time.time)
             {
-                zombieController.ZombieStateMachine.ChangeState(zombieController.ZombieSpawnState);
+                // zombieController.ZombieStateMachine.ChangeState(zombieController.ZombieSpawnState);
+                Object.Destroy(zombieController.gameObject);
             }
         }
 
