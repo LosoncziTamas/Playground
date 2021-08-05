@@ -10,6 +10,7 @@ namespace Prototype02
 
         private BoxCollider2D _boxCollider;
         private BoxCollider2D _heroCollider;
+        
         private void Awake()
         {
             _boxCollider = GetComponent<BoxCollider2D>();
