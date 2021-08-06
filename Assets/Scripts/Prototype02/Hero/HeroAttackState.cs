@@ -12,10 +12,7 @@ namespace Prototype02.New
         public HeroAttackState(HeroController heroController, HeroData heroData, HeroStateMachine heroStateMachine) : base(heroController, heroData, heroStateMachine)
         {
         }
-
-        private int _attackStateId;
-        private HeroData.AttackAnimProperties _animProperties;
-
+        
         public override void Enter()
         {
             base.Enter();
@@ -24,11 +21,11 @@ namespace Prototype02.New
                 _groundedAttackAnimIndex %= 2;
                 if (_groundedAttackAnimIndex == 0)
                 {
-                    _attackStateId = AnimStates.Attack1StateId;
+                    heroController.Animator.SetBool(AnimStates.Attack1StateId, true);
                 }
                 else if (_groundedAttackAnimIndex == 1)
                 {
-                    _attackStateId = AnimStates.Attack2StateId;
+                    heroController.Animator.SetBool(AnimStates.Attack2StateId, true);
                 }
                 _groundedAttackAnimIndex++;
                 heroController.Rigidbody2D.velocity = Vector2.zero;
@@ -36,12 +33,9 @@ namespace Prototype02.New
             }
             else
             {
-                _attackStateId = AnimStates.Attack3StateId;
+                heroController.Animator.SetBool(AnimStates.Attack3StateId, true);
                 _attackIndex = 2;
             }
-
-            _animProperties = heroData.attackAnimProperties[_attackIndex];
-            heroController.Animator.SetBool(_attackStateId, true);
         }
 
         public override void Exit()
@@ -55,7 +49,7 @@ namespace Prototype02.New
         public override void LogicUpdate()
         {
             base.LogicUpdate();
-            if (Time.time - startTime > heroData.attackDurationInSeconds)
+            if (startTime + heroData.attackDurationInSeconds < Time.time)
             {
                 if (heroController.IsGrounded)
                 {
@@ -77,13 +71,13 @@ namespace Prototype02.New
                     heroStateMachine.ChangeState(heroController.HeroFallingState);
                 }
             }
-            else
+        }
+
+        public override void OnAnimEvent(AnimEvent animEvent)
+        {
+            if (animEvent == AnimEvent.HeroAttack)
             {
-                if (startTime + _animProperties.hurtStateStart <= Time.time &&
-                    startTime + _animProperties.hurtStateEnd >= Time.time)
-                {
-                    HitEnemiesWithinHitBoxes();
-                }
+                HitEnemiesWithinHitBoxes();
             }
         }
 

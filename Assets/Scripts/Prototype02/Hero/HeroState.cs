@@ -36,5 +36,10 @@ namespace Prototype02.New
         {
             
         }
+
+        public virtual void OnAnimEvent(AnimEvent animEvent)
+        {
+            Debug.Log("OnAnimEvent " + animEvent);
+        }
     }
 }

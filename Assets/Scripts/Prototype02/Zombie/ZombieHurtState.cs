@@ -4,6 +4,8 @@ namespace Prototype02.Zombie
 {
     public class ZombieHurtState : ZombieState
     {
+        private const float MaxDistanceX = 0.93f;
+        
         public ZombieHurtState(ZombieController zombieController, ZombieData zombieData, ZombieStateMachine zombieStateMachine) : base(zombieController, zombieData, zombieStateMachine)
         {
         }
@@ -11,6 +13,10 @@ namespace Prototype02.Zombie
         public override void Enter()
         {
             base.Enter();
+            var offset = HeroController.Instance.transform.position - zombieController.transform.position;
+            var actualDistance = Mathf.Abs(offset.x);
+            var t = (actualDistance / MaxDistanceX);
+            // TODO: hurt closest first
             zombieController.HitPoints--;
             if (zombieController.HitPoints <= 0)
             {
@@ -18,7 +24,6 @@ namespace Prototype02.Zombie
                 return;
             }
             zombieController.Animator.SetBool(AnimStates.HurtAnimId, true);
-            var offset = HeroController.Instance.transform.position - zombieController.transform.position;
             if (offset.x > 0)
             {
                 zombieController.Rigidbody2D.velocity = new Vector2(-1.0f * zombieData.hurtBackOffX, zombieController.Rigidbody2D.velocity.y);

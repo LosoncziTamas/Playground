@@ -21,9 +21,9 @@ MonoBehaviour:
   deathDurationInSeconds: 1
   blockDurationInSeconds: 0.5
   attackAnimProperties:
+  - hurtStateStart: 0.03
+    hurtStateEnd: 0.045
   - hurtStateStart: 0.02
-    hurtStateEnd: 0.035
-  - hurtStateStart: 0.01
-    hurtStateEnd: 0.03
-  - hurtStateStart: 0.015
     hurtStateEnd: 0.04
+  - hurtStateStart: 0.025
+    hurtStateEnd: 0.05

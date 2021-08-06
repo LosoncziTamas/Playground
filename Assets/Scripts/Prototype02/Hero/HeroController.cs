@@ -146,8 +146,12 @@ namespace Prototype02
         {
             return facingDirection == FacingDirection.Right ? _attackSensorRight.EnemyColliders : _attackSensorLeft.EnemyColliders;
         }
-
-
+        
+        public void OnAnimationEvent(AnimEvent animEvent)
+        {
+            HeroStateMachine.CurrentState.OnAnimEvent(animEvent);
+        }
+        
         private void OnGUI()
         {
             GUILayout.Label(HeroStateMachine.CurrentState.GetType().ToString());
