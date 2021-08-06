@@ -7,10 +7,14 @@ namespace Prototype02.New
     public class HeroAttackState : HeroState
     {
         private int _groundedAttackAnimIndex;
+        private int _attackIndex;
         
         public HeroAttackState(HeroController heroController, HeroData heroData, HeroStateMachine heroStateMachine) : base(heroController, heroData, heroStateMachine)
         {
         }
+
+        private int _attackStateId;
+        private HeroData.AttackAnimProperties _animProperties;
 
         public override void Enter()
         {
@@ -18,21 +22,26 @@ namespace Prototype02.New
             if (heroController.IsGrounded)
             {
                 _groundedAttackAnimIndex %= 2;
-                switch (_groundedAttackAnimIndex)
+                if (_groundedAttackAnimIndex == 0)
                 {
-                    case 0:
-                        heroController.Animator.SetBool(AnimStates.Attack1StateId, true);
-                        break;
-                    case 1:
-                        heroController.Animator.SetBool(AnimStates.Attack2StateId, true);
-                        break;
+                    _attackStateId = AnimStates.Attack1StateId;
+                }
+                else if (_groundedAttackAnimIndex == 1)
+                {
+                    _attackStateId = AnimStates.Attack2StateId;
                 }
                 _groundedAttackAnimIndex++;
+                heroController.Rigidbody2D.velocity = Vector2.zero;
+                _attackIndex = _groundedAttackAnimIndex;
             }
             else
             {
-                heroController.Animator.SetBool(AnimStates.Attack3StateId, true);
+                _attackStateId = AnimStates.Attack3StateId;
+                _attackIndex = 2;
             }
+
+            _animProperties = heroData.attackAnimProperties[_attackIndex];
+            heroController.Animator.SetBool(_attackStateId, true);
         }
 
         public override void Exit()
@@ -70,7 +79,11 @@ namespace Prototype02.New
             }
             else
             {
-                HitEnemiesWithinHitBoxes();
+                if (startTime + _animProperties.hurtStateStart <= Time.time &&
+                    startTime + _animProperties.hurtStateEnd >= Time.time)
+                {
+                    HitEnemiesWithinHitBoxes();
+                }
             }
         }
 
