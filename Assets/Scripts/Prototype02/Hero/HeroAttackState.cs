@@ -71,6 +71,13 @@ namespace Prototype02.New
                     heroStateMachine.ChangeState(heroController.HeroFallingState);
                 }
             }
+            else
+            {
+                if (heroController.BeingHurt)
+                {
+                    heroController.HeroStateMachine.ChangeState(heroController.HeroHurtState);
+                }
+            }
         }
 
         public override void OnAnimEvent(AnimEvent animEvent)

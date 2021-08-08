@@ -18,19 +18,19 @@ namespace Prototype02.Zombie
         public ZombieHurtState ZombieHurtState { get; private set; }
         public ZombieDeathState ZombieDeathState { get; private set; }
         
+        public SpriteRenderer SpriteRenderer { private set; get; }
+        
         public int HitPoints { get; set; }
 
         [SerializeField] private ZombieData _zombieData;
         [SerializeField] private Collider2D _zombieAttackCollider;
         [SerializeField] private Collider2D _zombieIdleCollider;
-
-        private SpriteRenderer _spriteRenderer;
-
+        
         private void Awake()
         {
             Rigidbody2D = GetComponent<Rigidbody2D>();
             Animator = GetComponent<Animator>();
-            _spriteRenderer = GetComponent<SpriteRenderer>();
+            SpriteRenderer = GetComponent<SpriteRenderer>();
             
             ZombieStateMachine = new ZombieStateMachine();
             ZombieSpawnState = new ZombieSpawnState(this, _zombieData, ZombieStateMachine);
@@ -45,12 +45,12 @@ namespace Prototype02.Zombie
             var offset = HeroController.Instance.transform.position - transform.position;
             if (offset.x < 0)
             {
-                _spriteRenderer.flipX = false;
+                SpriteRenderer.flipX = false;
                 ZombieFacingDirection = FacingDirection.Left;
             }
             else
             {
-                _spriteRenderer.flipX = true;
+                SpriteRenderer.flipX = true;
                 ZombieFacingDirection = FacingDirection.Right;
             }
             
@@ -73,7 +73,7 @@ namespace Prototype02.Zombie
             {
                 if (ZombieFacingDirection == FacingDirection.Right)
                 {
-                    _spriteRenderer.flipX = false;
+                    SpriteRenderer.flipX = false;
                 }
                 ZombieFacingDirection = FacingDirection.Left;
             }
@@ -81,7 +81,7 @@ namespace Prototype02.Zombie
             {
                 if (ZombieFacingDirection == FacingDirection.Left)
                 {
-                    _spriteRenderer.flipX = true;
+                    SpriteRenderer.flipX = true;
                 }
                 ZombieFacingDirection = FacingDirection.Right;
             }

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 using Prototype02.Hero;
 using Prototype02.New;
 using Prototype02.UI;
@@ -109,11 +110,11 @@ namespace Prototype02
 
         private void Update()
         {
-            HeroStateMachine.CurrentState.LogicUpdate();
             Jumping = Input.GetKey(KeyCode.UpArrow);
             Moving = Mathf.Abs(Input.GetAxis("Horizontal")) > 0f;
             Attacking = Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space);
             Blocking = Input.GetKey(KeyCode.LeftShift);
+            HeroStateMachine.CurrentState.LogicUpdate();
         }
 
         public void Revive()
@@ -147,6 +148,7 @@ namespace Prototype02
             return facingDirection == FacingDirection.Right ? _attackSensorRight.EnemyColliders : _attackSensorLeft.EnemyColliders;
         }
         
+        [UsedImplicitly]
         public void OnAnimationEvent(AnimEvent animEvent)
         {
             HeroStateMachine.CurrentState.OnAnimEvent(animEvent);
@@ -155,12 +157,6 @@ namespace Prototype02
         private void OnGUI()
         {
             GUILayout.Label(HeroStateMachine.CurrentState.GetType().ToString());
-            if (Blocking)
-            {
-                GUILayout.Label("Blocking");
-            }
-            GUILayout.Label("Enemy colliders right" + _attackSensorRight.EnemyColliders.Count);
-            GUILayout.Label("Enemy colliders left" + _attackSensorLeft.EnemyColliders.Count);
         }
     }
 }
