@@ -14,16 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   horizontalMovementSpeed: 4
   jumpVelocityY: 5
-  attackDurationInSeconds: 0.4
-  hurtDurationInSeconds: 0.6
+  attackDurationInSeconds: 0.1
+  hurtDurationInSeconds: 0.1
   hurtBackOffX: 1
   initialHitPoints: 10
   deathDurationInSeconds: 1
   blockDurationInSeconds: 0.5
-  attackAnimProperties:
-  - hurtStateStart: 0.03
-    hurtStateEnd: 0.045
-  - hurtStateStart: 0.02
-    hurtStateEnd: 0.04
-  - hurtStateStart: 0.025
-    hurtStateEnd: 0.05
+  delayBetweenAttacksInSeconds: 0.5

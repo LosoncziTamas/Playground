@@ -41,6 +41,7 @@ namespace Prototype02.New
         public override void Exit()
         {
             base.Exit();
+            heroController.LastAttackTime = Time.time;
             heroController.Animator.SetBool(AnimStates.Attack1StateId, false);
             heroController.Animator.SetBool(AnimStates.Attack2StateId, false);
             heroController.Animator.SetBool(AnimStates.Attack3StateId, false);

@@ -34,7 +34,7 @@ namespace Prototype02.New
             {
                 heroController.HeroStateMachine.ChangeState(heroController.HeroJumpState);
             } 
-            else if (heroController.Attacking)
+            else if (heroController.CanAttack() && heroController.Attacking)
             {
                 heroController.HeroStateMachine.ChangeState(heroController.HeroAttackState);
             }

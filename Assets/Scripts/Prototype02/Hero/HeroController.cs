@@ -37,6 +37,8 @@ namespace Prototype02
         public bool Attacking { get; private set; }
         public bool IsGrounded { get; private set; }
         public bool Blocking { get; private set; }
+        
+        public float LastAttackTime { get; set; }
 
         public int HitPoints
         {
@@ -141,6 +143,11 @@ namespace Prototype02
                 }
                 HeroFacingDirection = FacingDirection.Right;
             }
+        }
+
+        public bool CanAttack()
+        {
+            return LastAttackTime + _heroData.delayBetweenAttacksInSeconds < Time.time;
         }
 
         public List<Collider2D> GetEnemiesFromHitBox(FacingDirection facingDirection)
