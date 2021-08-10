@@ -214,6 +214,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1550760699}
+  - component: {fileID: 1550760700}
   m_Layer: 2
   m_Name: Pool
   m_TagString: Untagged
@@ -235,6 +236,20 @@ Transform:
   m_Father: {fileID: 1231426653}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1550760700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1550760698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4565e93dc0f4417bd3ccd109d0ceb94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _zombiePrefab: {fileID: 71025017885779830, guid: 80284e00227ff4cd1acddc02e0344ea1, type: 3}
+  _zombieData: {fileID: 11400000, guid: e7d2b533f65d6438e856e1d83834aa1c, type: 2}
 --- !u!1 &1593434994
 GameObject:
   m_ObjectHideFlags: 0

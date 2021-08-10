@@ -15,5 +15,6 @@ namespace Prototype02.Zombie
         public float hurtBackOffX;
         public int initialHitPoints;
         public float deathDuration;
+        public int poolSize;
     }
 }
