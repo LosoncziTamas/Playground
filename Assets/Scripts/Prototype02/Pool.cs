@@ -1,33 +1,59 @@
 using System;
-using System.Collections.Generic;
 using Prototype02.Zombie;
 using UnityEngine;
-using Object = System.Object;
 
 namespace Prototype02
 {
+    [ExecuteAlways]
     public class Pool : MonoBehaviour
     {
+        public static Pool Instance { get; private set; }
+        
         [SerializeField] private GameObject _zombiePrefab;
         [SerializeField] private ZombieData _zombieData;
         
-        List<GameObject> _cached = new List<GameObject>();
-
-        private int _poolSize;
-
-
-        private void PreAwake()
+        
+        #if false
+        private void Awake()
         {
-            _poolSize = _zombieData.poolSize;
+            if (Application.IsPlaying(gameObject))
+            {
+                if (Instance == null)
+                {
+                    Instance = this;
+                }
+                else
+                {
+                    throw new InvalidOperationException("Pool already instantiated.");
+                }
+            }
+        }
+#endif
+
+        private void PreInitPool()
+        {
+            var poolSize = _zombieData.poolSize;
             foreach (Transform child in transform)
             {
-                Destroy(child.gameObject);
+                DestroyImmediate(child.gameObject);
             }
-
-            for (var i = 0; i < _poolSize; i++)
+            
+            for (var i = 0; i < poolSize; i++)
             {
                 var go = Instantiate(_zombiePrefab, transform);
-                _cached.Add(go);
+                go.SetActive(false);
+            }
+        }
+
+        private void Update()
+        {
+            if (!Application.IsPlaying(gameObject))
+            {
+                Debug.Log("In edit mode update");
+                if (transform.childCount != _zombieData.poolSize)
+                {
+                    PreInitPool();
+                }
             }
         }
 
@@ -35,18 +61,24 @@ namespace Prototype02
         {
             item.transform.SetParent(transform);
             item.SetActive(false);
-            _cached.Add(item);
         }
 
         public GameObject Spawn()
         {
-            if (_cached.Count > 0)
+            if (transform.childCount > 0)
             {
-                // unparent, etc
+                var item = transform.GetChild(0).gameObject;
+                item.transform.SetParent(null);
+                item.SetActive(true);
+                return item;
             }
-
-            return Instantiate(_zombiePrefab);
+            // TODO: extend pool size
+            return default;
         }
 
+        private void OnDestroy()
+        {
+            Instance = null;
+        }
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using Prototype02.Zombie;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -7,10 +8,11 @@ namespace Prototype02
     public class Spawner : MonoBehaviour
     {
         [SerializeField] private GameObject _zombiePrefab;
+        [SerializeField] private Pool _pool;
 
         private BoxCollider2D _boxCollider;
         private BoxCollider2D _heroCollider;
-        
+
         private void Awake()
         {
             _boxCollider = GetComponent<BoxCollider2D>();
@@ -47,7 +49,10 @@ namespace Prototype02
                 spawnXPos = Random.Range(bounds.min.x, bounds.max.x);
             }
 
-            Instantiate(_zombiePrefab, new Vector2(spawnXPos, spawnYPos), Quaternion.identity);
+            var spawned = _pool.Spawn();
+            spawned.transform.SetPositionAndRotation(new Vector2(spawnXPos, spawnYPos), Quaternion.identity);
+            var zombie = spawned.GetComponent<ZombieController>();
+            zombie.ZombieStateMachine.Initialize(zombie.ZombieSpawnState);
         }
     }
 }
