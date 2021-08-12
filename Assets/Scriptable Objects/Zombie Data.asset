@@ -22,4 +22,4 @@ MonoBehaviour:
   hurtBackOffX: 1
   initialHitPoints: 10
   deathDuration: 0.9
-  poolSize: 0
+  poolSize: 10

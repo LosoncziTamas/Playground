@@ -1,47 +1,47 @@
 using System;
+using System.Collections.Generic;
 using Prototype02.Zombie;
 using UnityEngine;
 
 namespace Prototype02
 {
-    [ExecuteAlways]
     public class Pool : MonoBehaviour
     {
         public static Pool Instance { get; private set; }
         
         [SerializeField] private GameObject _zombiePrefab;
         [SerializeField] private ZombieData _zombieData;
-        
-        
-        #if false
+
+        private readonly List<GameObject> _objects = new List<GameObject>();
+
         private void Awake()
         {
-            if (Application.IsPlaying(gameObject))
+            if (Instance == null)
             {
-                if (Instance == null)
-                {
-                    Instance = this;
-                }
-                else
-                {
-                    throw new InvalidOperationException("Pool already instantiated.");
-                }
+                Instance = this;
             }
+            else
+            {
+                throw new InvalidOperationException("Pool already instantiated.");
+            }
+            // TODO: call this in editor
+            PreInitPool();
         }
-#endif
 
         private void PreInitPool()
         {
-            var poolSize = _zombieData.poolSize;
-            foreach (Transform child in transform)
+            foreach (var obj in _objects)
             {
-                DestroyImmediate(child.gameObject);
+                DestroyImmediate(obj);
             }
+            _objects.Clear();
             
+            var poolSize = _zombieData.poolSize;
             for (var i = 0; i < poolSize; i++)
             {
                 var go = Instantiate(_zombiePrefab, transform);
                 go.SetActive(false);
+                _objects.Add(go);
             }
         }
 
@@ -49,8 +49,7 @@ namespace Prototype02
         {
             if (!Application.IsPlaying(gameObject))
             {
-                Debug.Log("In edit mode update");
-                if (transform.childCount != _zombieData.poolSize)
+                if (_objects.Count != _zombieData.poolSize)
                 {
                     PreInitPool();
                 }

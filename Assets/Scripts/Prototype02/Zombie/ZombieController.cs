@@ -40,7 +40,7 @@ namespace Prototype02.Zombie
             ZombieDeathState = new ZombieDeathState(this, _zombieData, ZombieStateMachine);
         }
 
-        private void Start()
+        private void Start() 
         {
             var offset = HeroController.Instance.transform.position - transform.position;
             if (offset.x < 0)
