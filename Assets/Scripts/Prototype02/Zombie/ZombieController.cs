@@ -1,4 +1,6 @@
 using System;
+using Prototype02.New;
+using UnityEditor;
 using UnityEngine;
 
 namespace Prototype02.Zombie
@@ -84,6 +86,15 @@ namespace Prototype02.Zombie
                     SpriteRenderer.flipX = true;
                 }
                 ZombieFacingDirection = FacingDirection.Right;
+            }
+        }
+        
+        private void OnDrawGizmos()
+        {
+            return;
+            if (Application.isPlaying)
+            {
+                Handles.Label(transform.position, ZombieStateMachine.CurrentState.GetType().Name);
             }
         }
     }

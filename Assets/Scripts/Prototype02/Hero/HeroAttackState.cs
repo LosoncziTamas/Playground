@@ -7,7 +7,6 @@ namespace Prototype02.New
     public class HeroAttackState : HeroState
     {
         private int _groundedAttackAnimIndex;
-        private int _attackIndex;
         
         public HeroAttackState(HeroController heroController, HeroData heroData, HeroStateMachine heroStateMachine) : base(heroController, heroData, heroStateMachine)
         {
@@ -29,13 +28,15 @@ namespace Prototype02.New
                 }
                 _groundedAttackAnimIndex++;
                 heroController.Rigidbody2D.velocity = Vector2.zero;
-                _attackIndex = _groundedAttackAnimIndex;
             }
             else
             {
                 heroController.Animator.SetBool(AnimStates.Attack3StateId, true);
-                _attackIndex = 2;
             }
+
+            // TODO: find a more fine grained way for determining animations states
+            var time = heroController.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
+            
         }
 
         public override void Exit()

@@ -1,9 +1,11 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
 using Prototype02.Hero;
 using Prototype02.New;
 using Prototype02.UI;
+using UnityEditor;
 using UnityEngine;
 
 namespace Prototype02
@@ -147,7 +149,7 @@ namespace Prototype02
 
         public bool CanAttack()
         {
-            return LastAttackTime + _heroData.delayBetweenAttacksInSeconds < Time.time;
+            return IsGrounded && LastAttackTime + _heroData.delayBetweenAttacksInSeconds < Time.time;
         }
 
         public List<Collider2D> GetEnemiesFromHitBox(FacingDirection facingDirection)
@@ -160,10 +162,13 @@ namespace Prototype02
         {
             HeroStateMachine.CurrentState.OnAnimEvent(animEvent);
         }
-        
-        private void OnGUI()
+
+        private void OnDrawGizmos()
         {
-            GUILayout.Label(HeroStateMachine.CurrentState.GetType().ToString());
+            if (Application.isPlaying)
+            {
+                Handles.Label(transform.position, HeroStateMachine.CurrentState.GetType().Name);
+            }
         }
     }
 }

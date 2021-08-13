@@ -27,6 +27,7 @@ namespace Prototype02.Hero
             base.LogicUpdate();
             if (heroController.Blocking && heroController.BeingHurt)
             {
+                // TODO: check attack from behind
                 heroController.HeroStateMachine.ChangeState(heroController.heroBlockState);
             }
             else if (!heroController.Blocking)
