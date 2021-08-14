@@ -27,8 +27,17 @@ namespace Prototype02.Hero
             base.LogicUpdate();
             if (heroController.Blocking && heroController.BeingHurt)
             {
-                // TODO: check attack from behind
-                heroController.HeroStateMachine.ChangeState(heroController.heroBlockState);
+                var offset = heroController.LastHurtCollider.transform.position - heroController.transform.position;
+                var attackBlocked = offset.x > 0 && heroController.HeroFacingDirection == FacingDirection.Right ||
+                                    offset.x < 0 && heroController.HeroFacingDirection == FacingDirection.Left;
+                if (attackBlocked)
+                {
+                    heroController.HeroStateMachine.ChangeState(heroController.heroBlockState);
+                }
+                else
+                {
+                    heroController.HeroStateMachine.ChangeState(heroController.HeroHurtState);
+                }
             }
             else if (!heroController.Blocking)
             {
