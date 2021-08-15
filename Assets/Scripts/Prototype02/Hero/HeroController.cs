@@ -72,6 +72,7 @@ namespace Prototype02
 
             HeroStateMachine = new HeroStateMachine();
             
+            //TODO: rework animation timings
             HeroFallingState = new HeroFallingState(this, _heroData, HeroStateMachine);
             HeroIdleState = new HeroIdleState(this, _heroData, HeroStateMachine);
             HeroJumpState = new HeroJumpState(this, _heroData, HeroStateMachine);
@@ -168,6 +169,7 @@ namespace Prototype02
             if (Application.isPlaying)
             {
                 Handles.Label(transform.position, HeroStateMachine.CurrentState.GetType().Name);
+                Handles.Label(transform.position + Vector3.up * 0.05f, Animator.GetCurrentAnimatorStateInfo(0).normalizedTime.ToString());
             }
         }
     }

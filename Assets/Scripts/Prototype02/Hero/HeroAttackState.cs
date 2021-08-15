@@ -1,8 +1,9 @@
 using System.Collections.Generic;
+using Prototype02.New;
 using Prototype02.Zombie;
 using UnityEngine;
 
-namespace Prototype02.New
+namespace Prototype02.Hero
 {
     public class HeroAttackState : HeroState
     {
@@ -33,10 +34,11 @@ namespace Prototype02.New
             {
                 heroController.Animator.SetBool(AnimStates.Attack3StateId, true);
             }
+        }
 
-            // TODO: find a more fine grained way for determining animations states
-            var time = heroController.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
-            
+        private bool AnimationIsBeingPlayed()
+        {
+            return heroController.Animator.IsAnimationPlaying(AnimStates.Attack1AnimName) || heroController.Animator.IsAnimationPlaying(AnimStates.Attack2AnimName) || heroController.Animator.IsAnimationPlaying(AnimStates.Attack3AnimName);
         }
 
         public override void Exit()
@@ -51,7 +53,8 @@ namespace Prototype02.New
         public override void LogicUpdate()
         {
             base.LogicUpdate();
-            if (startTime + heroData.attackDurationInSeconds < Time.time)
+            var playing = AnimationIsBeingPlayed();
+            if (!playing)
             {
                 if (heroController.IsGrounded)
                 {
