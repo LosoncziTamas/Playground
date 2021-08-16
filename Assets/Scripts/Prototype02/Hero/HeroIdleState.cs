@@ -1,4 +1,6 @@
-namespace Prototype02.New
+using Prototype02.New;
+
+namespace Prototype02.Hero
 {
     public class HeroIdleState : HeroState
     {
@@ -10,11 +12,6 @@ namespace Prototype02.New
         {
             base.Enter();
             heroController.Animator.SetInteger(AnimStates.AnimStateId, 0);
-        }
-
-        public override void Exit()
-        {
-            base.Exit();
         }
 
         public override void LogicUpdate()
@@ -40,11 +37,6 @@ namespace Prototype02.New
             {
                 heroStateMachine.ChangeState(heroController.HeroHurtState);
             }
-        }
-
-        public override void PhysicsUpdate()
-        {
-            base.PhysicsUpdate();
         }
     }
 }

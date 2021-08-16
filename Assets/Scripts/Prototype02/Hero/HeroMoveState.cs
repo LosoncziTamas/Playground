@@ -1,6 +1,7 @@
+using Prototype02.New;
 using UnityEngine;
 
-namespace Prototype02.New
+namespace Prototype02.Hero
 {
     public class HeroMoveState : HeroState
     {
@@ -12,11 +13,6 @@ namespace Prototype02.New
         {
             base.Enter();
             heroController.Animator.SetInteger(AnimStates.AnimStateId, 1);
-        }
-
-        public override void Exit()
-        {
-            base.Exit();
         }
 
         public override void LogicUpdate()

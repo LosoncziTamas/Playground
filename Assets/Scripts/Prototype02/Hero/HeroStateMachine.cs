@@ -1,6 +1,7 @@
+using Prototype02.New;
 using UnityEngine;
 
-namespace Prototype02.New
+namespace Prototype02.Hero
 {
     public class HeroStateMachine
     {

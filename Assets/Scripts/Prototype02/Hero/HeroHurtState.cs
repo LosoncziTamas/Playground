@@ -1,6 +1,7 @@
+using Prototype02.New;
 using UnityEngine;
 
-namespace Prototype02.New
+namespace Prototype02.Hero
 {
     public class HeroHurtState : HeroState
     {
@@ -32,7 +33,8 @@ namespace Prototype02.New
         public override void LogicUpdate()
         {
             base.LogicUpdate();
-            if (Time.time - startTime > heroData.hurtDurationInSeconds)
+            var animating = heroController.Animator.IsAnimationPlaying(AnimStates.HurtAnimName);
+            if (!animating)
             {
                 if (heroController.IsGrounded)
                 {

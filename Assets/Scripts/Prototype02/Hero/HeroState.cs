@@ -1,3 +1,4 @@
+using Prototype02.Hero;
 using UnityEngine;
 
 namespace Prototype02.New

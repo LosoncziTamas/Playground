@@ -26,7 +26,8 @@ namespace Prototype02.Hero
         public override void LogicUpdate()
         {
             base.LogicUpdate();
-            if (startTime + heroData.deathDurationInSeconds <= Time.time)
+            var animating = heroController.Animator.IsAnimationPlaying(AnimStates.DeathAnimName);
+            if (!animating)
             {
                 // TODO: respawn or something
             }

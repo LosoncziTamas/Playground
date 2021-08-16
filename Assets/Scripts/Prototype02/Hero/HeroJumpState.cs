@@ -1,6 +1,7 @@
+using Prototype02.New;
 using UnityEngine;
 
-namespace Prototype02.New
+namespace Prototype02.Hero
 {
     public class HeroJumpState : HeroState
     {
@@ -18,12 +19,7 @@ namespace Prototype02.New
                 heroController.Rigidbody2D.velocity = new Vector2(heroController.Rigidbody2D.velocity.x, heroData.jumpVelocityY);
             }
         }
-
-        public override void Exit()
-        {
-            base.Exit();
-        }
-
+        
         public override void LogicUpdate()
         {
             base.LogicUpdate();

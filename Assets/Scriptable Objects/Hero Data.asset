@@ -20,4 +20,4 @@ MonoBehaviour:
   initialHitPoints: 10
   deathDurationInSeconds: 1
   blockDurationInSeconds: 0.5
-  delayBetweenAttacksInSeconds: 0
+  delayBetweenAttacksInSeconds: 0.15

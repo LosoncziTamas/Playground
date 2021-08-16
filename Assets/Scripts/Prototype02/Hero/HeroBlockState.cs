@@ -34,7 +34,8 @@ namespace Prototype02.Hero
         public override void LogicUpdate()
         {
             base.LogicUpdate();
-            if (startTime + heroData.blockDurationInSeconds <= Time.time)
+            var animating = heroController.Animator.IsAnimationPlaying(AnimStates.BlockAnimName);
+            if (startTime + heroData.blockDurationInSeconds <= Time.time && !animating)
             {
                 if (heroController.Blocking)
                 {
