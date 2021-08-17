@@ -22,17 +22,8 @@ namespace Prototype02
         {
             _heroCollider = HeroController.Instance.GetComponent<BoxCollider2D>();
         }
-
-        private void OnGUI()
-        {
-            GUILayout.Space(300);
-            if (GUILayout.Button("Spawn"))
-            {
-                Spawn();
-            }
-        }
-
-        private void Spawn()
+        
+        public void Spawn()
         {
             var bounds = _boxCollider.bounds;
 
