@@ -20,6 +20,7 @@ namespace Prototype02.Zombie
             zombieController.Animator.SetBool(AnimStates.ZombieAttackAnimId, false);
         }
 
+        // TODO: use anim events?
         public override void LogicUpdate()
         {
             base.LogicUpdate();
@@ -34,7 +35,8 @@ namespace Prototype02.Zombie
                 zombieController.ZombieIdleCollider.enabled = true;
             }
 
-            if (startTime + zombieData.zombieAttackDurationInSeconds <= Time.time)
+            var animating = zombieController.Animator.IsAnimationPlaying(AnimStates.ZombieAttackAnimName);
+            if (!animating)
             {
                 zombieStateMachine.ChangeState(zombieController.ZombieMoveState);
             }

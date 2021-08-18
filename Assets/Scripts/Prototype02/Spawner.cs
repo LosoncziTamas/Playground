@@ -22,7 +22,15 @@ namespace Prototype02
         {
             _heroCollider = HeroController.Instance.GetComponent<BoxCollider2D>();
         }
-        
+
+        private void OnGUI()
+        {
+            if (GUILayout.Button("Spawn"))
+            {
+                Spawn();
+            }
+        }
+
         public void Spawn()
         {
             var bounds = _boxCollider.bounds;

@@ -10,6 +10,9 @@ namespace Prototype02
         public const string HurtAnimName = "Hurt";
         public const string BlockAnimName = "Block";
         public const string DeathAnimName = "Death";
+        public const string SpawnAnimName = "Spawn";
+        public const string ZombieAttackAnimName = "Attack";
+        public const string ZombieDeathAnimName = "Zombie_Death";
 
         // Hero
         public static readonly int GroundedAnimId = Animator.StringToHash("Grounded");
@@ -25,10 +28,10 @@ namespace Prototype02
         // Common
         public static readonly int HurtAnimId = Animator.StringToHash(HurtAnimName);
         public static readonly int AnimStateId = Animator.StringToHash("AnimState");
-        public static readonly int DeathAnimId = Animator.StringToHash(DeathAnimName);
+        public static readonly int DeathAnimId = Animator.StringToHash("Death");
         
         // Zombie
-        public static readonly int SpawnAnimId = Animator.StringToHash("Spawn");
-        public static readonly int ZombieAttackAnimId = Animator.StringToHash("Attack");
+        public static readonly int SpawnAnimId = Animator.StringToHash(SpawnAnimName);
+        public static readonly int ZombieAttackAnimId = Animator.StringToHash(ZombieAttackAnimName);
     }
 }

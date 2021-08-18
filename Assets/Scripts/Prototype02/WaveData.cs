@@ -15,8 +15,7 @@ namespace Prototype02
 
         public int maxZombieCountPerSpawn;
         public float waveLengthInSeconds;
-
-
+        
         public TimeTableSlot[] CreateSpawnSchedule()
         {
             var result = new TimeTableSlot[waveDistribution.length];

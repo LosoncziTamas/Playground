@@ -14,13 +14,13 @@ namespace Prototype02
         
         private void Start()
         {
+            // TODO: wave gui
             _currentWave = _waves[_currentWaveIndex];
-            StartCoroutine(StartWave(_currentWave));
+            // StartCoroutine(StartWave(_currentWave));
         }
 
         private void WaveFinished()
         {
-            Debug.Log("Wave finished");
             _currentWaveIndex++;
             if (_waves.Length > _currentWaveIndex)
             {

@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace Prototype02.Zombie
 {
     public class ZombieDeathState : ZombieState
@@ -18,7 +16,9 @@ namespace Prototype02.Zombie
         public override void LogicUpdate()
         {
             base.LogicUpdate();
-            if (startTime + zombieData.deathDuration < Time.time)
+            var animating = zombieController.Animator.IsAnimationPlaying(AnimStates.ZombieDeathAnimName);
+            // TODO: fix this
+            if (!animating)
             {
                 Pool.Instance.ReturnToPool(zombieController.gameObject);
             }
