@@ -1,5 +1,3 @@
-using System;
-using Prototype02.New;
 using UnityEditor;
 using UnityEngine;
 

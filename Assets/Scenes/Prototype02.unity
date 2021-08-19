@@ -660,6 +660,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Overlay
       objectReference: {fileID: 0}
+    - target: {fileID: 404876709386490541, guid: 138a48c3d11784e31b4d296d2ddf2833, type: 3}
+      propertyPath: m_Alpha
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 404876709464426405, guid: 138a48c3d11784e31b4d296d2ddf2833, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
