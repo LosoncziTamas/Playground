@@ -1,3 +1,5 @@
+#undef DEBUG
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -163,6 +165,7 @@ namespace Prototype02
             HeroStateMachine.CurrentState.OnAnimEvent(animEvent);
         }
 
+#if DEBUG 
         private void OnDrawGizmos()
         {
             if (Application.isPlaying)
@@ -171,5 +174,6 @@ namespace Prototype02
                 Handles.Label(transform.position + Vector3.up * 0.05f, Animator.GetCurrentAnimatorStateInfo(0).normalizedTime.ToString());
             }
         }
+#endif
     }
 }

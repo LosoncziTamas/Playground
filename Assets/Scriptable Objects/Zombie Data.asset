@@ -12,11 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 661a6d7ac7c84c4c92b53ad27e536c73, type: 3}
   m_Name: Zombie Data
   m_EditorClassIdentifier: 
-  spawnDurationInSeconds: 0.6
   walkSpeed: 0.1
-  zombieAttackDurationInSeconds: 0.9
   zombieAttackStart: 0.4
   zombieAttackEnd: 0.5
+  zombieAttackLength: 0.15
   zombieAttackDistance: 1
   zombieHurtDuration: 0.2
   hurtBackOffX: 1

@@ -1,4 +1,3 @@
-using System;
 using Prototype02.Zombie;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -7,7 +6,6 @@ namespace Prototype02
 {
     public class Spawner : MonoBehaviour
     {
-        [SerializeField] private GameObject _zombiePrefab;
         [SerializeField] private Pool _pool;
 
         private BoxCollider2D _boxCollider;

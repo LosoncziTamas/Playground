@@ -72,3 +72,6 @@ crashlytics-build.properties
 
 # Third party
 /[Aa]ssets/ThirdPartyProtected/*
+
+# Generated build folder
+/Build-WebGL

@@ -36,5 +36,10 @@ namespace Prototype02.Zombie
         {
             
         }
+
+        public virtual void OnAnimEvent(AnimEvent animEvent)
+        {
+            
+        }
     }
 }

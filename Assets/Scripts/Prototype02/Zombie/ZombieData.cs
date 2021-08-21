@@ -5,12 +5,8 @@ namespace Prototype02.Zombie
     [CreateAssetMenu(menuName = "My Assets/Zombie Data")]
     public class ZombieData : ScriptableObject
     {
-        // TODO: fix anim timings
-        public float spawnDurationInSeconds;
         public float walkSpeed;
-        public float zombieAttackDurationInSeconds;
-        public float zombieAttackStart;
-        public float zombieAttackEnd;
+        public float zombieAttackLength;
         public float zombieAttackDistance;
         public float zombieHurtDuration;
         public float hurtBackOffX;

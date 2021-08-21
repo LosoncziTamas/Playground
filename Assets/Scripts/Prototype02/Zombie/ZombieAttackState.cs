@@ -4,6 +4,9 @@ namespace Prototype02.Zombie
 {
     public class ZombieAttackState : ZombieState
     {
+        private bool _attackStarted;
+        private float _attackStartTime;
+        
         public ZombieAttackState(ZombieController zombieController, ZombieData zombieData, ZombieStateMachine zombieStateMachine) : base(zombieController, zombieData, zombieStateMachine)
         {
         }
@@ -20,11 +23,24 @@ namespace Prototype02.Zombie
             zombieController.Animator.SetBool(AnimStates.ZombieAttackAnimId, false);
         }
 
-        // TODO: use anim events?
+        public override void OnAnimEvent(AnimEvent animEvent)
+        {
+            if (animEvent == AnimEvent.ZombieAttack)
+            {
+                _attackStarted = true;
+                _attackStartTime = Time.time;
+            }
+        }
+
         public override void LogicUpdate()
         {
             base.LogicUpdate();
-            if (startTime + zombieData.zombieAttackStart <= Time.time && startTime + zombieData.zombieAttackEnd >= Time.time)
+            if (!_attackStarted)
+            {
+                return;
+            }
+            
+            if (_attackStartTime + zombieData.zombieAttackLength >= Time.time)
             {
                 zombieController.ZombieAttackCollider.enabled = true;
                 zombieController.ZombieIdleCollider.enabled = false;

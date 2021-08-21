@@ -1,4 +1,4 @@
-using UnityEditor;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace Prototype02.Zombie
@@ -87,13 +87,10 @@ namespace Prototype02.Zombie
             }
         }
         
-        private void OnDrawGizmos()
+        [UsedImplicitly]
+        public void OnAnimationEvent(AnimEvent animEvent)
         {
-            return;
-            if (Application.isPlaying)
-            {
-                Handles.Label(transform.position, ZombieStateMachine.CurrentState.GetType().Name);
-            }
+            ZombieStateMachine.CurrentState.OnAnimEvent(animEvent);
         }
     }
 }
