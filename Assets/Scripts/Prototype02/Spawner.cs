@@ -47,6 +47,11 @@ namespace Prototype02
             }
 
             var spawned = _pool.Spawn();
+            if (spawned == null)
+            {
+                Debug.LogError("Pool should be extended.");
+                return;
+            }
             spawned.transform.SetPositionAndRotation(new Vector2(spawnXPos, spawnYPos), Quaternion.identity);
             var zombie = spawned.GetComponent<ZombieController>();
             zombie.ZombieStateMachine.Initialize(zombie.ZombieSpawnState);

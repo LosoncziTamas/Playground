@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -6,6 +8,8 @@ namespace Prototype02.Zombie
     [RequireComponent(typeof(Rigidbody2D))]
     public class ZombieController : MonoBehaviour
     {
+        public static readonly List<ZombieController> EnabledInstances = new List<ZombieController>();
+        
         public FacingDirection ZombieFacingDirection { get; private set; }
         public Rigidbody2D Rigidbody2D { get; private set; }
         public Animator Animator { get; private set; }
@@ -55,6 +59,16 @@ namespace Prototype02.Zombie
             }
             
             ZombieStateMachine.Initialize(ZombieSpawnState);
+        }
+
+        private void OnEnable()
+        {
+            EnabledInstances.Add(this);
+        }
+
+        private void OnDisable()
+        {
+            EnabledInstances.Remove(this);
         }
 
         private void Update()
