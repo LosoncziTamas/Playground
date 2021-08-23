@@ -116,10 +116,11 @@ namespace Prototype02
 
         private void Update()
         {
-            Jumping = Input.GetKey(KeyCode.UpArrow);
-            Moving = Mathf.Abs(Input.GetAxis("Horizontal")) > 0f;
-            Attacking = Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space);
-            Blocking = Input.GetKey(KeyCode.LeftShift);
+
+            Jumping = false;//Input.GetKey(KeyCode.UpArrow);
+            Moving = false;//Mathf.Abs(Input.GetAxis("Horizontal")) > 0f;
+            Attacking = false;//Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space);
+            Blocking = false;//Input.GetKey(KeyCode.LeftShift);
             HeroStateMachine.CurrentState.LogicUpdate();
         }
 

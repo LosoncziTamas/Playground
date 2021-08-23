@@ -18,8 +18,8 @@ namespace Prototype02.Hero
         public override void LogicUpdate()
         {
             base.LogicUpdate();
-            
-            var horizontal = Input.GetAxis("Horizontal");
+
+            var horizontal = 0; //Input.GetAxis("Horizontal");
             heroController.FlipSpriteOnDirectionChange(horizontal);
             if (Mathf.Approximately(0f, horizontal) && !heroController.Jumping)
             {
@@ -39,7 +39,7 @@ namespace Prototype02.Hero
         public override void PhysicsUpdate()
         {
             base.PhysicsUpdate();
-            var horizontal = Input.GetAxis("Horizontal");
+            var horizontal = 0; //Input.GetAxis("Horizontal");
             heroController.Rigidbody2D.velocity = new Vector2(horizontal * heroData.horizontalMovementSpeed, heroController.Rigidbody2D.velocity.y);
             if (heroController.BeingHurt)
             {
