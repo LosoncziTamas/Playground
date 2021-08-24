@@ -194,17 +194,18 @@ namespace Prototype02
             _moveVal = context.ReadValue<Vector2>();
         }
 
+        public void OnAttack(InputAction.CallbackContext context)
+        {
+            var foo = context.action;
+            
+        }
+
         private Vector2 _moveVal;
 
         private void OnGUI()
         {
             GUILayout.Space(50);
             GUILayout.Label(_moveVal.ToString());
-        }
-
-        public void OnJump(InputAction.CallbackContext context)
-        {
-            
         }
     }
 }

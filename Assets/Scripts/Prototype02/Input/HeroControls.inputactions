@@ -14,7 +14,7 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Jump",
+                    "name": "Attack",
                     "type": "Button",
                     "id": "c8b60f84-61f2-41fc-be20-e113459055bc",
                     "expectedControlType": "Button",
@@ -37,11 +37,11 @@
                 {
                     "name": "",
                     "id": "948e6444-8da3-49d2-bfb7-b891314aa597",
-                    "path": "",
+                    "path": "<Gamepad>/rightTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Jump",
+                    "action": "Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

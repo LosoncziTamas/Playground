@@ -27,7 +27,7 @@ public class @HeroControls : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""Jump"",
+                    ""name"": ""Attack"",
                     ""type"": ""Button"",
                     ""id"": ""c8b60f84-61f2-41fc-be20-e113459055bc"",
                     ""expectedControlType"": ""Button"",
@@ -50,11 +50,11 @@ public class @HeroControls : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""948e6444-8da3-49d2-bfb7-b891314aa597"",
-                    ""path"": """",
+                    ""path"": ""<Gamepad>/rightTrigger"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Jump"",
+                    ""action"": ""Attack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -66,7 +66,7 @@ public class @HeroControls : IInputActionCollection, IDisposable
         // Hero
         m_Hero = asset.FindActionMap("Hero", throwIfNotFound: true);
         m_Hero_Move = m_Hero.FindAction("Move", throwIfNotFound: true);
-        m_Hero_Jump = m_Hero.FindAction("Jump", throwIfNotFound: true);
+        m_Hero_Attack = m_Hero.FindAction("Attack", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -117,13 +117,13 @@ public class @HeroControls : IInputActionCollection, IDisposable
     private readonly InputActionMap m_Hero;
     private IHeroActions m_HeroActionsCallbackInterface;
     private readonly InputAction m_Hero_Move;
-    private readonly InputAction m_Hero_Jump;
+    private readonly InputAction m_Hero_Attack;
     public struct HeroActions
     {
         private @HeroControls m_Wrapper;
         public HeroActions(@HeroControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Hero_Move;
-        public InputAction @Jump => m_Wrapper.m_Hero_Jump;
+        public InputAction @Attack => m_Wrapper.m_Hero_Attack;
         public InputActionMap Get() { return m_Wrapper.m_Hero; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -136,9 +136,9 @@ public class @HeroControls : IInputActionCollection, IDisposable
                 @Move.started -= m_Wrapper.m_HeroActionsCallbackInterface.OnMove;
                 @Move.performed -= m_Wrapper.m_HeroActionsCallbackInterface.OnMove;
                 @Move.canceled -= m_Wrapper.m_HeroActionsCallbackInterface.OnMove;
-                @Jump.started -= m_Wrapper.m_HeroActionsCallbackInterface.OnJump;
-                @Jump.performed -= m_Wrapper.m_HeroActionsCallbackInterface.OnJump;
-                @Jump.canceled -= m_Wrapper.m_HeroActionsCallbackInterface.OnJump;
+                @Attack.started -= m_Wrapper.m_HeroActionsCallbackInterface.OnAttack;
+                @Attack.performed -= m_Wrapper.m_HeroActionsCallbackInterface.OnAttack;
+                @Attack.canceled -= m_Wrapper.m_HeroActionsCallbackInterface.OnAttack;
             }
             m_Wrapper.m_HeroActionsCallbackInterface = instance;
             if (instance != null)
@@ -146,9 +146,9 @@ public class @HeroControls : IInputActionCollection, IDisposable
                 @Move.started += instance.OnMove;
                 @Move.performed += instance.OnMove;
                 @Move.canceled += instance.OnMove;
-                @Jump.started += instance.OnJump;
-                @Jump.performed += instance.OnJump;
-                @Jump.canceled += instance.OnJump;
+                @Attack.started += instance.OnAttack;
+                @Attack.performed += instance.OnAttack;
+                @Attack.canceled += instance.OnAttack;
             }
         }
     }
@@ -156,6 +156,6 @@ public class @HeroControls : IInputActionCollection, IDisposable
     public interface IHeroActions
     {
         void OnMove(InputAction.CallbackContext context);
-        void OnJump(InputAction.CallbackContext context);
+        void OnAttack(InputAction.CallbackContext context);
     }
 }
