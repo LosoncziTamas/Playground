@@ -9,10 +9,11 @@ using Prototype02.New;
 using Prototype02.UI;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Prototype02
 {
-    public class HeroController : MonoBehaviour
+    public class HeroController : MonoBehaviour, HeroControls.IHeroActions
     {
         public static HeroController Instance { get; private set; }
         
@@ -62,6 +63,7 @@ namespace Prototype02
 
         private SpriteRenderer _spriteRenderer;
         private int _hitPoints;
+        private HeroControls _heroControls;
         
 
         private void Awake()
@@ -73,7 +75,9 @@ namespace Prototype02
             Rigidbody2D = GetComponent<Rigidbody2D>();
 
             HeroStateMachine = new HeroStateMachine();
-            
+            _heroControls = new HeroControls();
+            _heroControls.Hero.SetCallbacks(this);
+
             HeroFallingState = new HeroFallingState(this, _heroData, HeroStateMachine);
             HeroIdleState = new HeroIdleState(this, _heroData, HeroStateMachine);
             HeroJumpState = new HeroJumpState(this, _heroData, HeroStateMachine);
@@ -84,7 +88,16 @@ namespace Prototype02
             heroIdleBlockState = new HeroIdleBlockState(this, _heroData, HeroStateMachine);
             heroBlockState = new HeroBlockState(this, _heroData, HeroStateMachine);
         }
-        
+
+        private void OnEnable()
+        {
+            _heroControls.Enable();
+        }
+
+        private void OnDisable()
+        {
+            _heroControls.Disable();
+        }
 
         private void Start()
         {
@@ -176,5 +189,22 @@ namespace Prototype02
             }
         }
 #endif
+        public void OnMove(InputAction.CallbackContext context)
+        {
+            _moveVal = context.ReadValue<Vector2>();
+        }
+
+        private Vector2 _moveVal;
+
+        private void OnGUI()
+        {
+            GUILayout.Space(50);
+            GUILayout.Label(_moveVal.ToString());
+        }
+
+        public void OnJump(InputAction.CallbackContext context)
+        {
+            
+        }
     }
 }
