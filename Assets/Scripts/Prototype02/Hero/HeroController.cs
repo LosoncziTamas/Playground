@@ -64,7 +64,7 @@ namespace Prototype02
         private SpriteRenderer _spriteRenderer;
         private int _hitPoints;
         private HeroControls _heroControls;
-        
+        private Vector2 _moveVal;
 
         private void Awake()
         {
@@ -129,14 +129,11 @@ namespace Prototype02
 
         private void Update()
         {
-
-            Jumping = false;//Input.GetKey(KeyCode.UpArrow);
-            Moving = false;//Mathf.Abs(Input.GetAxis("Horizontal")) > 0f;
-            Attacking = false;//Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space);
-            Blocking = false;//Input.GetKey(KeyCode.LeftShift);
             HeroStateMachine.CurrentState.LogicUpdate();
         }
 
+        public float GetHorizontal() => _moveVal.x;
+        
         public void Revive()
         {
             HitPoints = _heroData.initialHitPoints;
@@ -189,23 +186,30 @@ namespace Prototype02
             }
         }
 #endif
+        
         public void OnMove(InputAction.CallbackContext context)
         {
             _moveVal = context.ReadValue<Vector2>();
+            if (context.performed)
+            {
+                Jumping = _moveVal.y > 0;
+                Moving = Mathf.Abs(_moveVal.x) > 0f;
+            }
+            else
+            {
+                Jumping = false;
+                Moving = false;
+            }
         }
 
         public void OnAttack(InputAction.CallbackContext context)
         {
-            var foo = context.action;
-            
+            Attacking = context.performed;
         }
-
-        private Vector2 _moveVal;
-
-        private void OnGUI()
+        
+        public void OnBlock(InputAction.CallbackContext context)
         {
-            GUILayout.Space(50);
-            GUILayout.Label(_moveVal.ToString());
+            Blocking = context.performed;
         }
     }
 }

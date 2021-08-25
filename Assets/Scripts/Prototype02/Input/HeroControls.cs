@@ -33,6 +33,14 @@ public class @HeroControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Block"",
+                    ""type"": ""Button"",
+                    ""id"": ""d234f40c-9247-4d9a-946b-e5e695bdaa6c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -57,6 +65,17 @@ public class @HeroControls : IInputActionCollection, IDisposable
                     ""action"": ""Attack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c20b87be-1ea2-42a3-9dfa-b6a6c8b8f408"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Block"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -67,6 +86,7 @@ public class @HeroControls : IInputActionCollection, IDisposable
         m_Hero = asset.FindActionMap("Hero", throwIfNotFound: true);
         m_Hero_Move = m_Hero.FindAction("Move", throwIfNotFound: true);
         m_Hero_Attack = m_Hero.FindAction("Attack", throwIfNotFound: true);
+        m_Hero_Block = m_Hero.FindAction("Block", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -118,12 +138,14 @@ public class @HeroControls : IInputActionCollection, IDisposable
     private IHeroActions m_HeroActionsCallbackInterface;
     private readonly InputAction m_Hero_Move;
     private readonly InputAction m_Hero_Attack;
+    private readonly InputAction m_Hero_Block;
     public struct HeroActions
     {
         private @HeroControls m_Wrapper;
         public HeroActions(@HeroControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Hero_Move;
         public InputAction @Attack => m_Wrapper.m_Hero_Attack;
+        public InputAction @Block => m_Wrapper.m_Hero_Block;
         public InputActionMap Get() { return m_Wrapper.m_Hero; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -139,6 +161,9 @@ public class @HeroControls : IInputActionCollection, IDisposable
                 @Attack.started -= m_Wrapper.m_HeroActionsCallbackInterface.OnAttack;
                 @Attack.performed -= m_Wrapper.m_HeroActionsCallbackInterface.OnAttack;
                 @Attack.canceled -= m_Wrapper.m_HeroActionsCallbackInterface.OnAttack;
+                @Block.started -= m_Wrapper.m_HeroActionsCallbackInterface.OnBlock;
+                @Block.performed -= m_Wrapper.m_HeroActionsCallbackInterface.OnBlock;
+                @Block.canceled -= m_Wrapper.m_HeroActionsCallbackInterface.OnBlock;
             }
             m_Wrapper.m_HeroActionsCallbackInterface = instance;
             if (instance != null)
@@ -149,6 +174,9 @@ public class @HeroControls : IInputActionCollection, IDisposable
                 @Attack.started += instance.OnAttack;
                 @Attack.performed += instance.OnAttack;
                 @Attack.canceled += instance.OnAttack;
+                @Block.started += instance.OnBlock;
+                @Block.performed += instance.OnBlock;
+                @Block.canceled += instance.OnBlock;
             }
         }
     }
@@ -157,5 +185,6 @@ public class @HeroControls : IInputActionCollection, IDisposable
     {
         void OnMove(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
+        void OnBlock(InputAction.CallbackContext context);
     }
 }

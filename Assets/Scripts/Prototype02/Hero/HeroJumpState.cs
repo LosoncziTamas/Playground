@@ -24,7 +24,7 @@ namespace Prototype02.Hero
         {
             base.LogicUpdate();
 
-            var horizontal = 0; // Input.GetAxis("Horizontal")
+            var horizontal = heroController.GetHorizontal();
             heroController.FlipSpriteOnDirectionChange(horizontal);
             
             if (heroController.Rigidbody2D.velocity.y < 0.0f)
@@ -44,7 +44,7 @@ namespace Prototype02.Hero
         public override void PhysicsUpdate()
         {
             base.PhysicsUpdate();
-            var horizontal = 0;//Input.GetAxis("Horizontal");
+            var horizontal = heroController.GetHorizontal();
             heroController.Rigidbody2D.velocity = new Vector2(horizontal * heroData.horizontalMovementSpeed, heroController.Rigidbody2D.velocity.y);
         }
     }
