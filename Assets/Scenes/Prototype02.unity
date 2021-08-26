@@ -422,7 +422,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -487,6 +487,7 @@ GameObject:
   - component: {fileID: 1952422041}
   - component: {fileID: 1952422040}
   - component: {fileID: 1952422042}
+  - component: {fileID: 1952422039}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -494,6 +495,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1952422039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1952422038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8bb12d4756af4870ba919678f72a632, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!20 &1952422040
 Camera:
   m_ObjectHideFlags: 0
@@ -1048,11 +1061,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6999824621176087952, guid: f9833f859cc8e4a23bb6dded2d72fdb3, type: 3}
       propertyPath: m_SizeDelta.x
-      value: -200
+      value: -40
       objectReference: {fileID: 0}
     - target: {fileID: 6999824621176087952, guid: f9833f859cc8e4a23bb6dded2d72fdb3, type: 3}
       propertyPath: m_SizeDelta.y
-      value: -200
+      value: -40
+      objectReference: {fileID: 0}
+    - target: {fileID: 6999824621176087952, guid: f9833f859cc8e4a23bb6dded2d72fdb3, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6999824621176087952, guid: f9833f859cc8e4a23bb6dded2d72fdb3, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6999824621176087952, guid: f9833f859cc8e4a23bb6dded2d72fdb3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1101,6 +1122,14 @@ PrefabInstance:
     - target: {fileID: 6999824621176087952, guid: f9833f859cc8e4a23bb6dded2d72fdb3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6999824622355757609, guid: f9833f859cc8e4a23bb6dded2d72fdb3, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6999824622355757609, guid: f9833f859cc8e4a23bb6dded2d72fdb3, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f9833f859cc8e4a23bb6dded2d72fdb3, type: 3}

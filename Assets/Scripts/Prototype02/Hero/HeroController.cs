@@ -1,13 +1,11 @@
 #undef DEBUG
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
 using Prototype02.Hero;
 using Prototype02.New;
 using Prototype02.UI;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -130,10 +128,20 @@ namespace Prototype02
         private void Update()
         {
             HeroStateMachine.CurrentState.LogicUpdate();
+            if (Application.isEditor)
+            {
+                Jumping = Input.GetKey(KeyCode.UpArrow);
+                Moving = Mathf.Abs(Input.GetAxis("Horizontal")) > 0f;
+                Attacking = Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space);
+                Blocking = Input.GetKey(KeyCode.LeftShift);
+            }
         }
 
-        public float GetHorizontal() => _moveVal.x;
-        
+        public float GetHorizontal()
+        {
+            return Application.isEditor ? Input.GetAxis("Horizontal") : _moveVal.x;
+        }
+
         public void Revive()
         {
             HitPoints = _heroData.initialHitPoints;
