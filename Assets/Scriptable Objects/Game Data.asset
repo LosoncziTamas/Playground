@@ -15,5 +15,5 @@ MonoBehaviour:
   cameraSpeedDuringMovement: 3
   cameraCatchUpSpeed: 2.5
   cameraMovementMinDistance: 2
-  cameraMovementMaxDistance: 3
+  cameraMovementMaxDistance: 1
   cameraHeroOffset: {x: 0, y: 3, z: 0}
