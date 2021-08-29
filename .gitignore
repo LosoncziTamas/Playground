@@ -76,3 +76,4 @@ crashlytics-build.properties
 # Generated build folder
 /Build-WebGL
 /Build-iOS
+/Build-Android
