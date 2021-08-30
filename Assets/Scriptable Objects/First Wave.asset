@@ -82,4 +82,4 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   maxZombieCountPerSpawn: 3
-  waveLengthInSeconds: 10
+  waveLengthInSeconds: 20

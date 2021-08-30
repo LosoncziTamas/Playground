@@ -13,8 +13,6 @@ MonoBehaviour:
   m_Name: Zombie Data
   m_EditorClassIdentifier: 
   walkSpeed: 0.1
-  zombieAttackStart: 0.4
-  zombieAttackEnd: 0.5
   zombieAttackLength: 0.15
   zombieAttackDistance: 1
   zombieHurtDuration: 0.2

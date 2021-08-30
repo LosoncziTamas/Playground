@@ -5,7 +5,6 @@ namespace Prototype02.Zombie
     public class ZombieHurtState : ZombieState
     {
         private static readonly int OverrideWithWhite = Shader.PropertyToID("_OverrideWithWhite");
-        private const float MaxDistanceX = 0.93f;
         
         public ZombieHurtState(ZombieController zombieController, ZombieData zombieData, ZombieStateMachine zombieStateMachine) : base(zombieController, zombieData, zombieStateMachine)
         {
@@ -15,7 +14,7 @@ namespace Prototype02.Zombie
         {
             base.Enter();
             
-            zombieController.HitPoints--;
+            // zombieController.HitPoints--;
             if (zombieController.HitPoints <= 0)
             {
                 zombieStateMachine.ChangeState(zombieController.ZombieDeathState);
