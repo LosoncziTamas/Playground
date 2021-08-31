@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f773fdcdcad4822b7d4655f5a9534c0, type: 3}
   m_Name: Hero Data
   m_EditorClassIdentifier: 
-  horizontalMovementSpeed: 4
-  jumpVelocityY: 5
+  horizontalMovementSpeed: 3
+  jumpVelocityY: 6
   hurtBackOffX: 1
   initialHitPoints: 3
   deathDurationInSeconds: 1
