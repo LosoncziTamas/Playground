@@ -1,13 +1,19 @@
 using System;
+using Prototype02.Zombie;
 using UnityEngine;
 
 namespace Prototype02
 {
     public class MovingWall : MonoBehaviour
     {
-        // TODO: set tags properly
-        // TODO: update colliders
         [SerializeField] private GameData _gameData;
+
+        private HeroController _heroController;
+
+        private void Start()
+        {
+            _heroController = HeroController.Instance;
+        }
 
         private void FixedUpdate()
         {
@@ -18,7 +24,13 @@ namespace Prototype02
         {
             if (other.gameObject.CompareTag(Tags.EnemyTag))
             {
-                // TODO: set enemy state properly
+                var enemy = other.gameObject.GetComponent<ZombieController>();
+                Debug.Assert(enemy != null);
+                enemy.ZombieStateMachine.ChangeState(enemy.ZombieDeathState);
+            }
+            else if (other.gameObject.CompareTag(Tags.PlayerTag))
+            {
+                _heroController.HeroStateMachine.ChangeState(_heroController.HeroDeathState);
             }
         }
     }

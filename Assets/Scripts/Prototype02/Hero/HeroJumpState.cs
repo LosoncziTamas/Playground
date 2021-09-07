@@ -14,10 +14,7 @@ namespace Prototype02.Hero
             base.Enter();
             heroController.Animator.SetTrigger(AnimStates.JumpStateId);
             heroController.Animator.SetBool(AnimStates.GroundedAnimId, false);
-            if (!(heroController.Rigidbody2D.velocity.y > 0))
-            {
-                heroController.Rigidbody2D.velocity = new Vector2(heroController.Rigidbody2D.velocity.x, heroData.jumpVelocityY);
-            }
+            heroController.Rigidbody2D.velocity = new Vector2(heroController.Rigidbody2D.velocity.x, heroData.jumpVelocityY);
         }
         
         public override void LogicUpdate()
@@ -27,7 +24,7 @@ namespace Prototype02.Hero
             var horizontal = heroController.GetHorizontal();
             heroController.FlipSpriteOnDirectionChange(horizontal);
             
-            if (heroController.Rigidbody2D.velocity.y < 0.0f)
+            if (heroController.Rigidbody2D.velocity.y <= 0.0f)
             {
                 heroStateMachine.ChangeState(heroController.HeroFallingState);
             }

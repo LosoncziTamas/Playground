@@ -1,4 +1,4 @@
-#undef DEBUG
+#define DEBUG
 
 using System.Collections.Generic;
 using System.Linq;
@@ -6,6 +6,7 @@ using JetBrains.Annotations;
 using Prototype02.Hero;
 using Prototype02.New;
 using Prototype02.UI;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -64,6 +65,8 @@ namespace Prototype02
         private HeroControls _heroControls;
         private Vector2 _moveVal;
 
+        // TODO: fix levitation
+        
         private void Awake()
         {
             Instance = this;
@@ -190,7 +193,7 @@ namespace Prototype02
             if (Application.isPlaying)
             {
                 Handles.Label(transform.position, HeroStateMachine.CurrentState.GetType().Name);
-                Handles.Label(transform.position + Vector3.up * 0.05f, Animator.GetCurrentAnimatorStateInfo(0).normalizedTime.ToString());
+                Handles.Label(transform.position + Vector3.up * 0.05f, Rigidbody2D.velocity.ToString());
             }
         }
 #endif
