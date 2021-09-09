@@ -29,15 +29,14 @@ namespace Prototype03
             {
                 Node.DrawSegment(worldPos, Node.transform.position);
                 var nodes = Node.NodeContainer.nodes;
-                for (var i = 0; i < Node.NodeContainer.nodes.Count; i++)
+                for (var i = 0; i < nodes.Count; i++)
                 {
-
-                    var node = _nodeContainer.nodes[i];
+                    var node = nodes[i];
                     if (node.Selected && node.nodeType != NodeType.PlayerNode)
                     {
-                        _otherNode = node;
-                        _invadingOtherNode = true;
-                        DrawSegment(transform.position, node.transform.position);
+                        //_otherNode = node;
+
+                        //DrawSegment(transform.position, node.transform.position);
                         return;
                     }
                 }
