@@ -4,5 +4,6 @@ namespace Prototype02
     {
         public const string EnemyTag = "Enemy";
         public const string PlayerTag = "Player";
+        public const string MainCamera = "MainCamera";
     }
 }

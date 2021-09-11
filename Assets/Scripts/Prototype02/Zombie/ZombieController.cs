@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Prototype02.Zombie
 {
     [RequireComponent(typeof(Rigidbody2D))]
-    public class ZombieController : MonoBehaviour
+    public class ZombieController : MonoBehaviour, IActivatable
     {
         public static readonly List<ZombieController> EnabledInstances = new List<ZombieController>();
         
@@ -21,7 +21,6 @@ namespace Prototype02.Zombie
         public ZombieAttackState ZombieAttackState { get; private set; }
         public ZombieHurtState ZombieHurtState { get; private set; }
         public ZombieDeathState ZombieDeathState { get; private set; }
-        
         public SpriteRenderer SpriteRenderer { private set; get; }
         
         public int HitPoints { get; set; }
@@ -105,6 +104,16 @@ namespace Prototype02.Zombie
         public void OnAnimationEvent(AnimEvent animEvent)
         {
             ZombieStateMachine.CurrentState.OnAnimEvent(animEvent);
+        }
+
+        public void Activate()
+        {
+            Debug.Log("Activate");
+        }
+
+        public void Deactivate()
+        {
+            Debug.Log("Deactivate");
         }
     }
 }

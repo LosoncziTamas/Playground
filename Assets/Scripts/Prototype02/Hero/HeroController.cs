@@ -64,8 +64,6 @@ namespace Prototype02
         private int _hitPoints;
         private HeroControls _heroControls;
         private Vector2 _moveVal;
-
-        // TODO: fix levitation
         
         private void Awake()
         {
