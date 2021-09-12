@@ -26,7 +26,14 @@ namespace Prototype02
             {
                 var enemy = other.gameObject.GetComponent<ZombieController>();
                 Debug.Assert(enemy != null);
-                enemy.ZombieStateMachine.ChangeState(enemy.ZombieDeathState);
+                if (enemy.Activated)
+                {
+                    enemy.ZombieStateMachine.ChangeState(enemy.ZombieDeathState);
+                }
+                else
+                {
+                    enemy.gameObject.SetActive(false);
+                }
             }
             else if (other.gameObject.CompareTag(Tags.PlayerTag))
             {

@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -22,6 +21,8 @@ namespace Prototype02.Zombie
         public ZombieHurtState ZombieHurtState { get; private set; }
         public ZombieDeathState ZombieDeathState { get; private set; }
         public SpriteRenderer SpriteRenderer { private set; get; }
+
+        public bool Activated => Animator.enabled && enabled;
         
         public int HitPoints { get; set; }
 
@@ -58,6 +59,7 @@ namespace Prototype02.Zombie
             }
             
             ZombieStateMachine.Initialize(ZombieSpawnState);
+            Deactivate();
         }
 
         private void OnEnable()
@@ -108,12 +110,14 @@ namespace Prototype02.Zombie
 
         public void Activate()
         {
-            Debug.Log("Activate");
+            enabled = true;
+            Animator.enabled = true;
         }
 
         public void Deactivate()
         {
-            Debug.Log("Deactivate");
+            enabled = false;
+            Animator.enabled = false;
         }
     }
 }

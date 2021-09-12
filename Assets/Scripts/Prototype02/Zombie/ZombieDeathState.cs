@@ -13,6 +13,7 @@ namespace Prototype02.Zombie
             base.Enter();
             zombieController.Animator.SetBool(AnimStates.DeathAnimId, true);
             zombieController.ZombieIdleCollider.enabled = false;
+            // TODO: disable rest of physics
         }
 
         public override void LogicUpdate()
