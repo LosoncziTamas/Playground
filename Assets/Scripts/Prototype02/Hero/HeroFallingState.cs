@@ -27,6 +27,7 @@ namespace Prototype02.New
         public override void LogicUpdate()
         {
             base.LogicUpdate();
+            // TODO: fix falling animation
             var horizontal = heroController.GetHorizontal();
             heroController.FlipSpriteOnDirectionChange(horizontal);
             if (heroController.IsGrounded)

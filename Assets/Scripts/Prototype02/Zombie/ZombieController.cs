@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using JetBrains.Annotations;
+using UnityEditor;
 using UnityEngine;
 
 namespace Prototype02.Zombie
@@ -110,14 +112,21 @@ namespace Prototype02.Zombie
 
         public void Activate()
         {
+            Debug.Log($"{gameObject.name} Activated");
             enabled = true;
             Animator.enabled = true;
         }
 
         public void Deactivate()
         {
+            Debug.Log($"{gameObject.name} Deactivated");
             enabled = false;
             Animator.enabled = false;
+        }
+
+        private void OnDrawGizmos()
+        {
+            Handles.Label(transform.position + Vector3.right * 0.01f, Activated ? "Activated " : "Deactivated");
         }
     }
 }

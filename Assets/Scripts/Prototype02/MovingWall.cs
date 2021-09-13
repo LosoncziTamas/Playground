@@ -1,4 +1,3 @@
-using System;
 using Prototype02.Zombie;
 using UnityEngine;
 
@@ -24,13 +23,14 @@ namespace Prototype02
         {
             if (other.gameObject.CompareTag(Tags.EnemyTag))
             {
+                // TODO: fix wall collision
                 var enemy = other.gameObject.GetComponent<ZombieController>();
                 Debug.Assert(enemy != null);
                 if (enemy.Activated)
                 {
                     enemy.ZombieStateMachine.ChangeState(enemy.ZombieDeathState);
                 }
-                else
+                else if (enemy.ZombieStateMachine.CurrentState != enemy.ZombieDeathState)
                 {
                     enemy.gameObject.SetActive(false);
                 }
