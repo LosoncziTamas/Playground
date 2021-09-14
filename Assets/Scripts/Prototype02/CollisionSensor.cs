@@ -6,7 +6,6 @@ namespace Prototype02
     [RequireComponent(typeof(Collider2D))]
     public class CollisionSensor : MonoBehaviour
     {
-        
         private int _colliderCount = 0;
         private int _enemyColliderCount = 0;
 
@@ -17,6 +16,11 @@ namespace Prototype02
 
         private void OnTriggerEnter2D(Collider2D other)
         {
+            if (other.gameObject.CompareTag(Tags.MainCamera))
+            {
+                return;
+            }
+            
             _colliderCount++;
             if (other.CompareTag(Tags.EnemyTag))
             {
@@ -27,6 +31,11 @@ namespace Prototype02
 
         private void OnTriggerExit2D(Collider2D other)
         {
+            if (other.gameObject.CompareTag(Tags.MainCamera))
+            {
+                return;
+            }
+            
             _colliderCount--;
             if (other.CompareTag(Tags.EnemyTag))
             {

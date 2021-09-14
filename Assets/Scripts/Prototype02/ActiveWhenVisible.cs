@@ -2,29 +2,31 @@ using UnityEngine;
 
 namespace Prototype02
 {
-    [RequireComponent(typeof(Collider2D))]
     public class ActiveWhenVisible : MonoBehaviour
     {
+        [SerializeField] private Collider2D _objectCollider;
         private IActivatable _activatable;
-
+        private Collider2D _cameraCollider;
+        private bool _touching;
+        
         private void Awake()
         {
+            _cameraCollider = Camera.main.GetComponent<Collider2D>();
             _activatable = GetComponent<IActivatable>();
         }
 
-        private void OnTriggerEnter2D(Collider2D other)
+        private void FixedUpdate()
         {
-            if (other.CompareTag(Tags.MainCamera))
+            var collidersTouch = _cameraCollider.IsTouching(_objectCollider);
+            if (!_touching && collidersTouch)
             {
                 _activatable.Activate();
+                _touching = true;
             }
-        }
-
-        private void OnTriggerExit2D(Collider2D other)
-        {
-            if (other.CompareTag(Tags.MainCamera))
+            else if (_touching && !collidersTouch)
             {
                 _activatable.Deactivate();
+                _touching = false;
             }
         }
     }

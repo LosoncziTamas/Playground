@@ -114,7 +114,6 @@ namespace Prototype02
 
         private void FixedUpdate()
         {
-            // TODO: fix grounded logic
             if (!IsGrounded && _groundCollisionSensor.Colliding)
             {
                 IsGrounded = true;
