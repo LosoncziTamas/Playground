@@ -37,6 +37,10 @@ namespace Prototype02.Hero
             {
                 heroStateMachine.ChangeState(heroController.HeroHurtState);
             }
+            else if (!heroController.IsGrounded)
+            {
+                heroStateMachine.ChangeState(heroController.HeroFallingState);
+            }
         }
     }
 }

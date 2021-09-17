@@ -15,13 +15,25 @@ namespace Prototype02
         
         private void Update()
         {
-            var horizontalOffset = _hero.transform.position.x - transform.position.x;
-            var distance = Mathf.Abs(horizontalOffset);
-            if (distance > _gameData.cameraMovementMaxDistance)
+            var heroPos = _hero.transform.position;
+            var camPos = transform.position;
+            
+            var horizontalOffset = heroPos.x - camPos.x;
+            var horizontalDistance = Mathf.Abs(horizontalOffset);
+            if (horizontalDistance > _gameData.cameraMovementMaxDistance)
             {
-                var offset = distance - _gameData.cameraMovementMaxDistance;
+                var offset = horizontalDistance - _gameData.cameraMovementMaxDistance;
                 transform.position += Vector3.right * offset * Mathf.Sign(horizontalOffset);
             }
+            
+            var verticalOffset = heroPos.y - camPos.y;
+            var verticalDistance = Mathf.Abs(verticalOffset);
+            if (verticalDistance > _gameData.cameraMovementMaxDistance)
+            {
+                var offset = verticalDistance - _gameData.cameraMovementMaxDistance;
+                transform.position += Vector3.up * offset * Mathf.Sign(verticalOffset);
+            }
+
         }
     }
 }

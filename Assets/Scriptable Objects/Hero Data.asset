@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Hero Data
   m_EditorClassIdentifier: 
   horizontalMovementSpeed: 3
-  jumpVelocityY: 6
+  jumpVelocityY: 6.3
   hurtBackOffX: 1
   initialHitPoints: 3
   deathDurationInSeconds: 1
