@@ -119,14 +119,12 @@ namespace Prototype02.Zombie
 
         public void Deactivate()
         {
-            Debug.Log($"{gameObject.name} Deactivated");
-            enabled = false;
-            Animator.enabled = false;
-        }
-
-        private void OnDrawGizmos()
-        {
-            Handles.Label(transform.position + Vector3.right * 0.01f, Activated ? "Activated " : "Deactivated");
+            if (Rigidbody2D.simulated)
+            {
+                Debug.Log($"{gameObject.name} Deactivated");
+                enabled = false;
+                Animator.enabled = false;
+            }
         }
     }
 }

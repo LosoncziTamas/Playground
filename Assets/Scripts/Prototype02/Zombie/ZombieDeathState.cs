@@ -12,8 +12,7 @@ namespace Prototype02.Zombie
         {
             base.Enter();
             zombieController.Animator.SetBool(AnimStates.DeathAnimId, true);
-            zombieController.ZombieIdleCollider.enabled = false;
-            // TODO: disable rest of physics
+            zombieController.Rigidbody2D.simulated = false;
         }
 
         public override void LogicUpdate()
@@ -21,7 +20,7 @@ namespace Prototype02.Zombie
             base.LogicUpdate();
             if (startTime + zombieData.deathDuration < Time.time)
             {
-                Pool.Instance.ReturnToPool(zombieController.gameObject);
+                Object.Destroy(zombieController.gameObject);
             }
         }
 
