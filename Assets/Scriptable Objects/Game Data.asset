@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: Game Data
   m_EditorClassIdentifier: 
   cameraMovementMaxDistance: 1
+  cameraWallOffset: 3
+  cameraVerticalMovementMaxDistance: 0.4
   wallMovementSpeed: 0.6

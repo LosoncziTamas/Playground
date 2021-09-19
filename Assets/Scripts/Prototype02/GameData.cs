@@ -6,6 +6,8 @@ namespace Prototype02
     public class GameData : ScriptableObject
     {
         public float cameraMovementMaxDistance;
+        public float cameraWallOffset;
+        public float cameraVerticalMovementMaxDistance;
         public float wallMovementSpeed;
     }
 }
