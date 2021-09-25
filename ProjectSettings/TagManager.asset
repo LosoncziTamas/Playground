@@ -9,6 +9,7 @@ TagManager:
   - Land
   - Hitable
   - Harmful
+  - Radar
   layers:
   - Default
   - TransparentFX
