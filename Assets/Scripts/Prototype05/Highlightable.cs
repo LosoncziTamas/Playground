@@ -3,10 +3,11 @@ using UnityEngine;
 
 namespace Prototype05
 {
-    public class ShipEnemy : MonoBehaviour
+    public class Highlightable : MonoBehaviour
     {
         private SpriteRenderer _spriteRenderer;
         private Color _defaultColor;
+        
         private void Start()
         {
             _spriteRenderer = GetComponent<SpriteRenderer>();
@@ -15,7 +16,6 @@ namespace Prototype05
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            Debug.Log("OnTriggerEnter2D");
             if (other.gameObject.CompareTag("Radar"))
             {
                 StartCoroutine(Highlight());

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7294069463715463597}
   - component: {fileID: 506914043607885814}
   - component: {fileID: 2601548000527312536}
-  - component: {fileID: 3862767387072956203}
+  - component: {fileID: 3096169579182974428}
   m_Layer: 6
   m_Name: Enemy (2)
   m_TagString: Enemy
@@ -122,7 +122,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.1
---- !u!114 &3862767387072956203
+--- !u!114 &3096169579182974428
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -146,7 +146,7 @@ GameObject:
   - component: {fileID: 8033939746789515217}
   - component: {fileID: 2389017793073508126}
   - component: {fileID: 7752255314002475222}
-  - component: {fileID: 2091350795003865046}
+  - component: {fileID: 5357323653497088194}
   m_Layer: 6
   m_Name: Enemy (1)
   m_TagString: Enemy
@@ -256,7 +256,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.1
---- !u!114 &2091350795003865046
+--- !u!114 &5357323653497088194
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -434,7 +434,7 @@ GameObject:
   - component: {fileID: 2676311200070853097}
   - component: {fileID: 4411772484273986588}
   - component: {fileID: 15989854956465625}
-  - component: {fileID: 8248151121714508292}
+  - component: {fileID: 974119656048183768}
   m_Layer: 6
   m_Name: Enemy
   m_TagString: Enemy
@@ -544,7 +544,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.1
---- !u!114 &8248151121714508292
+--- !u!114 &974119656048183768
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -662,6 +662,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6331145169037679232}
+  - component: {fileID: 1567295938894000979}
   m_Layer: 0
   m_Name: Game World
   m_TagString: Untagged
@@ -686,6 +687,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1567295938894000979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6331145169037679239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2db0631be14d42ec88ca60d5a029e519, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _shipController: {fileID: 6331145168866733319}
 --- !u!1 &6331145169562526857
 GameObject:
   m_ObjectHideFlags: 0
