@@ -222,7 +222,7 @@ MonoBehaviour:
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1
+  m_Intensity: 0
   m_LightVolumeOpacity: 0
   m_ApplyToSortingLayers: 00000000
   m_LightCookieSprite: {fileID: 0}
@@ -538,6 +538,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5370137246980825023, guid: de104405c373e4ebca61d07f93e9d514, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6331145169037679232, guid: de104405c373e4ebca61d07f93e9d514, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -586,5 +590,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Game World
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 307632803143183984, guid: de104405c373e4ebca61d07f93e9d514, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: de104405c373e4ebca61d07f93e9d514, type: 3}

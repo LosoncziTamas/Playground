@@ -37,11 +37,11 @@ namespace Prototype05
             
             if (Mathf.Abs(movement) > 0 && Mathf.Approximately(_velocity.magnitude, 0))
             {
-                _velocity = _cachedTransform.right * movement * _shipProperties.speed * Time.fixedDeltaTime;
+                _velocity = _cachedTransform.up * (movement * _shipProperties.speed * Time.fixedDeltaTime);
             }
             else
             {
-                var acceleration = _cachedTransform.right * (movement * _shipProperties.speed * Time.fixedDeltaTime);
+                var acceleration = _cachedTransform.up * (movement * _shipProperties.speed * Time.fixedDeltaTime);
                 acceleration += -_shipProperties.drag * _velocity;
                 _velocity += acceleration;
                 _velocity = Vector3.ClampMagnitude(_velocity, _shipProperties.maxVelocityMagnitude);

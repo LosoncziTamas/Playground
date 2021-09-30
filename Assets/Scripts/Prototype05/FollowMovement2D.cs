@@ -7,9 +7,16 @@ namespace Prototype05
         [SerializeField] private Transform _target;
         [SerializeField] private float _threshold;
         [SerializeField] private float _speed;
+        [SerializeField] private bool _instant;
 
         private void FixedUpdate()
         {
+            if (_instant)
+            {
+                transform.position =  _target.position;
+                return;
+            }
+            
             var currPos = transform.position;
             var distance = Vector2.Distance(_target.position, currPos);
             if (distance > _threshold)
