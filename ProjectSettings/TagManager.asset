@@ -47,3 +47,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Point Light Affected
+    uniqueID: 1657980219
+    locked: 0
+  - name: Global Light Affected
+    uniqueID: 3763126339
+    locked: 0
