@@ -257,6 +257,8 @@ GameObject:
   - component: {fileID: 6412251635184130126}
   - component: {fileID: 5210057403934987709}
   - component: {fileID: 5262080127577586119}
+  - component: {fileID: 4327107707235702749}
+  - component: {fileID: 6098444791898323608}
   m_Layer: 0
   m_Name: Radar
   m_TagString: Untagged
@@ -271,7 +273,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4833421523719399508}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -307,6 +309,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 463f6504ee6041948d55d4b9c780b83d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4327107707235702749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4833421523719399508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cde60855e56ea40e0b8fdde3e0b7a67c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bulletPool: {fileID: 6098444791898323608}
+--- !u!114 &6098444791898323608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4833421523719399508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1161d8d000124598b1882f6a4f2cbaad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bulletPrefab: {fileID: 1781273870481506322, guid: 46cd490f539cf4967865f26f126d6097, type: 3}
 --- !u!1 &6231481503453036434
 GameObject:
   m_ObjectHideFlags: 0
