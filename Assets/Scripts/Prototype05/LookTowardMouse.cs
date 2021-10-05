@@ -1,4 +1,6 @@
 using System;
+using System.Globalization;
+using UnityEditor;
 using UnityEngine;
 
 namespace Prototype05
@@ -6,6 +8,8 @@ namespace Prototype05
     public class LookTowardMouse : MonoBehaviour
     {
         private Camera _camera;
+        private Vector3 _worldPos;
+        private float _angle;
 
         private void Start()
         {
@@ -14,10 +18,16 @@ namespace Prototype05
 
         private void FixedUpdate()
         {
-            var worldPos = _camera.ScreenToWorldPoint(Input.mousePosition);
-            var offset = worldPos - transform.position;
-            var projected = Vector3.ProjectOnPlane(worldPos, Vector3.forward);
-            transform.LookAt(projected, Vector3.forward);
+            _worldPos = (Vector2)_camera.ScreenToWorldPoint(Input.mousePosition);
+            _angle = Vector3.SignedAngle(_worldPos, Vector3.right, -Vector3.forward);
+            transform.rotation = Quaternion.Euler(0, 0, _angle);
+        }
+
+        private void OnDrawGizmos()
+        {
+            Handles.Label(transform.position, _angle.ToString(CultureInfo.InvariantCulture));
+            Gizmos.DrawCube(_worldPos, Vector3.one * 0.2f);
+            Gizmos.DrawLine(transform.position, _worldPos);
         }
     }
 }
