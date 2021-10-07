@@ -1,5 +1,5 @@
-using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Prototype05
 {
@@ -11,7 +11,7 @@ namespace Prototype05
             public float movement;
         }
         
-        [SerializeField] private ShipProperties _shipProperties;
+        [FormerlySerializedAs("_shipProperties")] [SerializeField] private GameProperties _properties;
         
         private Vector3 _velocity;
         private Transform _cachedTransform;
@@ -33,18 +33,18 @@ namespace Prototype05
             var rotation = _shipInput.rotation;
             var movement = _shipInput.movement;
             
-            _cachedTransform.Rotate(Vector3.forward, rotation * _shipProperties.rotationSpeed * Time.fixedDeltaTime);
+            _cachedTransform.Rotate(Vector3.forward, rotation * _properties.tankRotationSpeed * Time.fixedDeltaTime);
             
             if (Mathf.Abs(movement) > 0 && Mathf.Approximately(_velocity.magnitude, 0))
             {
-                _velocity = _cachedTransform.up * (movement * _shipProperties.speed * Time.fixedDeltaTime);
+                _velocity = _cachedTransform.up * (movement * _properties.tankSpeed * Time.fixedDeltaTime);
             }
             else
             {
-                var acceleration = _cachedTransform.up * (movement * _shipProperties.speed * Time.fixedDeltaTime);
-                acceleration += -_shipProperties.drag * _velocity;
+                var acceleration = _cachedTransform.up * (movement * _properties.tankSpeed * Time.fixedDeltaTime);
+                acceleration += -_properties.tankDrag * _velocity;
                 _velocity += acceleration;
-                _velocity = Vector3.ClampMagnitude(_velocity, _shipProperties.maxVelocityMagnitude);
+                _velocity = Vector3.ClampMagnitude(_velocity, _properties.tankMaxVelocityMagnitude);
             }
             _cachedTransform.position += _velocity;
         }
