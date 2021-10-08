@@ -1,3 +1,5 @@
+using System;
+using UnityEditor;
 using UnityEngine;
 
 namespace Prototype05
@@ -10,6 +12,7 @@ namespace Prototype05
         private float _shootTime;
         private BulletPool _pool;
         private Vector3 _velocity;
+        private Vector3 _explosiveness;
 
         public void ShootBy(Transform shooter, BulletPool pool)
         {
@@ -18,6 +21,7 @@ namespace Prototype05
             transform.SetPositionAndRotation(shooter.position, shooter.rotation);
             Direction = shooter.up;
             _velocity = Direction * _properties.bulletSpeed * Time.fixedDeltaTime;
+            _explosiveness = _velocity;
         }
         
         private void FixedUpdate()
@@ -29,14 +33,15 @@ namespace Prototype05
             }
             else
             {
-                // TODO: correct this
-                var acceleration = transform.up * (_properties.tankSpeed * Time.fixedDeltaTime);
-                acceleration += -_properties.tankDrag * _velocity;
-                _velocity += acceleration;
-                _velocity = Vector3.ClampMagnitude(_velocity, _properties.tankMaxVelocityMagnitude);
+                _velocity = Direction * _properties.bulletSpeed * Time.fixedDeltaTime;
+                _velocity += -_properties.bulletDrag * _velocity;
+                transform.position += _velocity;
             }
+        }
 
-            transform.position += _velocity;
+        private void OnDrawGizmos()
+        {
+            // Handles.Label(transform.position, _explosiveness.ToString());
         }
     }
 }

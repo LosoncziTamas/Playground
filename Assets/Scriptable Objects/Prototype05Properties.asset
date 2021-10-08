@@ -16,7 +16,7 @@ MonoBehaviour:
   tankRotationSpeed: 100
   tankDrag: 0.05
   tankMaxVelocityMagnitude: 0.1
-  bulletSpeed: 10
-  bulletDrag: 0
+  bulletSpeed: 2
+  bulletDrag: 0.2
   bulletMaxVelocityMagnitude: 0.2
   bulletLifeTime: 3
