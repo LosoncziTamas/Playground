@@ -12,7 +12,7 @@ namespace Prototype05
         private float _shootTime;
         private BulletPool _pool;
         private Vector3 _velocity;
-        private Vector3 _explosiveness;
+        private Vector3 _drag;
 
         public void ShootBy(Transform shooter, BulletPool pool)
         {
@@ -21,7 +21,7 @@ namespace Prototype05
             transform.SetPositionAndRotation(shooter.position, shooter.rotation);
             Direction = shooter.up;
             _velocity = Direction * _properties.bulletSpeed * Time.fixedDeltaTime;
-            _explosiveness = _velocity;
+            _drag = 0.9f * _velocity;
         }
         
         private void FixedUpdate()
@@ -34,14 +34,15 @@ namespace Prototype05
             else
             {
                 _velocity = Direction * _properties.bulletSpeed * Time.fixedDeltaTime;
-                _velocity += -_properties.bulletDrag * _velocity;
+                _velocity -= _drag;
+                _drag = Vector3.Max(Vector3.Scale(_drag, _drag), Vector3.zero);
                 transform.position += _velocity;
             }
         }
 
         private void OnDrawGizmos()
         {
-            // Handles.Label(transform.position, _explosiveness.ToString());
+            Handles.Label(transform.position, _velocity.ToString("F3"));
         }
     }
 }
