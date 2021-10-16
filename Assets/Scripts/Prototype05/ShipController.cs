@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -10,12 +12,15 @@ namespace Prototype05
             public float rotation;
             public float movement;
         }
+
+        private const string ObstacleTag = "Land";
         
         [FormerlySerializedAs("_shipProperties")] [SerializeField] private GameProperties _properties;
         
         private Vector3 _velocity;
         private Transform _cachedTransform;
         private ShipInput _shipInput;
+        private List<ContactPoint2D> _contactPoints = new List<ContactPoint2D>();
         
         private void Start()
         {
@@ -47,6 +52,39 @@ namespace Prototype05
                 _velocity = Vector3.ClampMagnitude(_velocity, _properties.tankMaxVelocityMagnitude);
             }
             _cachedTransform.position += _velocity;
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.green;
+            foreach (var contactPoint in _contactPoints)
+            {
+                Gizmos.DrawCube(contactPoint.point, Vector3.one * 0.1f);
+            }
+        }
+
+        private void OnCollisionEnter2D(Collision2D other)
+        {
+            if (other.gameObject.CompareTag(ObstacleTag))
+            {
+                other.GetContacts(_contactPoints);
+            }
+        }
+
+        private void OnCollisionStay2D(Collision2D other)
+        {
+            if (other.gameObject.CompareTag(ObstacleTag))
+            {
+                other.GetContacts(_contactPoints);
+            }
+        }
+
+        private void OnCollisionExit2D(Collision2D other)
+        {
+            if (other.gameObject.CompareTag(ObstacleTag))
+            {
+                _contactPoints.Clear();
+            }
         }
     }
 }
